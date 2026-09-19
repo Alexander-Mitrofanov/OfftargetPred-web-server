@@ -42,8 +42,10 @@ Independent CI:
 
 The backend is deployed on the dedicated de.NBI VM. GitHub contains the service,
 frontend, workflows and documentation. GitHub Pages is configured to use GitHub
-Actions, with HTTPS enforced. Public API activation and frontend publication
-remain pending explicit Tailscale approval and account authentication. The Pages
+Actions, with HTTPS enforced. Following the owner's approval, Tailscale 1.102.4
+was installed from its signed Ubuntu repository and its service is enabled and
+running. Public API activation and frontend publication remain pending the
+owner's authentication of `offtargetpred-web` into the CasAndra tailnet. The Pages
 workflow intentionally skips publication until `OFFTARGET_API_ORIGIN` is set.
 No public deployment or public browser acceptance is claimed by these reports.
 

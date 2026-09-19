@@ -160,6 +160,18 @@ GPU/CPU parity, synthetic Cas-OFFinder oracle and a real GRCh38 search. Check
 the deployed browser's form, private result recovery, CSV/JSON downloads and
 mobile layout. Test again after reboot to verify storage, GPU and service startup.
 
+The live browser check can target the published frontend (Python Playwright and
+Chrome required):
+
+```bash
+OFFTARGETPRED_UI_URL=https://alexander-mitrofanov.github.io/OfftargetPred-web-server/ \
+  python tests/browser/live_flow.py
+```
+
+This submits synthetic candidate pairs to the real backend, verifies all three
+GPU score columns and metadata, checks refresh/mobile behavior and deletes its
+test job. Screenshots and its report are written under `output/playwright/`.
+
 ## Privacy, limits and maintenance
 
 The API accepts at most 5 MiB, 10,000 supplied pairs or 10 guides. Search permits

@@ -1,5 +1,9 @@
-"""Browser acceptance against the actual GPU API via local SSH tunnel."""
+"""Browser acceptance against the actual GPU API, privately or on GitHub Pages.
+
+Set OFFTARGETPRED_UI_URL to the deployed frontend URL for public acceptance.
+"""
 import json
+import os
 from pathlib import Path
 import re
 from playwright.sync_api import sync_playwright
@@ -7,6 +11,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'output/playwright'
 OUT.mkdir(parents=True, exist_ok=True)
+UI_URL = os.environ.get('OFFTARGETPRED_UI_URL', 'http://127.0.0.1:5180/')
 checks=[]
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
@@ -14,10 +19,10 @@ with sync_playwright() as p:
     page=context.new_page()
     errors=[]
     page.on('pageerror',lambda error: errors.append(str(error)))
-    page.goto('http://127.0.0.1:5180/')
+    page.goto(UI_URL)
     page.wait_for_load_state('networkidle')
     page.get_by_text('Prediction server connected',exact=True).wait_for()
-    checks.append('Connected to actual GPU API through SSH tunnel')
+    checks.append('Connected to actual GPU API from configured frontend')
     page.get_by_role('button',name='Load example',exact=True).click()
     page.get_by_role('checkbox',name=re.compile('k=2')).check()
     page.get_by_role('checkbox',name=re.compile('k=3')).check()
@@ -50,6 +55,6 @@ with sync_playwright() as p:
     assert not errors, errors
     checks.append('No browser JavaScript errors')
     browser.close()
-report={'passed':True,'checks':checks}
+report={'passed':True,'frontend_url':UI_URL,'checks':checks}
 (OUT/'live-browser-report.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))
