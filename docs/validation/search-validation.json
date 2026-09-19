@@ -1,0 +1,31 @@
+{
+  "fixture": "synthetic-only; not a human reference",
+  "device": "G0",
+  "checks": [
+    {
+      "mismatch_limit": 0,
+      "expected": 8,
+      "observed": 8,
+      "passed": true
+    },
+    {
+      "mismatch_limit": 1,
+      "expected": 10,
+      "observed": 10,
+      "passed": true
+    },
+    {
+      "mismatch_limit": 2,
+      "expected": 12,
+      "observed": 12,
+      "passed": true
+    },
+    {
+      "case": "zero_hits",
+      "expected": 0,
+      "observed": 0,
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 3.49
+}

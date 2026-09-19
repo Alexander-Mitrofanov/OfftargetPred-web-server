@@ -1,123 +1,200 @@
-export type ModelId = 1 | 2 | 3
-export type Mode = 'pairs' | 'genome'
-export type Status = 'queued' | 'running' | 'complete' | 'completed' | 'failed' | 'cancelled' | 'cancelling'
+export type ModelId = 1 | 2 | 3;
+export type Mode = "pairs" | "genome";
+export type Status =
+  | "queued"
+  | "running"
+  | "complete"
+  | "completed"
+  | "failed"
+  | "cancelled"
+  | "cancelling";
 export interface Capabilities {
-  modes: Mode[]
-  models: { id: ModelId; key: string; label: string; default?: boolean }[]
-  default_models: ModelId[]
-  limits: { request_bytes: number; pairs: number; guides: number; candidates: number; queued: number }
-  retention_hours: number
-  genomes: { id: string; label: string }[]
-  score_label: string
-  calibrated: boolean
-  worker?: { available: boolean; last_heartbeat?: string }
+  modes: Mode[];
+  models: { id: ModelId; key: string; label: string; default?: boolean }[];
+  default_models: ModelId[];
+  limits: {
+    request_bytes: number;
+    pairs: number;
+    guides: number;
+    candidates: number;
+    queued: number;
+  };
+  retention_hours: number;
+  genomes: { id: string; label: string }[];
+  score_label: string;
+  calibrated: boolean;
+  worker?: { available: boolean; last_heartbeat?: string };
 }
 export interface Job {
-  id: string
-  status: Status
-  mode: Mode
-  name?: string
-  models: ModelId[]
-  created_at: string
-  finished_at?: string
-  expires_at?: string
-  error?: string | { message?: string; detail?: string }
-  progress?: string | { stage?: string; completed?: number; total?: number; message?: string }
-  result_count?: number
-  warnings?: string[]
+  id: string;
+  status: Status;
+  mode: Mode;
+  name?: string;
+  models: ModelId[];
+  created_at: string;
+  finished_at?: string;
+  expires_at?: string;
+  error?: string | { message?: string; detail?: string };
+  progress?:
+    | string
+    | { stage?: string; completed?: number; total?: number; message?: string };
+  result_count?: number;
+  warnings?: string[];
 }
 export interface ResultRow {
-  id: string | number
-  target: string
-  off_target: string
-  scores: Partial<Record<`k${ModelId}`, number>>
-  guide_id?: string
-  chromosome?: string
-  position?: number
-  start?: number
-  end?: number
-  coordinate_system?: string
-  strand?: string
-  mismatches?: number
+  id: string | number;
+  target: string;
+  off_target: string;
+  scores: Partial<Record<`k${ModelId}`, number>>;
+  guide_id?: string;
+  chromosome?: string;
+  position?: number;
+  start?: number;
+  end?: number;
+  coordinate_system?: string;
+  strand?: string;
+  mismatches?: number;
+  warnings?: string[];
 }
-export interface Results { total: number; offset: number; limit: number; rows: ResultRow[] }
-export interface Credentials { id: string; token: string }
+export interface Results {
+  total: number;
+  offset: number;
+  limit: number;
+  rows: ResultRow[];
+}
+export interface Credentials {
+  id: string;
+  token: string;
+}
 export interface Submission {
-  mode: Mode
-  input: string
-  format: 'csv' | 'tsv' | 'text' | 'fasta'
-  models: ModelId[]
-  name: string
-  assembly?: string
-  max_mismatches?: number
+  mode: Mode;
+  input: string;
+  format: "csv" | "tsv" | "text" | "fasta";
+  models: ModelId[];
+  name: string;
+  assembly?: string;
+  max_mismatches?: number;
 }
-export const apiOrigin = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, '') || ''
-const base = `${apiOrigin}/api/v1`
-const storageKey = `offtargetpred-job:${apiOrigin || window.location.origin}`
+export const apiOrigin =
+  (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/+$/, "") ||
+  "";
+const base = `${apiOrigin}/api/v1`;
+const storageKey = `offtargetpred-job:${apiOrigin || window.location.origin}`;
 
 export function restoreJob(): Credentials | null {
   try {
-    const fragment = new URLSearchParams(window.location.hash.slice(1))
-    const id = fragment.get('job'), token = fragment.get('token')
+    const fragment = new URLSearchParams(window.location.hash.slice(1));
+    const id = fragment.get("job"),
+      token = fragment.get("token");
     if (id && token && id.length < 200 && token.length < 500) {
-      const credentials = { id, token }
-      rememberJob(credentials)
-      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#predict`)
-      return credentials
+      const credentials = { id, token };
+      rememberJob(credentials);
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}#predict`,
+      );
+      return credentials;
     }
-    const data = JSON.parse(sessionStorage.getItem(storageKey) || 'null')
-    return data && typeof data.id === 'string' && typeof data.token === 'string' ? data : null
-  } catch { return null }
+    const data = JSON.parse(sessionStorage.getItem(storageKey) || "null");
+    return data && typeof data.id === "string" && typeof data.token === "string"
+      ? data
+      : null;
+  } catch {
+    return null;
+  }
 }
 export function rememberJob(credentials: Credentials | null) {
   try {
-    if (credentials) sessionStorage.setItem(storageKey, JSON.stringify(credentials))
-    else sessionStorage.removeItem(storageKey)
-  } catch { /* Scoring still works when session storage is disabled. */ }
+    if (credentials)
+      sessionStorage.setItem(storageKey, JSON.stringify(credentials));
+    else sessionStorage.removeItem(storageKey);
+  } catch {
+    /* Scoring still works when session storage is disabled. */
+  }
 }
 function errorText(data: unknown): string {
-  if (typeof data === 'string') return data
-  if (!data || typeof data !== 'object') return 'The server could not complete this request.'
-  const detail = (data as Record<string, unknown>).detail ?? (data as Record<string, unknown>).error ?? (data as Record<string, unknown>).message
-  if (typeof detail === 'string') return detail
-  if (Array.isArray(detail)) return detail.map(item => typeof item === 'string' ? item : item.msg || item.message || 'Invalid input').join(' ')
-  if (detail && typeof detail === 'object') return errorText(detail)
-  return 'The server could not complete this request.'
+  if (typeof data === "string") return data;
+  if (!data || typeof data !== "object")
+    return "The server could not complete this request.";
+  const detail =
+    (data as Record<string, unknown>).detail ??
+    (data as Record<string, unknown>).error ??
+    (data as Record<string, unknown>).message;
+  if (typeof detail === "string") return detail;
+  if (Array.isArray(detail))
+    return detail
+      .map((item) =>
+        typeof item === "string"
+          ? item
+          : item.msg || item.message || "Invalid input",
+      )
+      .join(" ");
+  if (detail && typeof detail === "object") return errorText(detail);
+  return "The server could not complete this request.";
 }
-export async function api<T>(path: string, options: RequestInit = {}, token?: string): Promise<T> {
-  const controller = new AbortController()
-  const timeout = window.setTimeout(() => controller.abort(), 45000)
+export async function api<T>(
+  path: string,
+  options: RequestInit = {},
+  token?: string,
+): Promise<T> {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 45000);
   try {
     const response = await fetch(`${base}${path}`, {
       ...options,
       signal: options.signal || controller.signal,
-      headers: { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers },
-      referrerPolicy: 'no-referrer',
-    })
+      headers: {
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+      referrerPolicy: "no-referrer",
+    });
     if (!response.ok) {
-      const body = await response.json().catch(() => null)
-      throw new Error(body ? errorText(body) : `The server returned HTTP ${response.status}. Please retry.`)
+      const body = await response.json().catch(() => null);
+      throw new Error(
+        body
+          ? errorText(body)
+          : `The server returned HTTP ${response.status}. Please retry.`,
+      );
     }
-    if (response.status === 204) return undefined as T
-    return response.json()
+    if (response.status === 204) return undefined as T;
+    return response.json();
   } catch (error) {
-    if (error instanceof TypeError) throw new Error('The prediction server could not be reached. Your input is still here. Check your connection and retry.')
-    if (error instanceof DOMException && error.name === 'AbortError') throw new Error('The request timed out. Check the job status before submitting again.')
-    throw error
-  } finally { window.clearTimeout(timeout) }
+    if (error instanceof TypeError)
+      throw new Error(
+        "The prediction server could not be reached. Your input is still here. Check your connection and retry.",
+      );
+    if (error instanceof DOMException && error.name === "AbortError")
+      throw new Error(
+        "The request timed out. Check the job status before submitting again.",
+      );
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
-export async function downloadResult(credentials: Credentials, format: 'csv' | 'json') {
-  const response = await fetch(`${base}/jobs/${encodeURIComponent(credentials.id)}/download?format=${format}`, {
-    headers: { Authorization: `Bearer ${credentials.token}` }, referrerPolicy: 'no-referrer',
-  })
-  if (!response.ok) throw new Error(errorText(await response.json().catch(() => null)))
-  const blob = await response.blob()
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `offtargetpred-${credentials.id}.${format}`
-  document.body.append(link)
-  link.click()
-  link.remove()
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+export async function downloadResult(
+  credentials: Credentials,
+  format: "csv" | "json",
+) {
+  const response = await fetch(
+    `${base}/jobs/${encodeURIComponent(credentials.id)}/download?format=${format}`,
+    {
+      headers: { Authorization: `Bearer ${credentials.token}` },
+      referrerPolicy: "no-referrer",
+    },
+  );
+  if (!response.ok)
+    throw new Error(errorText(await response.json().catch(() => null)));
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `offtargetpred-${credentials.id}.${format}`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

@@ -48,7 +48,7 @@ install the CPU PyTorch wheel before the application:
 python3 -m venv .venv
 .venv/bin/python -m pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cpu
 .venv/bin/python -m pip install -e '.[test,reference]'
-OFFTARGET_MODEL_DIR="$PWD/Model/crispert_share/models" .venv/bin/pytest -q
+.venv/bin/pytest -q
 ```
 
 Run the API and worker in separate terminals with the same settings:
@@ -70,6 +70,10 @@ cd frontend
 npm ci
 VITE_API_URL=http://localhost:8010 npm run dev
 ```
+
+The full model tests require the original supplied `Model/crispert_share/`
+bundle at that location. Public CI runs `pytest -m 'not model'` without private
+weights. `OFFTARGET_MODEL_DIR` configures the application runtime.
 
 No genome selector is enabled until a verified reference is configured. Read
 [deployment](docs/deployment.md) to enable it and set up the production server.

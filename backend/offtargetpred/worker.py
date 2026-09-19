@@ -31,7 +31,7 @@ def execute_job(settings: Settings, store: JobStore, job_id: str):
     rows = engine.score(pairs, models=model_keys) if pairs else []
     metadata = {"mode": payload["mode"], "model_keys": model_keys, "release_id": settings.release_id, "device": engine.device, "score_label": "CRISPert score", "calibrated": False, "coordinate_system": "0-based half-open" if payload["mode"] == "genome" else None, "models": engine.metadata()}
     if payload["mode"] == "genome":
-        metadata["reference"] = settings.reference()
+        metadata["reference"] = search.metadata()
         metadata["max_mismatches"] = payload["max_mismatches"]
     write_json(directory / "results.json", {"rows": rows, "metadata": metadata})
 

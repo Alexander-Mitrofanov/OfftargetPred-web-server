@@ -33,6 +33,11 @@ def parse_cas_offinder_output(output: str | Path, guides: list[dict], mismatches
             if len(fields) != 6:
                 raise SearchError(f"Unexpected Cas-OFFinder output at line {line_number}.")
             query, chromosome, position, site, strand, reported = fields
+            # Cas-OFFinder 2.4.1 copies the entire FASTA description after >.
+            # The conventional contig identifier is the first whitespace token
+            # (for Ensembl, e.g. "1", not "1 dna:chromosome chromosome:...").
+            # Normalize before duplicate detection and all output construction.
+            chromosome = chromosome.split()[0] if chromosome.split() else ""
             site = site.upper()
             if query not in lookup or not chromosome or strand not in {"+", "-"}:
                 raise SearchError("Cas-OFFinder returned an unknown query or invalid locus.")
@@ -96,6 +101,8 @@ class CasOffinderSearch:
 
     def metadata(self) -> dict:
         return {**self.reference_metadata, "engine": "Cas-OFFinder 2.4.1", "pam": "NGG",
+                "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+                "engine_binary_sha256": hashlib.sha256(self.binary.read_bytes()).hexdigest(),
                 "mismatch_range": [0, 4], "max_guides": 10, "max_candidates": self.max_candidates,
                 "bulges": False, "coordinate_system": "0-based half-open"}
 

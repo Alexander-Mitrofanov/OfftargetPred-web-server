@@ -35,6 +35,16 @@ def test_shared_spacer_distinct_original_pams_are_scored_separately(tmp_path):
     assert rows[0]["target"] != rows[1]["target"]
 
 
+def test_fasta_header_description_normalizes_to_contig_id_before_deduplication(tmp_path):
+    output = tmp_path / "out.tsv"
+    output.write_text(f"{QUERY}\t1 dna:chromosome chromosome:GRCh38:1:1:248956422:1 REF\t42\t{GUIDE}\t+\t0\n"
+                      f"{QUERY}\t1\t42\t{GUIDE}\t+\t0\n")
+    rows = parse_cas_offinder_output(output, [{"id": "g1", "target": GUIDE}], 0)
+    assert len(rows) == 1
+    assert rows[0]["chromosome"] == "1"
+    assert rows[0]["start"] == 42
+
+
 @pytest.mark.parametrize("line", [
     f"{QUERY}\tchr1\t42\t{GUIDE}\t+\t1\n",  # false mismatch annotation
     f"{QUERY}\tchr1\t-1\t{GUIDE}\t+\t0\n",  # invalid coordinate

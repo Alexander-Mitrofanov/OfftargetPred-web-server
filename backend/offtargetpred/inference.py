@@ -13,6 +13,7 @@ import math
 from pathlib import Path
 
 import torch
+import transformers
 from transformers import BertConfig, BertForSequenceClassification
 
 from .sequence import ValidationError, normalize_pairs
@@ -96,6 +97,7 @@ class InferenceEngine:
         return {
             "family": "CRISPert-small sequence-only", "device": self.device,
             "precision": "float32", "default_model": "k1", "sequence_length": 23,
+            "runtime": {"torch": torch.__version__, "transformers": transformers.__version__, "cuda": torch.version.cuda},
             "score_definition": "Uncalibrated positive-class softmax; not cleavage frequency or clinical safety.",
             "models": [{"id": name, "kmer": int(name[1]), "parameters": PARAMETERS[name], "sha256": digest}
                        for name, digest in MODEL_SHA256.items()],

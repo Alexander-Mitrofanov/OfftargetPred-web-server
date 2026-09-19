@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Connected to actual GPU API through SSH tunnel",
+    "Submitted and rendered actual three-model predictions",
+    "Downloaded real GPU scores and provenance",
+    "Recovered result after browser refresh",
+    "390px viewport has no document overflow",
+    "Deleted private job through browser",
+    "No browser JavaScript errors"
+  ]
+}

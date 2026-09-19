@@ -74,7 +74,10 @@ def main():
     with tempfile.TemporaryDirectory(prefix="crispert-search-check-") as temporary:
         root = Path(temporary)
         fasta = root / "synthetic.fa"
-        fasta.write_text("".join(f">{name}\n{sequence}\n" for name, sequence in contigs.items()))
+        # Ensembl uses descriptive FASTA headers; Cas2.4.1 emits the whole
+        # header, which the production parser must normalize to its first token.
+        fasta.write_text("".join(f">{name} dna:chromosome chromosome:synthetic:{name}:1:{len(sequence)}:1 REF\n{sequence}\n"
+                                 for name, sequence in contigs.items()))
         manifest = {"assembly": "GRCh38", "id": "synthetic-adapter-test-only", "name": "Synthetic validation fixture, NOT GRCh38",
                     "synthetic": True, "verified": True, "filename": fasta.name, "sha256": hashlib.sha256(fasta.read_bytes()).hexdigest()}
         search = CasOffinderSearch(args.binary, root, manifest, timeout=120, max_candidates=50000, device=args.device)

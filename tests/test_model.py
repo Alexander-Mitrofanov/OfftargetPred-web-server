@@ -2,6 +2,7 @@
 
 import hashlib
 import importlib.util
+import json
 from pathlib import Path
 
 import numpy as np
@@ -26,7 +27,12 @@ def engine():
 
 
 def test_tokenizer_is_exact_supplied_source():
-    assert (ROOT / "backend/offtargetpred/tokenizer.py").read_bytes() == (SOURCE / "crispert_small/tokenizer.py").read_bytes()
+    deployed = (ROOT / "backend/offtargetpred/tokenizer.py").read_bytes()
+    manifest = json.loads((ROOT / "models.manifest.json").read_text())
+    assert hashlib.sha256(deployed).hexdigest() == manifest["tokenizer_source_sha256"]
+    original = SOURCE / "crispert_small/tokenizer.py"
+    if original.is_file():
+        assert deployed == original.read_bytes()
     for k, length in ((1, 25), (2, 24), (3, 23)):
         ids, mask = PairTokenizer(max_len=length, k=k).encode(GUIDE, SITE)
         assert len(ids) == len(mask) == length
@@ -60,6 +66,7 @@ def test_guides_require_actual_pam_and_unique_ids():
         parse_guides(f">dup\n{GUIDE}\n>dup\n{GUIDE}\n", "fasta")
 
 
+@pytest.mark.model
 def test_outputs_stable_row_mapping_and_separate_models(engine):
     pairs = [{"id": str(i), "target": GUIDE, "off_target": site} for i, site in enumerate([SITE, GUIDE, "N" + SITE[1:]])]
     first = engine.score(pairs, ["k1", "k2", "k3"])
@@ -74,6 +81,7 @@ def test_outputs_stable_row_mapping_and_separate_models(engine):
             assert before["scores"][name] == pytest.approx(after["scores"][name], abs=1e-6)
 
 
+@pytest.mark.model
 def test_adapter_matches_supplied_lightning_path(engine, monkeypatch):
     # The original training framework is a TEST dependency, never production.
     pytest.importorskip("pytorch_lightning")

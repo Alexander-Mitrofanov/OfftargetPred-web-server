@@ -1,0 +1,12 @@
+{
+  "torch": "2.4.1+cu121",
+  "cuda": "12.1",
+  "gpu": "Tesla V100-PCIE-16GB",
+  "models": [
+    1,
+    2,
+    3
+  ],
+  "max_cpu_gpu_error": 0.0,
+  "passed": true
+}
