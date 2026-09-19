@@ -1,6 +1,7 @@
 """Browser acceptance against the actual GPU API, privately or on GitHub Pages.
 
 Set OFFTARGETPRED_UI_URL to the deployed frontend URL for public acceptance.
+Set OFFTARGETPRED_TEST_GENOME=1 to also search the installed GRCh38 reference.
 """
 import json
 import os
@@ -52,6 +53,36 @@ with sync_playwright() as p:
     page.get_by_role('button',name='Delete job and data',exact=True).click()
     page.get_by_role('heading',name='Prediction results',exact=True).wait_for(state='hidden')
     checks.append('Deleted private job through browser')
+    if os.environ.get('OFFTARGETPRED_TEST_GENOME') == '1':
+        # Read independently from the pinned Ensembl115 primary assembly at
+        # chromosome 1, start0=100056, plus strand during operator acceptance.
+        guide = 'TGAGACTCTTGCAGTCACACAGG'
+        page.set_viewport_size({'width':1440,'height':1000})
+        page.get_by_role('button',name='Genome search',exact=False).click()
+        page.get_by_label('Guide sequences',exact=False).fill(guide)
+        page.get_by_label('Maximum mismatches',exact=True).select_option('1')
+        for k in (1, 2, 3):
+            page.get_by_role('checkbox',name=re.compile(f'k={k}')).check()
+        page.get_by_role('button',name='Find and score candidates',exact=True).click()
+        page.get_by_role('heading',name='Prediction results',exact=True).wait_for(timeout=180000)
+        page.get_by_role('button',name='JSON & metadata',exact=True).wait_for()
+        with page.expect_download() as genome_download:
+            page.get_by_role('button',name='JSON & metadata',exact=True).click()
+        genome_path = OUT / 'live-genome-results.json'
+        genome_download.value.save_as(str(genome_path))
+        genome = json.loads(genome_path.read_text())
+        assert genome['metadata']['device'] == 'cuda'
+        assert genome['metadata']['reference']['assembly'] == 'GRCh38'
+        assert len(genome['rows']) == 15
+        assert all(set(row['scores']) == {'k1','k2','k3'} for row in genome['rows'])
+        assert any(row['chromosome'] == '1' and row['start'] == 100056
+                   and row['strand'] == '+' and row['off_target'] == guide
+                   for row in genome['rows'])
+        checks.append('Real GRCh38 browser search: 15 sites, expected locus and three GPU models')
+        page.screenshot(path=str(OUT/'live-genome-results.png'),full_page=True)
+        page.get_by_role('button',name='Delete job and data',exact=True).click()
+        page.get_by_role('heading',name='Prediction results',exact=True).wait_for(state='hidden')
+        checks.append('Deleted genome-search job through browser')
     assert not errors, errors
     checks.append('No browser JavaScript errors')
     browser.close()

@@ -164,13 +164,16 @@ The live browser check can target the published frontend (Python Playwright and
 Chrome required):
 
 ```bash
-OFFTARGETPRED_UI_URL=https://alexander-mitrofanov.github.io/OfftargetPred-web-server/ \
+OFFTARGETPRED_TEST_GENOME=1 \
+  OFFTARGETPRED_UI_URL=https://alexander-mitrofanov.github.io/OfftargetPred-web-server/ \
   python tests/browser/live_flow.py
 ```
 
 This submits synthetic candidate pairs to the real backend, verifies all three
 GPU score columns and metadata, checks refresh/mobile behavior and deletes its
-test job. Screenshots and its report are written under `output/playwright/`.
+test job. With `OFFTARGETPRED_TEST_GENOME=1`, it also searches a known public
+GRCh38 guide, verifies the expected locus and all three models, and deletes that
+job. Screenshots and its report are written under `output/playwright/`.
 
 ## Privacy, limits and maintenance
 
