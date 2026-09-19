@@ -132,7 +132,8 @@ tailscale funnel status
 
 ## GitHub Pages
 
-Repository: `Alexander-Mitrofanov/OfftargetPred-web-server`.
+Repository: `Alexander-Mitrofanov/OfftargetPred-web-server`. Its Pages settings
+are configured for GitHub Actions with HTTPS enforced.
 Set repository variable **OFFTARGET_API_ORIGIN** to the exact public HTTPS
 origin from Funnel (no path or trailing slash). Enable Pages with GitHub Actions
 as its source, then run **Deploy GitHub Pages**. The workflow will not publish

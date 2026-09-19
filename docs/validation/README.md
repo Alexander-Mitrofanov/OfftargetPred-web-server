@@ -41,7 +41,8 @@ Independent CI:
 ## Public launch status
 
 The backend is deployed on the dedicated de.NBI VM. GitHub contains the service,
-frontend, workflows and documentation. Public HTTPS and GitHub Pages activation
+frontend, workflows and documentation. GitHub Pages is configured to use GitHub
+Actions, with HTTPS enforced. Public API activation and frontend publication
 remain pending explicit Tailscale approval and account authentication. The Pages
 workflow intentionally skips publication until `OFFTARGET_API_ORIGIN` is set.
 No public deployment or public browser acceptance is claimed by these reports.
