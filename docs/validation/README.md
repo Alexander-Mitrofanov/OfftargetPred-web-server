@@ -19,6 +19,8 @@ Validated on 19 September 2026. Application release:
 | VM restart | Data volume mounted, GPU initialized, API/worker/Nginx started and worker ready without intervention |
 | Browser against actual GPU API | Submission, three-model results, JSON export, refresh recovery, deletion and 390px layout passed |
 | Published frontend through explicit public relay override | Both pair scoring and real GRCh38 search passed; this diagnostic bypasses the missing DNS lookup only, with certificate verification retained |
+| Public HTTPS API with normal DNS | All 21 acceptance checks passed |
+| Published frontend with normal DNS | Both prediction workflows, three GPU models, real GRCh38 locus, downloads, refresh, deletion and mobile layout passed |
 
 The synthetic GPU parity cases are numerical checks, not evidence that GPU/CPU
 outputs will always be bit-identical. The real-genome runtime is one acceptance
@@ -32,14 +34,19 @@ Machine-readable evidence:
 - [Synthetic search oracle](search-validation.json)
 - [Human reference acceptance](live-genome.json)
 - [Private API acceptance](private-api.json)
+- [Public HTTPS API acceptance](public-api.json)
+- [Public browser acceptance with normal DNS](public-browser.json)
 - [Live browser acceptance](live-browser.json)
 - [Published frontend/relay diagnostic](public-relay-browser.json)
 - [Public relay API diagnostic](public-relay-api.json)
 - [Restart and gateway acceptance](restart.json)
 - [Installed Python/CUDA packages](runtime-cuda.txt)
 
-Independent CI:
-[Application checks, release e1d3260](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35451029720).
+Published frontend revision: `18a3a5e10d884aceb2cf2bb66f420794b1029281`.
+[Application checks](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35454266203)
+and [GitHub Pages deployment](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35454266205)
+both passed. Subsequent documentation commits do not change these application
+revisions.
 
 ## Public launch status
 
@@ -50,13 +57,18 @@ Funnel is running at `offtargetpred-web.tail58d78e.ts.net:443` with a valid
 certificate. The frontend is published at
 <https://alexander-mitrofanov.github.io/OfftargetPred-web-server/>.
 
-**Public launch is not complete:** Tailscale's public DNS address records are
-still missing. Normal users cannot reach the API by hostname. Twenty-one API
-checks and both browser prediction workflows passed through a verified public
-relay with an explicit diagnostic DNS override. These do not prove ordinary
-end-user connectivity. See the [DNS diagnostic report](../tailscale-dns-report.md)
-for observations and bounded recovery attempts. Public API and browser checks
-must pass with normal DNS before this launch is marked complete.
+**Public launch verified:** all 21 API checks and both browser prediction
+workflows passed with normal public DNS and certificate verification enabled.
+The browser test used the published GitHub Pages URL, the actual V100 worker,
+all three models and the pinned GRCh38 reference. Its genome search returned
+15 candidates including the expected chromosome 1 locus. Acceptance jobs were
+deleted, and no test jobs remained on the server.
+
+Initial DNS publication was delayed approximately 24 minutes. All four
+authoritative nameservers subsequently published the hostname. See the
+[resolved DNS incident](../tailscale-dns-report.md) for diagnostic evidence;
+the earlier relay-override reports are superseded for launch acceptance by the
+normal-DNS reports above. No external support report was submitted.
 
 The VM's time service is active but NTP synchronization was not established:
 the tested university and Ubuntu NTP servers did not answer UDP port 123 from

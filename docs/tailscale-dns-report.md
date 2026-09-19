@@ -1,13 +1,23 @@
-# Draft: new Funnel hostname serves verified HTTPS but has no public DNS address
+# Resolved launch incident: delayed Funnel DNS publication
 
-Prepared 19 September 2026. This report has not been submitted to Tailscale.
+Recorded 19 September 2026. No report was submitted to Tailscale.
+
+## Resolution
+
+By 16:14 UTC, all four authoritative nameservers consistently returned three
+public IPv4 ingress addresses. Normal hostname resolution and verified HTTPS
+then worked, and all 21 API acceptance checks passed without DNS overrides.
+The observation window was approximately 24 minutes after initial Funnel
+activation. A reconnect and one re-registration were attempted during that
+window; the observations do not establish which action, if any, caused recovery.
+The diagnostic evidence below is retained for future operations.
 
 ## Symptom
 
-The new hostname `offtargetpred-web.tail58d78e.ts.net` remains absent from public
+The new hostname `offtargetpred-web.tail58d78e.ts.net` remained absent from public
 A and AAAA answers while the authenticated node, Funnel, certificate and backend
-are healthy. Normal clients receive a name-resolution failure. The hostname
-serves the correct application's HTTP 200 response through a public Funnel
+were healthy. Normal clients received a name-resolution failure. The hostname
+served the correct application's HTTP 200 response through a public Funnel
 ingress address with full TLS hostname/certificate verification.
 
 ## Environment
@@ -83,8 +93,9 @@ Related upstream reports:
 The observations suggest a publication problem; they do not establish that
 these reports have the same root cause.
 
-## Requested investigation
+## If this recurs
 
-Please inspect public A/AAAA publication for the hostname above across the
-authoritative DNS backends. The serving node is online, Funnel is enabled, and
-verified HTTPS through the public relay succeeds.
+Compare normal DNS, all authoritative nameservers and certificate-verified
+ingress requests before changing application settings. Preserve a bounded
+diagnostic record. A maintainer investigation may be needed if authoritative
+publication remains inconsistent; avoid repeatedly resetting healthy mappings.

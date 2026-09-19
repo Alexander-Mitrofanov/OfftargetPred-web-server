@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "frontend_url": "https://alexander-mitrofanov.github.io/OfftargetPred-web-server/",
+  "dns_mode": "normal resolver",
+  "checks": [
+    "Connected to actual GPU API from configured frontend",
+    "Submitted and rendered actual three-model predictions",
+    "Downloaded real GPU scores and provenance",
+    "Recovered result after browser refresh",
+    "390px viewport has no document overflow",
+    "Deleted private job through browser",
+    "Real GRCh38 browser search: 15 sites, expected locus and three GPU models",
+    "Deleted genome-search job through browser",
+    "No browser JavaScript errors"
+  ]
+}

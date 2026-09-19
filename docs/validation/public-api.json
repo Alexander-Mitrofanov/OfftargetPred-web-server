@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checks": [
+    "API health",
+    "worker readiness",
+    "CORS allowed origin",
+    "no-store responses",
+    "all three models advertised",
+    "CORS preflight",
+    "untrusted origin cannot read through CORS",
+    "untrusted browser submission rejected",
+    "capability authorization",
+    "three real scored rows",
+    "pagination",
+    "all model scores finite",
+    "global score sort",
+    "scientific provenance",
+    "global search",
+    "CSV download",
+    "download attachment",
+    "JSON export preserves provenance",
+    "completed result deletion",
+    "queued or running cancellation",
+    "pending deletion revokes access"
+  ],
+  "release_id": "e1d3260da0e6125c3cb6e52e82143c05dcf966c5",
+  "configured_device": "cuda"
+}
