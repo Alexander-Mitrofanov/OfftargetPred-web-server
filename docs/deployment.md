@@ -148,6 +148,7 @@ PYTHONPATH=backend python tests/integration_search.py \
   --binary /srv/crispert/bin/cas-offinder --device G0
 python tests/smoke_api.py --api-origin http://127.0.0.1:8010 \
   --origin https://alexander-mitrofanov.github.io
+python tests/smoke_gateway.py  # On the VM: real API through Nginx/PROXY-v2
 python tests/smoke_api.py --api-origin https://ACTUAL-FUNNEL-HOST \
   --origin https://alexander-mitrofanov.github.io
 ```

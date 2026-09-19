@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "reference": "Ensembl115 GRCh38 primary assembly",
+  "verified_locus": {
+    "chromosome": "1",
+    "start0": 100056,
+    "strand": "+"
+  },
+  "candidate_count": 15,
+  "models": [
+    1,
+    2,
+    3
+  ],
+  "max_mismatches": 1,
+  "elapsed_seconds": 28.14,
+  "device": "cuda"
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "release_id": "e1d3260da0e6125c3cb6e52e82143c05dcf966c5",
+  "boot_id_before": "09e81487-c7a3-437a-b1e8-e3ab744264bc",
+  "boot_id_after": "13081a47-a8fa-4b8a-b8e3-1dcdb368cae8",
+  "services": {
+    "offtarget-api": "active",
+    "offtarget-worker": "active",
+    "nginx": "active"
+  },
+  "volume": "/dev/vdb ext4   /srv/crispert",
+  "gpu": "Tesla V100-PCIE-16GB, 580.178.04, 16384 MiB",
+  "worker_ready": true,
+  "gateway_proxy_v2_api_checks_passed": 21
+}

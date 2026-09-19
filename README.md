@@ -84,6 +84,8 @@ No genome selector is enabled until a verified reference is configured. Read
 - [API](docs/API.md): requests, private job authorization and lifecycle.
 - [Deployment](docs/deployment.md): provisioning, releases, Pages and operations.
 - [Council decision](docs/council/decision.md): scope and implementation reasoning.
+- [Validation and launch status](docs/validation/README.md): measured checks and
+  remaining public activation steps.
 - [Measured model benchmark](docs/validation/model-benchmark.json): exact supplied
   checkpoint performance on the held-out K562 set.
 
