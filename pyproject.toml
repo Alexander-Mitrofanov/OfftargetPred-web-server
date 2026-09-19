@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "offtargetpred-web"
+version = "0.1.0"
+description = "Sequence-only CRISPert scoring and bounded CRISPR candidate discovery"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "torch==2.4.1",
+  "transformers==4.46.3",
+  "numpy==1.26.4",
+  "PyYAML==6.0.3",
+  "fastapi==0.139.2",
+  "uvicorn==0.51.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1", "httpx==0.28.1"]
+reference = ["pytorch-lightning==2.4.0", "torchmetrics==1.5.2", "pandas==2.2.3", "scikit-learn==1.5.2"]
+
+[project.scripts]
+offtarget-api = "offtargetpred.api:main"
+offtarget-worker = "offtargetpred.worker:main"
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["backend"]
+markers = ["model: runs the real supplied checkpoints", "integration: requires installed external executables"]

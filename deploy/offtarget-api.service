@@ -1,0 +1,38 @@
+[Unit]
+Description=OfftargetPred job API
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/srv/crispert
+ConditionPathIsMountPoint=/srv/crispert
+
+[Service]
+Type=simple
+User=offtarget
+Group=offtarget
+WorkingDirectory=/srv/crispert/current
+EnvironmentFile=/etc/offtarget-web/runtime.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/srv/crispert/venv/bin/python -m offtargetpred.api
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ReadWritePaths=/srv/crispert/data
+MemoryMax=2G
+MemorySwapMax=0
+LimitCORE=0
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+IPAddressDeny=any
+IPAddressAllow=localhost
+CPUQuota=200%
+TasksMax=128
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "family": "CRISPert-small sequence-only",
+  "tokenizer_source_sha256": "b15aae904e073d53d0c878199a3a04e2eeccb81faeb3e11738dc00bc282cb2e2",
+  "models": {
+    "k1": {"path": "k1/model.ckpt", "kmer": 1, "parameters": 552962, "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"},
+    "k2": {"path": "k2/model.ckpt", "kmer": 2, "parameters": 583554, "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"},
+    "k3": {"path": "k3/model.ckpt", "kmer": 3, "parameters": 1074946, "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"}
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "dataset": "k562_dataset_invivo_full",
+  "rows": 43132,
+  "device": "cpu",
+  "torch_version": "2.4.1+cpu",
+  "elapsed_seconds": 34.37,
+  "models": {
+    "k1": {
+      "macro_auprc": 0.6475958233768351,
+      "reference_macro_auprc": 0.6476,
+      "pooled_auprc": 0.3093239955283632,
+      "pooled_auroc": 0.9686758063940769,
+      "evaluated_guides": 5,
+      "passed": true
+    },
+    "k2": {
+      "macro_auprc": 0.5369227102305915,
+      "reference_macro_auprc": 0.5369,
+      "pooled_auprc": 0.2303681842533568,
+      "pooled_auroc": 0.9364285898309922,
+      "evaluated_guides": 5,
+      "passed": true
+    },
+    "k3": {
+      "macro_auprc": 0.5533421696383052,
+      "reference_macro_auprc": 0.5533,
+      "pooled_auprc": 0.26728872367021705,
+      "pooled_auroc": 0.9519521464866665,
+      "evaluated_guides": 5,
+      "passed": true
+    }
+  }
+}

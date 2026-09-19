@@ -1,0 +1,42 @@
+[Unit]
+Description=OfftargetPred GPU scoring and genome search worker
+After=network-online.target
+RequiresMountsFor=/srv/crispert
+ConditionPathIsMountPoint=/srv/crispert
+
+[Service]
+Type=simple
+User=offtarget
+Group=offtarget
+WorkingDirectory=/srv/crispert/current
+EnvironmentFile=/etc/offtarget-web/runtime.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=HF_HUB_OFFLINE=1
+Environment=TRANSFORMERS_OFFLINE=1
+Environment=OMP_NUM_THREADS=8
+Environment=OPENBLAS_NUM_THREADS=1
+Environment=CUDA_CACHE_PATH=/srv/crispert/tmp/cuda
+Environment=XDG_CACHE_HOME=/srv/crispert/tmp/cache
+ExecStart=/srv/crispert/venv/bin/python -m offtargetpred.worker
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ReadWritePaths=/srv/crispert/data /srv/crispert/tmp
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=32G
+MemorySwapMax=0
+LimitCORE=0
+LimitFSIZE=268435456
+CPUQuota=1000%
+TasksMax=256
+TimeoutStopSec=30
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target
