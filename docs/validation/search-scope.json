@@ -1,0 +1,632 @@
+{
+  "datasets": {
+    "ipscs_dataset_invivo_full.csv": {
+      "candidate_PAM_classes": {
+        "NAG": {
+          "positive_rows": 1,
+          "rows": 1
+        },
+        "NGA": {
+          "positive_rows": 0,
+          "rows": 0
+        },
+        "NGG": {
+          "positive_rows": 52,
+          "rows": 25740
+        },
+        "other_unambiguous": {
+          "positive_rows": 0,
+          "rows": 0
+        },
+        "unresolved": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "hypothetical_sequence_filter_counts": {
+        "NGG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 0,
+            "rows": 1
+          },
+          "2": {
+            "positive_rows": 2,
+            "rows": 3
+          },
+          "20": {
+            "positive_rows": 52,
+            "rows": 25740
+          },
+          "3": {
+            "positive_rows": 10,
+            "rows": 39
+          },
+          "4": {
+            "positive_rows": 37,
+            "rows": 431
+          },
+          "5": {
+            "positive_rows": 50,
+            "rows": 3345
+          },
+          "6": {
+            "positive_rows": 52,
+            "rows": 25740
+          }
+        },
+        "NGG_or_NAG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 0,
+            "rows": 1
+          },
+          "2": {
+            "positive_rows": 2,
+            "rows": 3
+          },
+          "20": {
+            "positive_rows": 53,
+            "rows": 25741
+          },
+          "3": {
+            "positive_rows": 11,
+            "rows": 40
+          },
+          "4": {
+            "positive_rows": 38,
+            "rows": 432
+          },
+          "5": {
+            "positive_rows": 51,
+            "rows": 3346
+          },
+          "6": {
+            "positive_rows": 53,
+            "rows": 25741
+          }
+        },
+        "any_unambiguous_PAM": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 0,
+            "rows": 1
+          },
+          "2": {
+            "positive_rows": 2,
+            "rows": 3
+          },
+          "20": {
+            "positive_rows": 53,
+            "rows": 25741
+          },
+          "3": {
+            "positive_rows": 11,
+            "rows": 40
+          },
+          "4": {
+            "positive_rows": 38,
+            "rows": 432
+          },
+          "5": {
+            "positive_rows": 51,
+            "rows": 3346
+          },
+          "6": {
+            "positive_rows": 53,
+            "rows": 25741
+          }
+        }
+      },
+      "label_zero_rows": 25688,
+      "mutually_exclusive_current_scope_partition": {
+        "NGG_more_than_4": {
+          "positive_rows": 15,
+          "rows": 25309
+        },
+        "current_NGG_0_to_4": {
+          "positive_rows": 37,
+          "rows": 431
+        },
+        "non_NGG_0_to_4": {
+          "positive_rows": 1,
+          "rows": 1
+        },
+        "non_NGG_more_than_4": {
+          "positive_rows": 0,
+          "rows": 0
+        },
+        "unresolved_bases": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "positive_rows": 53,
+      "rows": 25741,
+      "sha256": "8c25bd5d7cec56913b9aedadda3f96d4242387fecbf63107427b6658fc38a153"
+    },
+    "k562_dataset_invivo_full.csv": {
+      "candidate_PAM_classes": {
+        "NAG": {
+          "positive_rows": 10,
+          "rows": 4770
+        },
+        "NGA": {
+          "positive_rows": 1,
+          "rows": 2484
+        },
+        "NGG": {
+          "positive_rows": 177,
+          "rows": 19384
+        },
+        "other_unambiguous": {
+          "positive_rows": 0,
+          "rows": 16494
+        },
+        "unresolved": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "hypothetical_sequence_filter_counts": {
+        "NGG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 2,
+            "rows": 2
+          },
+          "2": {
+            "positive_rows": 7,
+            "rows": 9
+          },
+          "20": {
+            "positive_rows": 177,
+            "rows": 19384
+          },
+          "3": {
+            "positive_rows": 33,
+            "rows": 126
+          },
+          "4": {
+            "positive_rows": 91,
+            "rows": 1253
+          },
+          "5": {
+            "positive_rows": 146,
+            "rows": 9745
+          },
+          "6": {
+            "positive_rows": 177,
+            "rows": 19384
+          }
+        },
+        "NGG_or_NAG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 2,
+            "rows": 2
+          },
+          "2": {
+            "positive_rows": 8,
+            "rows": 20
+          },
+          "20": {
+            "positive_rows": 187,
+            "rows": 24154
+          },
+          "3": {
+            "positive_rows": 38,
+            "rows": 254
+          },
+          "4": {
+            "positive_rows": 100,
+            "rows": 2595
+          },
+          "5": {
+            "positive_rows": 156,
+            "rows": 14515
+          },
+          "6": {
+            "positive_rows": 187,
+            "rows": 24154
+          }
+        },
+        "any_unambiguous_PAM": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 2,
+            "rows": 14
+          },
+          "2": {
+            "positive_rows": 9,
+            "rows": 141
+          },
+          "20": {
+            "positive_rows": 188,
+            "rows": 43132
+          },
+          "3": {
+            "positive_rows": 39,
+            "rows": 1981
+          },
+          "4": {
+            "positive_rows": 101,
+            "rows": 12702
+          },
+          "5": {
+            "positive_rows": 157,
+            "rows": 33493
+          },
+          "6": {
+            "positive_rows": 188,
+            "rows": 43132
+          }
+        }
+      },
+      "label_zero_rows": 42944,
+      "mutually_exclusive_current_scope_partition": {
+        "NGG_more_than_4": {
+          "positive_rows": 86,
+          "rows": 18131
+        },
+        "current_NGG_0_to_4": {
+          "positive_rows": 91,
+          "rows": 1253
+        },
+        "non_NGG_0_to_4": {
+          "positive_rows": 10,
+          "rows": 11449
+        },
+        "non_NGG_more_than_4": {
+          "positive_rows": 1,
+          "rows": 12299
+        },
+        "unresolved_bases": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "positive_rows": 188,
+      "rows": 43132,
+      "sha256": "90e9ccbbe07f337007cfa60bf39b9f5e0e9a0aba65554149ec2da8ad07df748a"
+    },
+    "k562_deepcrispr_withCoords_hg38.csv": {
+      "candidate_PAM_classes": {
+        "NAG": {
+          "positive_rows": 0,
+          "rows": 2578
+        },
+        "NGA": {
+          "positive_rows": 0,
+          "rows": 1734
+        },
+        "NGG": {
+          "positive_rows": 118,
+          "rows": 5996
+        },
+        "other_unambiguous": {
+          "positive_rows": 0,
+          "rows": 8113
+        },
+        "unresolved": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "hypothetical_sequence_filter_counts": {
+        "NGG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 5,
+            "rows": 5
+          },
+          "2": {
+            "positive_rows": 24,
+            "rows": 27
+          },
+          "20": {
+            "positive_rows": 118,
+            "rows": 5996
+          },
+          "3": {
+            "positive_rows": 116,
+            "rows": 182
+          },
+          "4": {
+            "positive_rows": 117,
+            "rows": 847
+          },
+          "5": {
+            "positive_rows": 117,
+            "rows": 3591
+          },
+          "6": {
+            "positive_rows": 118,
+            "rows": 5996
+          }
+        },
+        "NGG_or_NAG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 5,
+            "rows": 6
+          },
+          "2": {
+            "positive_rows": 24,
+            "rows": 47
+          },
+          "20": {
+            "positive_rows": 118,
+            "rows": 8574
+          },
+          "3": {
+            "positive_rows": 116,
+            "rows": 381
+          },
+          "4": {
+            "positive_rows": 117,
+            "rows": 2015
+          },
+          "5": {
+            "positive_rows": 117,
+            "rows": 6169
+          },
+          "6": {
+            "positive_rows": 118,
+            "rows": 8574
+          }
+        },
+        "any_unambiguous_PAM": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 5,
+            "rows": 12
+          },
+          "2": {
+            "positive_rows": 24,
+            "rows": 207
+          },
+          "20": {
+            "positive_rows": 118,
+            "rows": 18421
+          },
+          "3": {
+            "positive_rows": 116,
+            "rows": 2151
+          },
+          "4": {
+            "positive_rows": 117,
+            "rows": 8543
+          },
+          "5": {
+            "positive_rows": 117,
+            "rows": 16016
+          },
+          "6": {
+            "positive_rows": 118,
+            "rows": 18421
+          }
+        }
+      },
+      "label_zero_rows": 18303,
+      "mutually_exclusive_current_scope_partition": {
+        "NGG_more_than_4": {
+          "positive_rows": 1,
+          "rows": 5149
+        },
+        "current_NGG_0_to_4": {
+          "positive_rows": 117,
+          "rows": 847
+        },
+        "non_NGG_0_to_4": {
+          "positive_rows": 0,
+          "rows": 7696
+        },
+        "non_NGG_more_than_4": {
+          "positive_rows": 0,
+          "rows": 4729
+        },
+        "unresolved_bases": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "positive_rows": 118,
+      "rows": 18421,
+      "sha256": "9c76a3043995290ea0c697e6da90bdd57c788b6d28cd99112879b9bab8140153"
+    },
+    "tcell_guideseq.csv": {
+      "candidate_PAM_classes": {
+        "NAG": {
+          "positive_rows": 106,
+          "rows": 4649
+        },
+        "NGA": {
+          "positive_rows": 37,
+          "rows": 4162
+        },
+        "NGG": {
+          "positive_rows": 1078,
+          "rows": 28885
+        },
+        "other_unambiguous": {
+          "positive_rows": 45,
+          "rows": 14210
+        },
+        "unresolved": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "hypothetical_sequence_filter_counts": {
+        "NGG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 1,
+            "rows": 1
+          },
+          "2": {
+            "positive_rows": 40,
+            "rows": 41
+          },
+          "20": {
+            "positive_rows": 1078,
+            "rows": 28885
+          },
+          "3": {
+            "positive_rows": 315,
+            "rows": 353
+          },
+          "4": {
+            "positive_rows": 774,
+            "rows": 1281
+          },
+          "5": {
+            "positive_rows": 1013,
+            "rows": 5610
+          },
+          "6": {
+            "positive_rows": 1078,
+            "rows": 28885
+          }
+        },
+        "NGG_or_NAG": {
+          "0": {
+            "positive_rows": 0,
+            "rows": 0
+          },
+          "1": {
+            "positive_rows": 3,
+            "rows": 3
+          },
+          "2": {
+            "positive_rows": 55,
+            "rows": 60
+          },
+          "20": {
+            "positive_rows": 1184,
+            "rows": 33534
+          },
+          "3": {
+            "positive_rows": 378,
+            "rows": 470
+          },
+          "4": {
+            "positive_rows": 870,
+            "rows": 1972
+          },
+          "5": {
+            "positive_rows": 1119,
+            "rows": 10259
+          },
+          "6": {
+            "positive_rows": 1184,
+            "rows": 33534
+          }
+        },
+        "any_unambiguous_PAM": {
+          "0": {
+            "positive_rows": 1,
+            "rows": 1
+          },
+          "1": {
+            "positive_rows": 5,
+            "rows": 5
+          },
+          "2": {
+            "positive_rows": 76,
+            "rows": 116
+          },
+          "20": {
+            "positive_rows": 1266,
+            "rows": 51906
+          },
+          "3": {
+            "positive_rows": 428,
+            "rows": 1069
+          },
+          "4": {
+            "positive_rows": 940,
+            "rows": 7536
+          },
+          "5": {
+            "positive_rows": 1201,
+            "rows": 28631
+          },
+          "6": {
+            "positive_rows": 1266,
+            "rows": 51906
+          }
+        }
+      },
+      "label_zero_rows": 50640,
+      "mutually_exclusive_current_scope_partition": {
+        "NGG_more_than_4": {
+          "positive_rows": 304,
+          "rows": 27604
+        },
+        "current_NGG_0_to_4": {
+          "positive_rows": 774,
+          "rows": 1281
+        },
+        "non_NGG_0_to_4": {
+          "positive_rows": 166,
+          "rows": 6255
+        },
+        "non_NGG_more_than_4": {
+          "positive_rows": 22,
+          "rows": 16766
+        },
+        "unresolved_bases": {
+          "positive_rows": 0,
+          "rows": 0
+        }
+      },
+      "positive_rows": 1266,
+      "rows": 51906,
+      "sha256": "15130da35b6f236bad2890352ea0bbb5065ae0782a6bcca7471f5ac8bcf6f007"
+    }
+  },
+  "generator_sha256": "cdb625fd91c73c4d906c6ca9802fbccbbe136f10b777d1e5a9ed119542ca5645",
+  "method": "Trim outer whitespace; uppercase aligned 23-base pairs; count substitutions at positions 1\u201320 only; exclude any pair containing N from strict filter counts. Preserve every row, including label-zero rows. Threshold 20 removes only the protospacer substitution limit.",
+  "provenance_limits": [
+    "Dataset assembly, assay detection limits and label-zero generation are incompletely traced.",
+    "Files share some guides and pairs; do not sum them as independent observations.",
+    "The T-cell file is a reported training corpus; actual checkpoint training membership is unknown.",
+    "NGG_or_NAG and any_unambiguous_PAM are hypothetical string filters, not supported discovery modes or validated biochemical PAM sets.",
+    "Guide-associated PAM suitability is not inferred; input shape compatibility does not establish model accuracy in a stratum."
+  ],
+  "schema_version": 1,
+  "scope": "Sequence-filter eligibility in the four supplied files only; not actual genome search, recall, cost, cleavage probability or evidence supporting a new PAM mode.",
+  "source_audit_sha256": "d50c2c205130cdf7963cb419eee449d8157b4031717e0d4b4b3635254cd0e3bd"
+}

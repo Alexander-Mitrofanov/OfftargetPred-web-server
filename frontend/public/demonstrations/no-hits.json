@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "annotations": {
+      "assembly": "GRCh38",
+      "available": true,
+      "complete": true,
+      "contig_count": 194,
+      "contig_lengths_sha256": "3acb4fa3ef42660a8e4383df055d08e0e65549ca6c161c0ae64e35cf9f3a637d",
+      "coordinate_system": "0-based half-open, forward-reference coordinates",
+      "feature_counts": {
+        "CDS": 2283168,
+        "UTR": 767221,
+        "exon": 3683354,
+        "gene": 78899,
+        "intron": 3173704,
+        "transcript": 509650
+      },
+      "gtf_headers": [
+        "#!genome-build GRCh38.p14",
+        "#!genome-version GRCh38",
+        "#!genome-date 2013-12",
+        "#!genome-build-accession GCA_000001405.29",
+        "#!genebuild-last-updated 2025-05"
+      ],
+      "ignored_nonreference_features": 0,
+      "index_sha256": "5dd8477439a334bb35c002da7f1e0fcf599f5437fadff2c8c7cedb231231eb6d",
+      "interval": "23 nt including the 20-nt protospacer and 3-nt PAM; any-base overlap; both feature strands",
+      "intron_definition": "Gaps between merged exons within each transcript",
+      "limitations": [
+        "Feature overlap is genomic context, not evidence of functional harm.",
+        "Transcript categories can overlap; no canonical transcript is selected.",
+        "Intergenic means no annotated gene or transcript feature in this release."
+      ],
+      "reference": {
+        "assembly": "GRCh38",
+        "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+        "contigs": 194,
+        "coordinate_system": "0-based start, half-open end, forward-reference coordinates",
+        "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+        "id": "GRCh38",
+        "name": "Human GRCh38 primary assembly (Ensembl 115)",
+        "publisher_bsd_checksum": "22450 861294",
+        "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+        "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+        "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+        "total_bases": 3099750718,
+        "verified": true
+      },
+      "release": "115",
+      "schema_version": 1,
+      "source": "Ensembl",
+      "source_archive_sha256": "2f8e31578c3aa2f35646927c4a3b3b0dcf0321e57c0ebd3ecc81afcbc836d1a8",
+      "source_filename": "Homo_sapiens.GRCh38.115.gtf.gz",
+      "source_gtf_sha256": "eed078d2d5aedcd6ce3163175a552b03cb6cf6887f03566e4f57b18c085e391f",
+      "source_url": "https://ftp.ensembl.org/pub/release-115/gtf/homo_sapiens/Homo_sapiens.GRCh38.115.gtf.gz"
+    },
+    "baselines": {
+      "cfd": {
+        "available": true,
+        "calibrated_probability": false,
+        "citation": "Doench et al. (2016), Nature Biotechnology 34:184-191, doi:10.1038/nbt.3437",
+        "citation_url": "https://doi.org/10.1038/nbt.3437",
+        "higher_means": "Greater predicted relative off-target cleavage activity",
+        "input": "Two ungapped, guide-oriented 23 nt DNA sequences (20 nt spacer + actual 3 nt PAM)",
+        "license_url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/LICENSE",
+        "limitations": [
+          "Sequence-only baseline; no cell or chromatin context.",
+          "N, gaps, ambiguous bases, RNA inputs and non-23 nt inputs are unsupported.",
+          "Zero is a model weight, not proof of no cleavage.",
+          "Separate from CRISPert; no averaging or guide-level risk aggregation.",
+          "A score does not establish candidate-search completeness."
+        ],
+        "name": "CFD",
+        "nuclease": "SpCas9",
+        "pam_convention": "Candidate final two bases; guide PAM and candidate PAM first base have no effect",
+        "parameter_commit": "595d9a8ad1f4ba95ee2dca20786921f89be3004c",
+        "parameter_files": [
+          {
+            "filename": "cfd.mm.scores.cas9.txt",
+            "sha256": "636e1d8e65f429db8c578036a673cb4516e896c05f594e3ab134734aab84dafc",
+            "url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/inst/cfd_cas9/cfd.mm.scores.cas9.txt"
+          },
+          {
+            "filename": "cfd.pam.scores.cas9.txt",
+            "sha256": "3f83c4f659cda48795312c080f8528984a3ce25f9b2475d79cb80b4835fb3b45",
+            "url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/inst/cfd_cas9/cfd.pam.scores.cas9.txt"
+          }
+        ],
+        "parameter_license": "MIT; Copyright (c) 2022 Genentech, Inc.",
+        "parameter_source": "crisprVerse/crisprScore",
+        "position_convention": "1-based from guide 5-prime end; 1 PAM-distal, 20 PAM-proximal",
+        "score_range": [
+          0.0,
+          1.0
+        ],
+        "score_scope": "per-site",
+        "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+      }
+    },
+    "calibrated": false,
+    "candidate_count": 0,
+    "candidate_scope": "Complete within the stated reference, PAM and mismatch limits.",
+    "coordinate_system": "0-based half-open",
+    "demonstration": {
+      "complete_result": true,
+      "frozen_at": "2026-09-19T18:46:59.535698+00:00",
+      "id": "no-hits",
+      "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+      "original_result_created_at": "2026-09-19T18:47:29.695994+00:00",
+      "original_result_finished_at": "2026-09-19T18:47:56.773372+00:00",
+      "sequence_origin": "Fixed synthetic 20 nt protospacer with an explicitly specified synthetic TGG PAM; not sampled from a private assay or claimed as a genomic target."
+    },
+    "device": "cuda",
+    "elapsed_seconds": 23.431,
+    "intended_loci": [],
+    "limitations": [
+      "Scores are not calibrated cleavage probabilities.",
+      "Genomic annotations do not change sequence-model scores.",
+      "Model disagreement is not calibrated uncertainty."
+    ],
+    "max_mismatches": 1,
+    "mode": "genome",
+    "model_keys": [
+      "k1",
+      "k2",
+      "k3"
+    ],
+    "models": {
+      "default_model": "k1",
+      "device": "cuda",
+      "family": "CRISPert-small sequence-only",
+      "models": [
+        {
+          "id": "k1",
+          "kmer": 1,
+          "parameters": 552962,
+          "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+        },
+        {
+          "id": "k2",
+          "kmer": 2,
+          "parameters": 583554,
+          "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+        },
+        {
+          "id": "k3",
+          "kmer": 3,
+          "parameters": 1074946,
+          "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+        }
+      ],
+      "precision": "float32",
+      "runtime": {
+        "cuda": "12.1",
+        "torch": "2.4.1+cu121",
+        "transformers": "4.46.3"
+      },
+      "score_definition": "Uncalibrated positive-class softmax; not cleavage frequency or clinical safety.",
+      "sequence_length": 23
+    },
+    "reference": {
+      "assembly": "GRCh38",
+      "bulges": false,
+      "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+      "contigs": 194,
+      "coordinate_system": "0-based half-open",
+      "engine": "Cas-OFFinder 2.4.1",
+      "engine_binary_sha256": "73edfc381a40148a0e88facfec7b9b066890051ebad073d496e38207d14ef398",
+      "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+      "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+      "id": "GRCh38",
+      "max_candidates": 50000,
+      "max_guides": 10,
+      "mismatch_range": [
+        0,
+        4
+      ],
+      "name": "Human GRCh38 primary assembly (Ensembl 115)",
+      "pam": "NGG",
+      "publisher_bsd_checksum": "22450 861294",
+      "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+      "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+      "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+      "total_bases": 3099750718,
+      "verified": true
+    },
+    "release_id": "nar-v2-staging",
+    "schema_version": "2.0",
+    "score_label": "CRISPert score",
+    "submitted_guides": [
+      {
+        "id": "guide-1",
+        "target": "ACGTCAGTACGATCGTACGATGG"
+      }
+    ]
+  },
+  "rows": []
+}

@@ -1,0 +1,23 @@
+.guide-resolver { margin: 18px 0; border: 1px solid var(--border, #d7e2ea); border-radius: 5px; background: #f8fafc; }
+.guide-resolver > summary { padding: 13px 16px; color: var(--teal, #087f79); cursor: pointer; font-weight: 600; }
+.guide-resolver-body { padding: 0 16px 16px; }
+.guide-resolver p { font-size: 13px; margin: 0 0 12px; color: var(--muted, #526b7e); }
+.guide-resolver fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.guide-resolver label { display: block; font-size: 13px; font-weight: 600; }
+.guide-resolver input:not([type="radio"]) { display: block; margin-top: 5px; font-weight: 400; }
+.guide-resolver .guide-resolver-sequence { font-family: var(--mono, monospace); letter-spacing: .05em; }
+.guide-resolver-coordinates { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0; }
+.guide-resolver .guide-resolver-note { font-size: 12px; line-height: 1.55; }
+.guide-resolver-button { border: 1px solid #8aa7ba; border-radius: 4px; color: var(--ink, #16334a); background: white; padding: 8px 12px; font-size: 13px; }
+.guide-resolver-button:hover:enabled { border-color: var(--teal, #087f79); background: #f1f8f8; }
+.guide-resolver .guide-resolver-error { margin-top: 12px; color: #9e2424; }
+.guide-resolver .guide-resolver-unavailable { border-left: 3px solid #8aa7ba; padding-left: 12px; }
+.guide-resolver-results { border-top: 1px solid var(--border, #d7e2ea); margin-top: 16px; padding-top: 14px; }
+.guide-resolver-results > button { margin-bottom: 12px; }
+.guide-resolver-table { max-height: 320px; overflow: auto; margin: 12px 0; border: 1px solid var(--border, #d7e2ea); border-radius: 4px; background: white; }
+.guide-resolver-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.guide-resolver-table caption { padding: 8px 10px; color: var(--muted, #526b7e); font-size: 11px; text-align: left; }
+.guide-resolver-table th, .guide-resolver-table td { padding: 8px 10px; text-align: left; white-space: nowrap; border-top: 1px solid var(--border, #d7e2ea); }
+.guide-resolver-table strong { margin-left: 3px; color: var(--teal, #087f79); }
+.guide-resolver-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0; font-size: 12px; }
+@media (max-width: 620px) { .guide-resolver-coordinates { grid-template-columns: 1fr; gap: 8px; } }

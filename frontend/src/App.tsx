@@ -1,16 +1,24 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import { api, apiOrigin, downloadResult, rememberJob, restoreJob } from "./api";
+import { api, apiOrigin, rememberJob, restoreJob } from "./api";
 import type {
   Capabilities,
   Credentials,
   Job,
   ModelId,
   Mode,
-  ResultRow,
-  Results,
   Submission,
 } from "./api";
+import { AnalysisWorkspace } from "./components/AnalysisWorkspace";
+import { GuideResolver } from "./components/GuideResolver";
+import { GuideDiscovery } from "./components/GuideDiscovery";
+import { parseRecoveryFragment } from "./features/jobRecovery";
+import type { ResolvedGuideLocus } from "./components/GuideResolver";
+import { ServiceInformation } from "./components/ServiceInformation";
+import { ColumnMapper } from "./components/ColumnMapper";
+import { InputGuide } from "./components/InputGuide";
+import { ToolImport } from "./components/ToolImport";
+import { PrivateJobRecovery } from "./components/PrivateJobRecovery";
 import {
   exampleFasta,
   exampleGuide,
@@ -18,6 +26,14 @@ import {
   exampleTable,
   validateInput,
 } from "./input";
+
+const ExamplesPage = lazy(() => import("./components/ExamplesPage").then(module => ({ default: module.ExamplesPage })));
+const EvidencePage = lazy(() => import("./components/EvidencePage").then(module => ({ default: module.EvidencePage })));
+type Page = "predict" | "help" | "about" | "examples" | "evidence";
+const pageFromHash = (): Page => {
+  const value = window.location.hash.slice(1);
+  return ["help", "about", "examples", "evidence"].includes(value) ? value as Page : "predict";
+};
 
 const repository =
   "https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server";
@@ -81,6 +97,7 @@ function Sequence({
 }) {
   return (
     <code
+      role="img"
       className="sequence"
       aria-label={`${label ? label + ": " : ""}${sequence}`}
     >
@@ -115,38 +132,6 @@ function AlignmentExample() {
         <span className="mismatch-swatch" /> Highlighted bases differ from the
         guide.
       </p>
-    </div>
-  );
-}
-
-function PrivateJobLink({ credentials }: { credentials: Credentials }) {
-  const [state, setState] = useState<"idle" | "copied" | "error">("idle");
-  const copy = async () => {
-    try {
-      const url = new URL(window.location.pathname, window.location.origin);
-      url.hash = new URLSearchParams({
-        job: credentials.id,
-        token: credentials.token,
-      }).toString();
-      await navigator.clipboard.writeText(url.toString());
-      setState("copied");
-      window.setTimeout(() => setState("idle"), 4000);
-    } catch {
-      setState("error");
-    }
-  };
-  return (
-    <div className="private-link-row">
-      <button className="text-button" onClick={copy}>
-        {state === "copied"
-          ? "Private link copied"
-          : "Copy private result link"}
-      </button>
-      <span role="status">
-        {state === "error"
-          ? "The browser could not copy the link. Keep this tab open or download completed results."
-          : "Anyone with the link can view this job until it expires."}
-      </span>
     </div>
   );
 }
@@ -199,6 +184,8 @@ function Documentation({
           <section>
             <h2>Two aligned sequences, 23 bases each</h2>
             <p>
+              This service uses the supplied CRISPert-small checkpoints for
+              aligned SpCas9-style sequence pairs.{" "}
               Provide guide and candidate DNA in the same 5′ to 3′ orientation.
               Each sequence must contain a 20-base protospacer followed by its
               3-base PAM. Use the actual guide-side PAM, not a 20-base RNA guide
@@ -264,13 +251,17 @@ function Documentation({
               is the genomic candidate, while <code>Guide_sequence</code> is the
               guide. Invalid rows are reported; they are not silently removed.
             </p>
+            <p>If your headings differ, use <strong>Map columns</strong> to preview and confirm their meaning. The tool-import panel accepts supported Cas-OFFinder and CRISPOR exports, plus explicitly enriched CHOPCHOP tables. It reports missing PAMs, strand information and coordinate declarations before submission. <a href={`${repository}/blob/main/docs/import-formats.md`}>Supported formats and examples</a>.</p>
           </section>
           <section>
             <h2>Genome-search input</h2>
             <p>
               Paste one 23-base guide per line, or FASTA with a unique
-              identifier for each guide. A longer target region is not accepted
-              for guide design.
+              identifier for each guide. To begin with a region, open
+              <strong> Start from a gene or genomic region</strong>, look up an
+              exact gene name or Ensembl ID, narrow the interval and explicitly
+              choose a reference-derived guide. This helper lists eligible NGG
+              sites; it does not predict on-target efficiency.
             </p>
             <pre>
               <code>{exampleFasta}</code>
@@ -297,12 +288,22 @@ function Documentation({
               . There is no validated universal safe/unsafe threshold.
             </p>
             <p>
-              Compare the k=1, k=2 and k=3 columns directly. No ensemble average
-              is computed. Model disagreement is useful context, and no model
-              wins on every held-out dataset. Scores do not measure guide-level
+              Compare candidate rankings within each k=1, k=2 and k=3 model.
+              Equal numeric scores from different models need not have the same
+              meaning. No ensemble average is computed. Model disagreement is
+              useful context, and no model
+              wins on every supplied evaluation dataset. Scores do not measure guide-level
               genome-wide specificity, particularly when scoring an incomplete
               list of candidates.
             </p>
+          </section>
+          <section>
+            <h2>Explore and keep your results</h2>
+            <p>The guide summary and filters operate on every returned candidate. Select rows manually or use a stated shortlist rule. Compare model ranks on the same candidates, inspect the local genomic annotations, and open external genome-browser links only when you choose to.</p>
+            <p>The optional CFD column is a separate published baseline. Missing CFD values mean unsupported inputs; they are not zero scores. Gene overlap describes location and does not measure biological harm.</p>
+            <p>You can import your own experimental observation table into the browser and inspect exact, ambiguous and unmatched observations. Missing or zero observations are not confirmed negatives. This evidence stays separate from predictions.</p>
+            <p>Download the full analysis ZIP to preserve full results, filtered results, selected candidates, selection notes, imported evidence, settings and citations. Server CSV/JSON downloads contain prediction results; browser-only selections and evidence are kept in the ZIP. Refreshing clears browser-only analysis edits.</p>
+            <p><a href="#examples">Try complete interactive examples</a> or <a href="#evidence">inspect the checkpoint diagnostics</a>.</p>
           </section>
           <section>
             <h2>Jobs and data</h2>
@@ -312,6 +313,11 @@ function Documentation({
                 : "The form reads current input limits and result-retention settings from the prediction server when connected."}{" "}
               Download the full CSV for analysis, or the JSON export for results
               and provenance.
+            </p>
+            <p>
+              One job can wait or run per client IP address. People sharing an
+              institutional network may share this limit; retry after the
+              current job finishes.
             </p>
             <p>
               Your browser tab keeps a private job-access token in session
@@ -380,18 +386,19 @@ function Documentation({
           <section>
             <h2>What these checkpoints were trained on</h2>
             <p>
-              These are the seed-0 models trained using a stratified split
-              across the full 17-guide T-cell GUIDE-seq set. Performance on that
-              same T-cell set is not evidence of generalization. The supplied
-              K562 and iPSC datasets provide held-out cross-cell evaluations.
+              The supplied documentation describes training on a 17-guide
+              T-cell GUIDE-seq corpus. Exact training and validation row
+              membership is not available. The bundle reports run seed 0, while
+              checkpoint configuration stores 42; training code passes a run
+              seed separately, so the actual run seed remains unverified.
             </p>
             <p>
-              k=1 is the recommended default based on the supplied model
-              documentation and leave-one-guide-out comparisons. k=2 and k=3
-              perform better on some external datasets, which is why this server
-              exposes all three independently. The iPSC evaluation includes only
-              two guides, one with no positive sites; its per-guide average
-              should not drive model selection.
+              k=1 remains the starting model described in the supplied package.
+              The full K562 evaluation shares one guide and 981 sequence pairs
+              with the reported training corpus. Reproducing its scores does
+              not establish fully guide-independent performance. The supplied
+              iPSC file contains three guides, two with observed positive sites.
+              These small evaluations should not establish a universal best model.
             </p>
           </section>
           <section>
@@ -420,6 +427,11 @@ function Documentation({
               on the chosen reference, PAM and mismatch limit.
             </p>
             <p>
+              Cas12, high-fidelity Cas9 variants, base editors and prime editors
+              are outside the established scope of these checkpoints. A 23-base
+              input alone does not establish support.
+            </p>
+            <p>
               The interface is inspired by the focused research workflow of{" "}
               <a
                 href="https://rth.dk/resources/crispr/crisproff/"
@@ -432,6 +444,7 @@ function Documentation({
               model; OfftargetPred does not reproduce those scores.
             </p>
           </section>
+          <ServiceInformation />
           <section>
             <h2>Software and documentation</h2>
             <p>
@@ -451,337 +464,22 @@ function Documentation({
   );
 }
 
-function ResultsPanel({
-  credentials,
-  job,
-  onDelete,
-}: {
+function ResultsPanel({ credentials, job, onDelete, onPrepare, referenceContextAvailable }: {
   credentials: Credentials;
   job: Job;
   onDelete: () => void;
+  onPrepare: (submission: Submission) => void;
+  referenceContextAvailable: boolean;
 }) {
-  const [data, setData] = useState<Results | null>(null);
-  const [offset, setOffset] = useState(0);
-  const [query, setQuery] = useState("");
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState(
-    job.models.includes(1) ? "k1" : `k${job.models[0]}`,
-  );
-  const [order, setOrder] = useState("desc");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [downloading, setDownloading] = useState(false);
-  const pageSize = 25;
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setSearch(query);
-      setOffset(0);
-    }, 300);
-    return () => window.clearTimeout(timer);
-  }, [query]);
-  useEffect(() => {
-    let current = true;
-    setLoading(true);
-    setError("");
-    const params = new URLSearchParams({
-      offset: String(offset),
-      limit: String(pageSize),
-      q: search,
-      sort,
-      order,
-    });
-    api<Results>(
-      `/jobs/${encodeURIComponent(job.id)}/results?${params}`,
-      {},
-      credentials.token,
-    )
-      .then((result) => {
-        if (current) setData(result);
-      })
-      .catch((error) => {
-        if (current) {
-          setError(message(error));
-          setData(null);
-        }
-      })
-      .finally(() => {
-        if (current) setLoading(false);
-      });
-    return () => {
-      current = false;
-    };
-  }, [credentials.token, job.id, offset, search, sort, order]);
-  const download = async (format: "csv" | "json") => {
-    setDownloading(true);
-    setError("");
-    try {
-      await downloadResult(credentials, format);
-    } catch (error) {
-      setError(message(error));
-    } finally {
-      setDownloading(false);
-    }
-  };
-  const mismatches = (row: ResultRow) =>
-    row.mismatches ??
-    row.target
-      .slice(0, 20)
-      .split("")
-      .reduce(
-        (n, base, i) =>
-          n +
-          Number(
-            base !== row.off_target[i] &&
-              base !== "N" &&
-              row.off_target[i] !== "N",
-          ),
-        0,
-      );
-  return (
-    <section className="results-panel" aria-labelledby="results-title">
-      <div className="section-heading">
-        <div>
-          <h2 id="results-title">Prediction results</h2>
-          <p>
-            {(job.result_count ?? data?.total ?? 0).toLocaleString()} scored
-            pairs{job.name ? ` for ${job.name}` : ""}
-          </p>
-        </div>
-        <div className="download-actions">
-          <button
-            className="button secondary"
-            onClick={() => download("csv")}
-            disabled={downloading}
-          >
-            <Arrow down /> Download CSV
-          </button>
-          <button
-            className="text-button"
-            onClick={() => download("json")}
-            disabled={downloading}
-          >
-            JSON & metadata
-          </button>
-        </div>
-      </div>
-      <div className="score-note">
-        <strong>Higher score = stronger model support.</strong> Scores are not
-        calibrated cleavage probabilities. Read{" "}
-        <a href="#help">how to interpret results</a>.
-      </div>
-      <div className="result-controls">
-        <label className="search-label">
-          Filter candidates
-          <input
-            type="search"
-            placeholder="Guide, ID, sequence or chromosome"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        </label>
-        <label>
-          Sort by
-          <select
-            value={sort}
-            onChange={(event) => {
-              setSort(event.target.value);
-              setOffset(0);
-            }}
-          >
-            <option value="input">Input order</option>
-            {job.models.map((model) => (
-              <option key={model} value={`k${model}`}>
-                k={model} score
-              </option>
-            ))}
-            <option value="mismatches">Mismatches</option>
-          </select>
-        </label>
-        <label>
-          Order
-          <select
-            value={order}
-            onChange={(event) => {
-              setOrder(event.target.value);
-              setOffset(0);
-            }}
-          >
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </label>
-      </div>
-      {error && (
-        <div className="notice error" role="alert">
-          {error}
-        </div>
-      )}
-      <div
-        className={`table-scroll results-table-wrap ${loading ? "is-loading" : ""}`}
-        tabIndex={0}
-        role="region"
-        aria-label="Prediction results table"
-        aria-busy={loading}
-      >
-        <table className="results-table">
-          <caption className="sr-only">
-            Candidate scores by CRISPert model. PAM bases are separated after
-            position twenty; highlighted bases differ from the guide.
-          </caption>
-          <thead>
-            <tr>
-              <th>Candidate</th>
-              <th>
-                Aligned sequences <span>5′ to 3′</span>
-              </th>
-              <th title="Substitutions in the 20-base protospacer; PAM excluded">
-                Mismatches
-              </th>
-              {job.models.map((model) => (
-                <th key={model}>k={model} score</th>
-              ))}
-              {job.mode === "genome" && <th>Reference location</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {data?.rows.map((row, index) => (
-              <tr key={`${row.id}-${index}`}>
-                <td>
-                  <span className="row-id">{row.id}</span>
-                  {row.guide_id && <small>{row.guide_id}</small>}
-                  {!!row.warnings?.length && (
-                    <details className="row-warnings">
-                      <summary>
-                        {row.warnings.length} input{" "}
-                        {row.warnings.length === 1 ? "note" : "notes"}
-                      </summary>
-                      <ul>
-                        {row.warnings.map((warning, i) => (
-                          <li key={i}>{warning}</li>
-                        ))}
-                      </ul>
-                    </details>
-                  )}
-                </td>
-                <td>
-                  <div className="alignment-row">
-                    <span className="sequence-label">Guide</span>
-                    <Sequence sequence={row.target} />
-                  </div>
-                  <div className="alignment-row">
-                    <span className="sequence-label">Site</span>
-                    <Sequence sequence={row.off_target} guide={row.target} />
-                  </div>
-                </td>
-                <td>
-                  <span className="mismatch-count">{mismatches(row)}</span>
-                  {mismatches(row) === 0 &&
-                    !/[Nn]/.test(
-                      row.target.slice(0, 20) + row.off_target.slice(0, 20),
-                    ) && (
-                      <small className="match-note">Exact protospacer</small>
-                    )}
-                  {/[Nn]/.test(row.target + row.off_target) && (
-                    <small>Contains N</small>
-                  )}
-                </td>
-                {job.models.map((model) => (
-                  <td key={model}>
-                    <span className="score-value">
-                      {row.scores[`k${model}`]?.toFixed(4) ?? "—"}
-                    </span>
-                    <span className="score-track" aria-hidden="true">
-                      <span
-                        style={{
-                          width: `${(row.scores[`k${model}`] ?? 0) * 100}%`,
-                        }}
-                      />
-                    </span>
-                  </td>
-                ))}
-                {job.mode === "genome" && (
-                  <td className="coordinate">
-                    {row.chromosome ? (
-                      <>
-                        {row.chromosome}:{row.start ?? row.position}–
-                        {row.end ??
-                          (row.position !== undefined ? row.position + 23 : "")}
-                        <small>
-                          Strand {row.strand}; 0-based, end excluded
-                        </small>
-                      </>
-                    ) : (
-                      "—"
-                    )}
-                  </td>
-                )}
-              </tr>
-            ))}
-            {!loading && !data?.rows.length && (
-              <tr>
-                <td
-                  colSpan={
-                    3 + job.models.length + Number(job.mode === "genome")
-                  }
-                  className="empty-row"
-                >
-                  {search
-                    ? "No candidates match this filter. Try another ID or sequence."
-                    : "No candidate sites were returned for this job."}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="pagination">
-        <p aria-live="polite">
-          {loading
-            ? "Loading results…"
-            : data && data.total
-              ? `${offset + 1}–${Math.min(offset + pageSize, data.total)} of ${data.total.toLocaleString()}${search ? " matching" : ""} candidates`
-              : "0 candidates"}
-        </p>
-        <div>
-          <button
-            className="button secondary compact"
-            disabled={loading || offset === 0}
-            onClick={() => setOffset(Math.max(0, offset - pageSize))}
-          >
-            Previous
-          </button>
-          <button
-            className="button secondary compact"
-            disabled={loading || !data || offset + pageSize >= data.total}
-            onClick={() => setOffset(offset + pageSize)}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-      <PrivateJobLink credentials={credentials} />
-      <div className="job-footer">
-        <p>
-          Created {date(job.created_at)}
-          {job.expires_at && <>. Expires {date(job.expires_at)}</>}. Downloads
-          contain the full results.
-        </p>
-        <button className="text-button danger" onClick={onDelete}>
-          Delete job and data
-        </button>
-      </div>
-    </section>
-  );
+  return <AnalysisWorkspace job={job} credentials={credentials} onDelete={onDelete} onPrepare={onPrepare} referenceContextAvailable={referenceContextAvailable}>
+    <PrivateJobRecovery credentials={credentials} expiresAt={job?.expires_at} />
+  </AnalysisWorkspace>;
 }
 
 export default function App() {
-  const [page, setPage] = useState<"predict" | "help" | "about">(() =>
-    window.location.hash === "#help"
-      ? "help"
-      : window.location.hash === "#about"
-        ? "about"
-        : "predict",
-  );
+  const [page, setPage] = useState<Page>(pageFromHash);
+  const [examplesOpened, setExamplesOpened] = useState(page === "examples");
+  useEffect(() => { if (page === "examples") setExamplesOpened(true); }, [page]);
   const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
   const [connection, setConnection] = useState<
     "connecting" | "connected" | "unavailable"
@@ -793,6 +491,7 @@ export default function App() {
   const [candidates, setCandidates] = useState("");
   const [table, setTable] = useState("");
   const [genome, setGenome] = useState("");
+  const [intendedLoci, setIntendedLoci] = useState<NonNullable<Submission["intended_loci"]>>([]);
   const [assembly, setAssembly] = useState("GRCh38");
   const [maxMismatches, setMaxMismatches] = useState(3);
   const [models, setModels] = useState<ModelId[]>([1]);
@@ -851,13 +550,11 @@ export default function App() {
   }, [connect]);
   useEffect(() => {
     const onHash = () => {
-      setPage(
-        window.location.hash === "#help"
-          ? "help"
-          : window.location.hash === "#about"
-            ? "about"
-            : "predict",
-      );
+      if (parseRecoveryFragment(window.location.hash)) {
+        const recovered = restoreJob();
+        if (recovered) { setCredentials(recovered); setJob(null); setJobError(""); }
+      }
+      setPage(pageFromHash());
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("hashchange", onHash);
@@ -917,6 +614,7 @@ export default function App() {
     event.target.value = "";
   };
   const loadExample = () => {
+    setIntendedLoci([]);
     if (mode === "genome") setGenome(exampleFasta);
     else if (inputMode === "single") {
       setGuide(exampleGuide);
@@ -925,6 +623,34 @@ export default function App() {
     setAttempted(false);
     setError("");
     setFileName("");
+  };
+  const prepareExample = (submission: Submission) => {
+    setMode(submission.mode); setModels(submission.models); setName(submission.name);
+    setIntendedLoci(submission.intended_loci ?? []);
+    if (submission.mode === "genome") {
+      setGenome(submission.input); setAssembly(submission.assembly ?? "GRCh38");
+      setMaxMismatches(submission.max_mismatches ?? 3);
+    } else { setInputMode("table"); setTable(submission.input); }
+    setAttempted(false); setError(""); setFileName("");
+    setPage("predict");
+    window.location.hash = "predict";
+    window.requestAnimationFrame(() => {
+      document.getElementById("new-prediction")?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0 });
+    });
+  };
+  const useResolvedGuide = (target: string, locus: ResolvedGuideLocus) => {
+    if (mode === "pairs") { setGuide(target); setInputMode("single"); return; }
+    // Append to either accepted format without turning line input into mixed FASTA.
+    const label = `resolved-${locus.chromosome}-${locus.start + 1}-${locus.strand === "+" ? "plus" : "minus"}`;
+    setGenome(previous => previous.trim().startsWith(">")
+      ? `${previous.trim()}\n>${label}\n${target}`
+      : `${previous.trim()}${previous.trim() ? "\n" : ""}${target}`);
+    setIntendedLoci(previous => [...previous.filter(x => x.target !== target), {
+      target, chromosome: locus.chromosome, start: locus.start, end: locus.end,
+      strand: locus.strand, assembly: locus.assembly,
+    }].slice(-10));
+    setAttempted(false);
   };
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -946,7 +672,7 @@ export default function App() {
       format: validation.format,
       models,
       name: name.trim(),
-      ...(mode === "genome" ? { assembly, max_mismatches: maxMismatches } : {}),
+      ...(mode === "genome" ? { assembly, max_mismatches: maxMismatches, intended_loci: intendedLoci } : {}),
     };
     const body = JSON.stringify(payload);
     if (
@@ -1063,6 +789,8 @@ export default function App() {
             >
               Predict
             </a>
+            <a href="#examples" aria-current={page === "examples" ? "page" : undefined}>Examples</a>
+            <a href="#evidence" aria-current={page === "evidence" ? "page" : undefined}>Evidence</a>
             <a href="#help" aria-current={page === "help" ? "page" : undefined}>
               Help
             </a>
@@ -1084,10 +812,16 @@ export default function App() {
         </div>
       </header>
       <main id="main" className="main-shell">
-        {page !== "predict" ? (
+        <div hidden={page !== "examples"}>
+          {examplesOpened && <Suspense fallback={<p role="status">Loading examples…</p>}><ExamplesPage onUseInput={prepareExample} referenceContextAvailable={Boolean(capabilities?.features?.reference_context)} /></Suspense>}
+        </div>
+        {page === "evidence" && (
+          <Suspense fallback={<p role="status">Loading evidence…</p>}><EvidencePage /></Suspense>
+        )}
+        {(page === "help" || page === "about") && (
           <Documentation page={page} capabilities={capabilities} />
-        ) : (
-          <>
+        )}
+        <div hidden={page !== "predict"}>
             <header className="page-intro predict-intro">
               <div>
                 <h1>
@@ -1098,6 +832,8 @@ export default function App() {
                   Score CRISPR candidate sites with three sequence-only CRISPert
                   models, or search a reference genome for candidates.
                 </p>
+                <a className="text-button" href="#examples">Explore interactive example results →</a>
+                <p className="field-hint"><a href={`${repository}/blob/main/docs/API.md`}>API reference</a> · <a href={`${repository}/blob/main/client/README.md`}>Python client and runnable example</a></p>
               </div>
               <div className={`connection-status ${connection}`} role="status">
                 <span className="status-dot" />
@@ -1142,7 +878,7 @@ export default function App() {
             <div className="workbench">
               <section className="input-panel" aria-labelledby="new-prediction">
                 <div className="panel-title">
-                  <h2 id="new-prediction">New prediction</h2>
+                  <h2 id="new-prediction" tabIndex={-1}>New prediction</h2>
                   <span className="subtle-label">Sequence only</span>
                 </div>
                 <div
@@ -1233,10 +969,8 @@ export default function App() {
                             onChange={(event) => setGuide(event.target.value)}
                             aria-describedby="guide-hint"
                           />
-                          <p id="guide-hint" className="field-hint">
-                            23 DNA bases, 5′ to 3′. Include the 3-base PAM at
-                            the end.
-                          </p>
+                          <div id="guide-hint"><InputGuide sequence={guide} mode="pairs" /></div>
+                          <GuideResolver available={Boolean(capabilities?.features?.guide_resolver)} onResolved={useResolvedGuide} />
                           <label className="field-label" htmlFor="candidates">
                             Candidate off-target sites
                           </label>
@@ -1307,8 +1041,10 @@ export default function App() {
                               </span>
                             )}
                           </p>
+                          <ColumnMapper rawText={table} onApplyTable={csv => { setTable(csv); setFileName(""); setAttempted(false); }} maxRows={capabilities?.limits.pairs ?? 10_000} maxRequestBytes={capabilities?.limits.request_bytes ?? 5 * 1024 * 1024} />
                         </>
                       )}
+                      <ToolImport onApply={csv => { setTable(csv); setInputMode("table"); setFileName(""); setAttempted(false); }} onUseMapper={rawText => { setTable(rawText); setInputMode("table"); setFileName(""); setAttempted(false); }} />
                     </div>
                   ) : (
                     <div className="form-section">
@@ -1379,7 +1115,7 @@ export default function App() {
                         value={genome}
                         placeholder={">guide-name\nGATGCTCTCCAGAATCACTGCGG"}
                         spellCheck={false}
-                        onChange={(event) => setGenome(event.target.value)}
+                        onChange={(event) => { setGenome(event.target.value); setIntendedLoci([]); }}
                         aria-describedby="genome-hint"
                       />
                       <p id="genome-hint" className="field-hint">
@@ -1387,6 +1123,9 @@ export default function App() {
                         {capabilities?.limits.guides ?? 10} guides. Unambiguous
                         DNA with an NGG PAM.
                       </p>
+                      <GuideResolver available={Boolean(capabilities?.features?.guide_resolver)} onResolved={useResolvedGuide} />
+                      <GuideDiscovery available={Boolean(capabilities?.features?.guide_discovery)} genesAvailable={Boolean(capabilities?.features?.gene_lookup)} onResolved={useResolvedGuide} />
+                      {intendedLoci.length > 0 && <p className="field-hint">{intendedLoci.length} selected reference {intendedLoci.length === 1 ? "locus" : "loci"} will be marked in results. Editing the guide list clears these selections.</p>}
                       <p className="search-scope">
                         <strong>Search scope:</strong> NGG PAMs, both strands,
                         up to four protospacer mismatches, no bulges. Candidates
@@ -1394,6 +1133,8 @@ export default function App() {
                       </p>
                     </div>
                   )}
+                  <details className="advanced-models">
+                    <summary>Model options · {models.map(k => `k=${k}`).join(", ") || "none selected"}</summary>
                   <fieldset className="model-fieldset">
                     <legend>Choose models</legend>
                     <p>
@@ -1426,6 +1167,7 @@ export default function App() {
                       ))}
                     </div>
                   </fieldset>
+                  </details>
                   <div className="job-name-field">
                     <label className="field-label" htmlFor="job-name">
                       Job name <span>optional</span>
@@ -1658,7 +1400,7 @@ export default function App() {
                     {running && (
                       <div className="activity-line" aria-hidden="true" />
                     )}
-                    <p>
+                    <p role="status" aria-live="polite">
                       {typeof job.error === "string"
                         ? job.error
                         : job.error?.message ||
@@ -1670,12 +1412,13 @@ export default function App() {
                               ? "The server is processing your input. This page updates automatically."
                               : "Your input is still in the form above. Review it before starting a new job.")}
                     </p>
+                    {typeof job.progress === "object" && <p className="field-hint">{Number.isFinite(job.progress.queue_seconds) && <>Time in queue: {Math.round(job.progress.queue_seconds!)} s. </>}{Number.isFinite(job.progress.elapsed_seconds) && <>Processing elapsed: {Math.round(job.progress.elapsed_seconds!)} s. </>}Stage timings describe work already performed; they are not an estimate of time remaining.</p>}
                     {job.warnings?.map((warning) => (
                       <p className="notice warning" key={warning}>
                         {warning}
                       </p>
                     ))}
-                    <PrivateJobLink credentials={credentials} />
+                    <PrivateJobRecovery credentials={credentials} expiresAt={job?.expires_at} />
                     <p className="job-identification">
                       Job {job.id}. Created {date(job.created_at)}
                     </p>
@@ -1696,12 +1439,13 @@ export default function App() {
                     credentials={credentials}
                     job={job}
                     onDelete={deleteJob}
+                    onPrepare={prepareExample}
+                    referenceContextAvailable={Boolean(capabilities?.features?.reference_context)}
                   />
                 )}
               </div>
             )}
-          </>
-        )}
+        </div>
       </main>
       <footer className="site-footer">
         <div>
@@ -1710,6 +1454,7 @@ export default function App() {
         </div>
         <div>
           <a href="#help">Documentation</a>
+          <a href={`${import.meta.env.BASE_URL}license.txt`}>MIT licence</a>
           <a href={repository} target="_blank" rel="noreferrer">
             GitHub
           </a>

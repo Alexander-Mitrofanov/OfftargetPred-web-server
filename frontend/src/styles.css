@@ -648,7 +648,7 @@ input.sequence-input {
   max-width: 271px;
 }
 .alignment-legend span:last-child {
-  color: #087f79;
+  color: #086761;
   padding-right: 1px;
 }
 .alignment-row {
@@ -1643,3 +1643,9 @@ table {
 .row-warnings li + li {
   margin-top: 5px;
 }
+
+.advanced-models { border-top: 1px solid var(--border, #d7e2ea); padding: 1rem 0; }
+.advanced-models > summary { cursor: pointer; color: #16334a; font-weight: 600; }
+.advanced-models .model-fieldset { border-top: 0; margin-top: .8rem; }
+
+@media (max-width: 740px) { .site-header nav { gap: clamp(10px, 3vw, 24px); } .site-header nav .source-link { display: none; } }

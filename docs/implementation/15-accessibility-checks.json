@@ -1,0 +1,248 @@
+{
+  "environment": "Isolated de.NBI staging frontend on localhost:5182; synthetic recovery fixture, no real private jobs",
+  "review_followup": "Both browsers also pass tests/browser/navigation_state.py for live-job fixture and Examples selection/reasons/evidence preservation through Help/About and ZIP export.",
+  "reports": [
+    {
+      "browser": "chromium",
+      "browser_version": "153.0.8010.12",
+      "checks": [
+        "Skip link moves keyboard navigation into main",
+        "Keyboard focus outline visible",
+        "predict: no page overflow at 390px",
+        "predict: no page overflow at 320px",
+        "genome-form: no page overflow at 390px",
+        "genome-form: no page overflow at 320px",
+        "examples: no page overflow at 390px",
+        "examples: no page overflow at 320px",
+        "evidence: no page overflow at 390px",
+        "evidence: no page overflow at 320px",
+        "help: no page overflow at 390px",
+        "help: no page overflow at 320px",
+        "about: no page overflow at 390px",
+        "about: no page overflow at 320px",
+        "Keyboard example activation focuses results heading",
+        "Keyboard candidate selection updates labelled count",
+        "Wide results table is a labelled keyboard-focusable scroll region",
+        "example-results-expanded: no page overflow at 390px",
+        "example-results-expanded: no page overflow at 320px",
+        "example-results-200-percent-equivalent-reflow: no page overflow at 640px",
+        "Unreachable API keeps typed input and reports retryable error",
+        "Static examples remain available with API blocked",
+        "Expired private job can be forgotten locally and stays forgotten after refresh",
+        "Private link opened in the same app document restores access and scrubs the fragment",
+        "Clipboard denial selects a complete manual-copy link without query leakage",
+        "Validated session capability restores results after refresh",
+        "private-job-recovery: no page overflow at 390px",
+        "private-job-recovery: no page overflow at 320px"
+      ],
+      "findings": [],
+      "javascript_errors": [],
+      "limitations": [
+        "No real assistive-technology or disabled-user study completed.",
+        "200% equivalent reflow uses 640 CSS pixels at 2x device scale on a 1280 physical-pixel viewport; native browser zoom and platform screen magnifiers remain manual checks.",
+        "Offline API and expired jobs are controlled failure scenarios; no production job is submitted."
+      ],
+      "scans": [
+        {
+          "state": "predict",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 27,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "genome-form",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 27,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "examples",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 19,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "evidence",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 19,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "help",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 24,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "about",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 28,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "example-results",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 33,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "example-results-expanded",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 36,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "example-results-200-percent-equivalent-reflow",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 35,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "private-job-recovery",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 32,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "browser_version": "155.0",
+      "checks": [
+        "Skip link moves keyboard navigation into main",
+        "Keyboard focus outline visible",
+        "predict: no page overflow at 390px",
+        "predict: no page overflow at 320px",
+        "genome-form: no page overflow at 390px",
+        "genome-form: no page overflow at 320px",
+        "examples: no page overflow at 390px",
+        "examples: no page overflow at 320px",
+        "evidence: no page overflow at 390px",
+        "evidence: no page overflow at 320px",
+        "help: no page overflow at 390px",
+        "help: no page overflow at 320px",
+        "about: no page overflow at 390px",
+        "about: no page overflow at 320px",
+        "Keyboard example activation focuses results heading",
+        "Keyboard candidate selection updates labelled count",
+        "Wide results table is a labelled keyboard-focusable scroll region",
+        "example-results-expanded: no page overflow at 390px",
+        "example-results-expanded: no page overflow at 320px",
+        "example-results-200-percent-equivalent-reflow: no page overflow at 640px",
+        "Unreachable API keeps typed input and reports retryable error",
+        "Static examples remain available with API blocked",
+        "Expired private job can be forgotten locally and stays forgotten after refresh",
+        "Private link opened in the same app document restores access and scrubs the fragment",
+        "Clipboard denial selects a complete manual-copy link without query leakage",
+        "Validated session capability restores results after refresh",
+        "private-job-recovery: no page overflow at 390px",
+        "private-job-recovery: no page overflow at 320px"
+      ],
+      "findings": [],
+      "javascript_errors": [],
+      "limitations": [
+        "No real assistive-technology or disabled-user study completed.",
+        "200% equivalent reflow uses 640 CSS pixels at 2x device scale on a 1280 physical-pixel viewport; native browser zoom and platform screen magnifiers remain manual checks.",
+        "Offline API and expired jobs are controlled failure scenarios; no production job is submitted."
+      ],
+      "scans": [
+        {
+          "state": "predict",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 27,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "genome-form",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 27,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "examples",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 19,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "evidence",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 19,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "help",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 24,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "about",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 28,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "example-results",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 33,
+          "manual_review_rule_ids": []
+        },
+        {
+          "state": "example-results-expanded",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 36,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "example-results-200-percent-equivalent-reflow",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 35,
+          "manual_review_rule_ids": [
+            "color-contrast"
+          ]
+        },
+        {
+          "state": "private-job-recovery",
+          "axe_version": "4.11.0",
+          "violations": 0,
+          "passed_rule_types": 32,
+          "manual_review_rule_ids": []
+        }
+      ]
+    }
+  ]
+}

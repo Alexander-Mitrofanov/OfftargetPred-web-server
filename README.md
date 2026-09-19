@@ -1,7 +1,7 @@
 # OfftargetPred
 
-A CRISPR off-target prediction web server using three supplied, sequence-only
-CRISPert-small models. Its workflow is inspired by
+A web interface to the published [CRISPert method](https://doi.org/10.1007/978-3-031-70368-3_6),
+using three supplied, unchanged sequence-only CRISPert-small models. Its workflow is inspired by
 [CRISPRoff](https://rth.dk/resources/crispr/crisproff/); its deployment follows
 the CasAndra pattern: **GitHub Pages frontend + de.NBI backend**.
 
@@ -16,8 +16,22 @@ the CasAndra pattern: **GitHub Pages frontend + de.NBI backend**.
   within 0–4 protospacer mismatches, then score those sites. This mode requires
   the verified reference and Cas-OFFinder installation.
 - Choose **k=1, k=2 or k=3**, or compare them separately. k=1 is the default.
-- Inspect highlighted mismatches, sort/filter results and download predictions.
+- Resolve a **20-base spacer and its actual reference PAM** in a chosen GRCh38
+  interval; explicitly select the intended reference locus.
+- Inspect highlighted mismatches, per-guide summaries, gene/transcript context,
+  genomic-browser links and an optional, separately reported **CFD baseline**.
+- Compare independent model ranks, build a transparent candidate shortlist and
+  download a complete **analysis ZIP** with full/filtered/selected data, BED,
+  selection reasons, model/reference identities and a readable report.
+- Map your own table columns or preview supported Cas-OFFinder, CRISPOR and
+  enriched CHOPCHOP candidate exports before scoring.
+- Explore **frozen interactive examples** without creating a job; the examples
+  remain usable when the prediction backend is unavailable.
 - Recover a job through its private link, cancel work or delete results.
+- Start from a gene/interval, export verified reference flanks, or explicitly
+  prepare a synthetic sequence-sensitivity run for one selected candidate.
+- Use the documented Python client; an optional CPU container supports local
+  pair scoring with separately supplied authorized model files.
 
 Scores are uncalibrated positive-class softmax outputs, **not measured cleavage
 frequencies, clinical safety assessments or CRISPRoff specificity scores**.
@@ -71,6 +85,7 @@ Then run the frontend:
 ```bash
 cd frontend
 npm ci
+npm test
 VITE_API_URL=http://localhost:8010 npm run dev
 ```
 
@@ -86,11 +101,29 @@ No genome selector is enabled until a verified reference is configured. Read
 - [Model card](docs/model-card.md): architecture, limitations, checkpoint identity.
 - [API](docs/API.md): requests, private job authorization and lifecycle.
 - [Deployment](docs/deployment.md): provisioning, releases, Pages and operations.
-- [Council decision](docs/council/decision.md): scope and implementation reasoning.
+- [Operations](docs/operations.md): readiness monitoring, configuration restore and maintenance.
+- [Worked examples](docs/case-studies.md): complete public-reference demonstrations.
+- [Import formats](docs/import-formats.md): supported exports and coordinate rules.
+- [Experimental observations](docs/experimental-evidence.md): browser-local matching and exports.
+- [Accessibility and recovery](docs/accessibility.md): tested workflows and remaining human checks.
+- [Implementation record](docs/implementation/README.md): numbered worker deliveries.
+- [Independent final council](docs/nar-readiness/FINAL-COUNCIL.md): the published-tool
+  usability contribution, resolved software findings and remaining submission work.
+- [Licence and attribution](docs/licensing.md): MIT for project-owned code,
+  third-party terms, citation and support.
+- [Reproducible diagnostics](docs/implementation/02-benchmark.md): the unchanged
+  models and CFD on identical supplied candidate sets, with explicit overlap scopes.
+- [Usability-study protocol](docs/usability-study.md): planned representative-user
+  observations; automated browser checks are reported separately.
+- [Council decision](docs/council/decision.md): initial scope and implementation reasoning.
 - [Validation and launch status](docs/validation/README.md): measured checks and
-  remaining public activation steps.
-- [Measured model benchmark](docs/validation/model-benchmark.json): exact supplied
-  checkpoint performance on the held-out K562 set.
+  release evidence and remaining operator actions.
+- [Measured model benchmark](docs/validation/model-benchmark.json): reproduction
+  of the full supplied K562 benchmark. One guide and 981 pairs overlap the
+  reported training corpus; this is not wholly guide-independent validation.
+- [Initial NAR planning council](docs/nar-readiness/README.md): 30 prioritized
+  improvement suggestions and a new audit qualifying the independence of the
+  supplied evaluation data.
 
 The manuscript supplied with the models describes an older 12-layer architecture
 and experiments involving CasKAS. This service uses the supplied four-layer small

@@ -1,0 +1,7 @@
+{
+  "mode": "pairs",
+  "input": "id,target,off_target\nexample,AAAAAAAAAAAAAAAAAAAAAGG,AAAAAAAAAAAAAAAAAAAATGG\n",
+  "format": "csv",
+  "models": [1, 2, 3],
+  "name": "Reference client example"
+}

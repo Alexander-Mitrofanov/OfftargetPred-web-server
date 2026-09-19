@@ -13,6 +13,7 @@ import time
 import uuid
 
 from .config import Settings
+from .progress import public_progress
 
 
 class QueueFull(Exception):
@@ -142,7 +143,7 @@ class JobStore:
         return row
 
     def public(self, row):
-        return {"id": row["id"], "status": "cancelling" if row["cancel_requested"] and row["status"] == "running" else row["status"], "mode": row["mode"], "name": row["name"], "models": json.loads(row["models"]), "created_at": iso(row["created"]), "started_at": iso(row["started"]), "finished_at": iso(row["finished"]), "expires_at": iso(row["expires"]), "error": row["error"], "result_count": row["result_count"]}
+        return {"id": row["id"], "status": "cancelling" if row["cancel_requested"] and row["status"] == "running" else row["status"], "mode": row["mode"], "name": row["name"], "models": json.loads(row["models"]), "created_at": iso(row["created"]), "started_at": iso(row["started"]), "finished_at": iso(row["finished"]), "expires_at": iso(row["expires"]), "error": row["error"], "result_count": row["result_count"], "progress": public_progress(self.directory(row["id"]) / "progress.json", row)}
 
     def claim(self):
         with self.connect() as db:

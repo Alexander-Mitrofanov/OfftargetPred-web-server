@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: >-
+  Cite this software record for the OfftargetPred web interface and the CRISPert
+  paper in references for the base method. Record the actual commit
+  and model hashes used in your analysis. No software DOI has been assigned.
+type: software
+title: "OfftargetPred: a web interface to sequence-only CRISPert-small models"
+authors:
+  - name: OfftargetPred contributors
+repository-code: https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server
+url: https://alexander-mitrofanov.github.io/OfftargetPred-web-server/
+version: 0.2.0
+date-released: 2026-09-19
+license: MIT
+abstract: >-
+  Web interface for scoring aligned CRISPR guide/candidate sequence pairs and
+  bounded candidate discovery using three supplied, unchanged sequence-only
+  CRISPert-small checkpoints. Outputs are uncalibrated model scores. MIT applies
+  only to project-owned code and documentation; third-party components and the
+  supplied tokenizer, weights, datasets, and publications are excluded.
+  Upstream tokenizer, weight, and dataset redistribution permissions are
+  unverified. See LICENSE, THIRD_PARTY_NOTICES.md and docs/licensing.md.
+keywords:
+  - CRISPR
+  - off-target prediction
+  - CRISPert
+  - web interface
+references:
+  - type: conference-paper
+    title: "CRISPert: A Transformer-Based Model for CRISPR-Cas Off-Target Prediction"
+    authors:
+      - family-names: Jobson Pargeter
+        given-names: William
+      - family-names: Backofen
+        given-names: Rolf
+      - family-names: Tran
+        given-names: Van Dinh
+    year: 2024
+    collection-title: "Machine Learning and Knowledge Discovery in Databases. Research Track"
+    start: 92
+    end: 104
+    doi: 10.1007/978-3-031-70368-3_6
+    url: https://link.springer.com/chapter/10.1007/978-3-031-70368-3_6

@@ -1,0 +1,216 @@
+{
+  "audit_date": "2026-09-19",
+  "datasets": {
+    "ipscs_dataset_invivo_full.csv": {
+      "duplicate_pair_rows": 0,
+      "guides_20nt": 3,
+      "guides_23nt": 3,
+      "negatives": 25688,
+      "positive_candidate_PAM_counts": {
+        "NGG": 52,
+        "non_NGG": 1
+      },
+      "positive_counts_per_guide_sorted": [
+        0,
+        1,
+        52
+      ],
+      "positive_pairs_satisfying_NGG_and_at_most_4_protospacer_mismatches": 37,
+      "positives": 53,
+      "rows": 25741,
+      "scope_note": "Sequence eligibility only; actual GRCh38 primary-assembly presence, orientation, and retrieval were not evaluated.",
+      "sha256": "8c25bd5d7cec56913b9aedadda3f96d4242387fecbf63107427b6658fc38a153",
+      "within_dataset_pair_label_conflicts": 0,
+      "zero_positive_guides": 1
+    },
+    "k562_dataset_invivo_full.csv": {
+      "duplicate_pair_rows": 0,
+      "guides_20nt": 5,
+      "guides_23nt": 5,
+      "negatives": 42944,
+      "positive_candidate_PAM_counts": {
+        "NGG": 177,
+        "non_NGG": 11
+      },
+      "positive_counts_per_guide_sorted": [
+        2,
+        2,
+        8,
+        14,
+        162
+      ],
+      "positive_pairs_satisfying_NGG_and_at_most_4_protospacer_mismatches": 91,
+      "positives": 188,
+      "rows": 43132,
+      "scope_note": "Sequence eligibility only; actual GRCh38 primary-assembly presence, orientation, and retrieval were not evaluated.",
+      "sha256": "90e9ccbbe07f337007cfa60bf39b9f5e0e9a0aba65554149ec2da8ad07df748a",
+      "within_dataset_pair_label_conflicts": 0,
+      "zero_positive_guides": 0
+    },
+    "k562_deepcrispr_withCoords_hg38.csv": {
+      "duplicate_pair_rows": 0,
+      "guides_20nt": 12,
+      "guides_23nt": 12,
+      "negatives": 18303,
+      "positive_candidate_PAM_counts": {
+        "NGG": 118
+      },
+      "positive_counts_per_guide_sorted": [
+        4,
+        5,
+        6,
+        8,
+        9,
+        11,
+        11,
+        12,
+        13,
+        13,
+        13,
+        13
+      ],
+      "positive_pairs_satisfying_NGG_and_at_most_4_protospacer_mismatches": 117,
+      "positives": 118,
+      "rows": 18421,
+      "scope_note": "Sequence eligibility only; actual GRCh38 primary-assembly presence, orientation, and retrieval were not evaluated.",
+      "sha256": "9c76a3043995290ea0c697e6da90bdd57c788b6d28cd99112879b9bab8140153",
+      "within_dataset_pair_label_conflicts": 0,
+      "zero_positive_guides": 0
+    },
+    "tcell_guideseq.csv": {
+      "duplicate_pair_rows": 0,
+      "guides_20nt": 17,
+      "guides_23nt": 17,
+      "negatives": 50640,
+      "positive_candidate_PAM_counts": {
+        "NGG": 1078,
+        "non_NGG": 188
+      },
+      "positive_counts_per_guide_sorted": [
+        11,
+        12,
+        12,
+        21,
+        24,
+        30,
+        31,
+        33,
+        44,
+        46,
+        48,
+        51,
+        59,
+        76,
+        117,
+        119,
+        532
+      ],
+      "positive_pairs_satisfying_NGG_and_at_most_4_protospacer_mismatches": 774,
+      "positives": 1266,
+      "rows": 51906,
+      "scope_note": "Sequence eligibility only; actual GRCh38 primary-assembly presence, orientation, and retrieval were not evaluated.",
+      "sha256": "15130da35b6f236bad2890352ea0bbb5065ae0782a6bcca7471f5ac8bcf6f007",
+      "within_dataset_pair_label_conflicts": 0,
+      "zero_positive_guides": 0
+    }
+  },
+  "method": "Standard-library CSV read; case/outer-whitespace normalized; exact directional sequence comparison; binary labels.",
+  "pairwise_overlap": {
+    "ipscs_dataset_invivo_full.csv | k562_dataset_invivo_full.csv": {
+      "exact_20nt_guides": 1,
+      "exact_23nt_guides": 1,
+      "exact_sequence_pairs": 5066,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [
+        {
+          "left_positives": 52,
+          "left_rows": 17489,
+          "right_positives": 162,
+          "right_rows": 14857
+        }
+      ],
+      "shared_pair_label_transitions": {
+        "left_0_right_0": 4910,
+        "left_0_right_1": 104,
+        "left_1_right_0": 1,
+        "left_1_right_1": 51
+      },
+      "shared_pairs_with_discordant_labels": 105
+    },
+    "ipscs_dataset_invivo_full.csv | k562_deepcrispr_withCoords_hg38.csv": {
+      "exact_20nt_guides": 0,
+      "exact_23nt_guides": 0,
+      "exact_sequence_pairs": 0,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [],
+      "shared_pair_label_transitions": {},
+      "shared_pairs_with_discordant_labels": 0
+    },
+    "ipscs_dataset_invivo_full.csv | tcell_guideseq.csv": {
+      "exact_20nt_guides": 0,
+      "exact_23nt_guides": 0,
+      "exact_sequence_pairs": 0,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [],
+      "shared_pair_label_transitions": {},
+      "shared_pairs_with_discordant_labels": 0
+    },
+    "k562_dataset_invivo_full.csv | k562_deepcrispr_withCoords_hg38.csv": {
+      "exact_20nt_guides": 1,
+      "exact_23nt_guides": 1,
+      "exact_sequence_pairs": 1020,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [
+        {
+          "left_positives": 2,
+          "left_rows": 4081,
+          "right_positives": 4,
+          "right_rows": 1020
+        }
+      ],
+      "shared_pair_label_transitions": {
+        "left_0_right_0": 1016,
+        "left_0_right_1": 2,
+        "left_1_right_1": 2
+      },
+      "shared_pairs_with_discordant_labels": 2
+    },
+    "k562_dataset_invivo_full.csv | tcell_guideseq.csv": {
+      "exact_20nt_guides": 1,
+      "exact_23nt_guides": 1,
+      "exact_sequence_pairs": 981,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [
+        {
+          "left_positives": 8,
+          "left_rows": 9725,
+          "right_positives": 51,
+          "right_rows": 2524
+        }
+      ],
+      "shared_pair_label_transitions": {
+        "left_0_right_0": 933,
+        "left_0_right_1": 40,
+        "left_1_right_1": 8
+      },
+      "shared_pairs_with_discordant_labels": 40
+    },
+    "k562_deepcrispr_withCoords_hg38.csv | tcell_guideseq.csv": {
+      "exact_20nt_guides": 0,
+      "exact_23nt_guides": 0,
+      "exact_sequence_pairs": 0,
+      "reverse_complement_20nt_matches": 0,
+      "reverse_complement_note": "A screening check only: reverse-complement protospacers are not automatically the same oriented Cas9 target/PAM.",
+      "shared_guide_group_counts": [],
+      "shared_pair_label_transitions": {},
+      "shared_pairs_with_discordant_labels": 0
+    }
+  },
+  "provenance_limit": "The supplied README identifies this corpus as training data. Saved checkpoints name another original CSV and do not include row-level split membership; this audit does not establish which exact rows reached gradient training or validation.",
+  "reported_training_corpus": "tcell_guideseq.csv"
+}

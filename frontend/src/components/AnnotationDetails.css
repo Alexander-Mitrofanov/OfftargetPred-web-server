@@ -1,0 +1,15 @@
+.annotation-details { min-width: 145px; max-width: 660px; font-size: 12px; }
+.annotation-details > summary { color: var(--teal, #087f79); cursor: pointer; font-weight: 500; }
+.annotation-details > summary small { display: block; margin-top: 3px; font-weight: 400; color: var(--muted, #526b7e); overflow-wrap: anywhere; }
+.annotation-details-unavailable > summary { color: var(--muted, #526b7e); }
+.annotation-details p { margin: 10px 0; color: var(--muted, #526b7e); white-space: normal; }
+.annotation-details-body { margin-top: 8px; }
+.annotation-details-scroll { max-width: min(620px, 76vw); max-height: 280px; overflow: auto; border: 1px solid var(--border, #d7e2ea); border-radius: 4px; }
+.annotation-details .annotation-details-scroll table { font-size: 11px; }
+.annotation-details .annotation-details-scroll th,
+.annotation-details .annotation-details-scroll td { padding: 7px 9px; vertical-align: top; }
+.annotation-details .annotation-details-scroll th { font-weight: 600; }
+.annotation-details .annotation-details-scroll td { white-space: nowrap; }
+.annotation-details .annotation-details-scroll td small { display: block; color: var(--muted, #526b7e); }
+.annotation-details caption { text-align: left; padding: 8px 9px; color: var(--muted, #526b7e); background: #f5f8fb; }
+.annotation-details .annotation-details-note { padding-top: 8px; border-top: 1px solid var(--border, #d7e2ea); }

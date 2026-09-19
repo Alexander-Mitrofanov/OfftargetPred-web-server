@@ -1,0 +1,416 @@
+{
+  "generated_at": "2026-09-19T18:46:59.535698+00:00",
+  "generator_sha256": "c0612af561eeee1d6493a22574adb9637166c625bb0862dba9bcb6682a004443",
+  "normal_source_document_sha256": "ba12c9f6734af7d8fe4f648b4cf4d60567e5c11baa8eb000e533792b114be576",
+  "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+  "scenarios": [
+    {
+      "completed_job": {
+        "created_at": "2026-09-19T18:46:59.535698+00:00",
+        "finished_at": "2026-09-19T18:46:59.535698+00:00",
+        "id": "demonstration-reference-walkthrough",
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Explore a public reference guide",
+        "result_count": 15,
+        "status": "completed"
+      },
+      "document_filename": "reference-walkthrough.json",
+      "document_sha256": "b69c03493412f6cfbdd4bc4a1f2855db9bfd61f27773c990170dbb9d6bda577b",
+      "expected_observations": [
+        "15 candidates form the complete NGG search result within one protospacer mismatch.",
+        "One locus was explicitly selected: chromosome 1, 100057\u2013100079 on the plus strand (1-based inclusive).",
+        "Other exact matches remain visible; sequence identity alone does not identify an intended locus.",
+        "All three CRISPert scores and CFD are separate, uncalibrated outputs; annotations describe context."
+      ],
+      "id": "reference-walkthrough",
+      "input": {
+        "assembly": "GRCh38",
+        "format": "text",
+        "input": "TGAGACTCTTGCAGTCACACAGG",
+        "intended_loci": [
+          {
+            "assembly": "GRCh38",
+            "chromosome": "1",
+            "end": 100079,
+            "start": 100056,
+            "strand": "+",
+            "target": "TGAGACTCTTGCAGTCACACAGG"
+          }
+        ],
+        "max_mismatches": 1,
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Public reference walkthrough"
+      },
+      "kind": "result",
+      "provenance": {
+        "annotation_index_sha256": "5dd8477439a334bb35c002da7f1e0fcf599f5437fadff2c8c7cedb231231eb6d",
+        "backend_release_id": "nar-v2-staging",
+        "candidate_count": 15,
+        "cfd_version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1",
+        "complete_result": true,
+        "model_checkpoints": [
+          {
+            "id": "k1",
+            "kmer": 1,
+            "parameters": 552962,
+            "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+          },
+          {
+            "id": "k2",
+            "kmer": 2,
+            "parameters": 583554,
+            "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+          },
+          {
+            "id": "k3",
+            "kmer": 3,
+            "parameters": 1074946,
+            "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+          }
+        ],
+        "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+        "reference": {
+          "assembly": "GRCh38",
+          "bulges": false,
+          "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+          "contigs": 194,
+          "coordinate_system": "0-based half-open",
+          "engine": "Cas-OFFinder 2.4.1",
+          "engine_binary_sha256": "73edfc381a40148a0e88facfec7b9b066890051ebad073d496e38207d14ef398",
+          "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+          "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+          "id": "GRCh38",
+          "max_candidates": 50000,
+          "max_guides": 10,
+          "mismatch_range": [
+            0,
+            4
+          ],
+          "name": "Human GRCh38 primary assembly (Ensembl 115)",
+          "pam": "NGG",
+          "publisher_bsd_checksum": "22450 861294",
+          "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+          "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+          "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+          "total_bases": 3099750718,
+          "verified": true
+        },
+        "sequence_origin": "Ensembl115 GRCh38 primary assembly; plus-strand chromosome 1 interval [100056,100079), read from the pinned public FASTA."
+      },
+      "settings": {
+        "annotation_release": "115",
+        "annotation_source": "Ensembl",
+        "assembly": "GRCh38",
+        "bulges": false,
+        "cfd": true,
+        "max_mismatches": 1,
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "pam": "NGG"
+      },
+      "summary": "Follow a selected GRCh38 locus through candidate search, score comparison and annotation.",
+      "tasks": [
+        "Find the explicitly selected chromosome 1 locus.",
+        "Inspect the highlighted spacer and PAM differences.",
+        "Compare separate model ranks and inspect genomic context.",
+        "Select candidates and export the displayed analysis."
+      ],
+      "title": "Explore a public reference guide"
+    },
+    {
+      "completed_job": {
+        "created_at": "2026-09-19T18:46:59.535698+00:00",
+        "finished_at": "2026-09-19T18:46:59.535698+00:00",
+        "id": "demonstration-multiple-exact-matches",
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Understand multiple exact matches",
+        "result_count": 13,
+        "status": "completed"
+      },
+      "document_filename": "multiple-exact-matches.json",
+      "document_sha256": "1c9c22fed28aaeaa587b7e36f96680711200790f4461d1b12833ed7b3c6aebf1",
+      "expected_observations": [
+        "13 candidates form the complete zero-protospacer-mismatch NGG result.",
+        "5 candidates also match the full 23 nt guide-associated sequence; other sites differ in the first PAM base.",
+        "No intended locus is selected in this example, and no candidate is automatically discarded.",
+        "Reference duplication is a software interpretation example, not experimental evidence of cleavage."
+      ],
+      "id": "multiple-exact-matches",
+      "input": {
+        "assembly": "GRCh38",
+        "format": "text",
+        "input": "TGAGACTCTTGCAGTCACACAGG",
+        "max_mismatches": 0,
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Public multi-locus exact-match example"
+      },
+      "kind": "result",
+      "provenance": {
+        "annotation_index_sha256": "5dd8477439a334bb35c002da7f1e0fcf599f5437fadff2c8c7cedb231231eb6d",
+        "backend_release_id": "nar-v2-staging",
+        "candidate_count": 13,
+        "cfd_version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1",
+        "complete_result": true,
+        "model_checkpoints": [
+          {
+            "id": "k1",
+            "kmer": 1,
+            "parameters": 552962,
+            "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+          },
+          {
+            "id": "k2",
+            "kmer": 2,
+            "parameters": 583554,
+            "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+          },
+          {
+            "id": "k3",
+            "kmer": 3,
+            "parameters": 1074946,
+            "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+          }
+        ],
+        "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+        "reference": {
+          "assembly": "GRCh38",
+          "bulges": false,
+          "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+          "contigs": 194,
+          "coordinate_system": "0-based half-open",
+          "engine": "Cas-OFFinder 2.4.1",
+          "engine_binary_sha256": "73edfc381a40148a0e88facfec7b9b066890051ebad073d496e38207d14ef398",
+          "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+          "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+          "id": "GRCh38",
+          "max_candidates": 50000,
+          "max_guides": 10,
+          "mismatch_range": [
+            0,
+            4
+          ],
+          "name": "Human GRCh38 primary assembly (Ensembl 115)",
+          "pam": "NGG",
+          "publisher_bsd_checksum": "22450 861294",
+          "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+          "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+          "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+          "total_bases": 3099750718,
+          "verified": true
+        },
+        "sequence_origin": "Same public GRCh38-derived guide as the walkthrough, searched independently at zero protospacer mismatches."
+      },
+      "settings": {
+        "annotation_release": "115",
+        "annotation_source": "Ensembl",
+        "assembly": "GRCh38",
+        "bulges": false,
+        "cfd": true,
+        "max_mismatches": 0,
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "pam": "NGG"
+      },
+      "summary": "The same guide can match several reference loci, even with no spacer mismatches.",
+      "tasks": [
+        "Count exact protospacer matches and full 23 nt matches separately.",
+        "Inspect matching loci on both reference strands.",
+        "Use exact-match filtering without assuming that every exact match is an intended target."
+      ],
+      "title": "Understand multiple exact matches"
+    },
+    {
+      "completed_job": {
+        "created_at": "2026-09-19T18:46:59.535698+00:00",
+        "finished_at": "2026-09-19T18:46:59.535698+00:00",
+        "id": "demonstration-no-hits",
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Interpret a completed search with no hits",
+        "result_count": 0,
+        "status": "completed"
+      },
+      "document_filename": "no-hits.json",
+      "document_sha256": "9321309b5e17948cc8022acaf9033b706cd303dae08ed7606f28628155d12dac",
+      "expected_observations": [
+        "The completed GRCh38 primary-assembly NGG search found zero candidates within one protospacer mismatch.",
+        "The query is synthetic and does not represent a verified biological editing target.",
+        "No candidate scores exist because no candidates were found.",
+        "Zero hits within this scope does not establish genome-wide safety or exclude hits under other settings."
+      ],
+      "id": "no-hits",
+      "input": {
+        "assembly": "GRCh38",
+        "format": "text",
+        "input": "ACGTCAGTACGATCGTACGATGG",
+        "max_mismatches": 1,
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Synthetic zero-hit search example"
+      },
+      "kind": "result",
+      "provenance": {
+        "annotation_index_sha256": "5dd8477439a334bb35c002da7f1e0fcf599f5437fadff2c8c7cedb231231eb6d",
+        "backend_release_id": "nar-v2-staging",
+        "candidate_count": 0,
+        "cfd_version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1",
+        "complete_result": true,
+        "model_checkpoints": [
+          {
+            "id": "k1",
+            "kmer": 1,
+            "parameters": 552962,
+            "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+          },
+          {
+            "id": "k2",
+            "kmer": 2,
+            "parameters": 583554,
+            "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+          },
+          {
+            "id": "k3",
+            "kmer": 3,
+            "parameters": 1074946,
+            "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+          }
+        ],
+        "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+        "reference": {
+          "assembly": "GRCh38",
+          "bulges": false,
+          "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+          "contigs": 194,
+          "coordinate_system": "0-based half-open",
+          "engine": "Cas-OFFinder 2.4.1",
+          "engine_binary_sha256": "73edfc381a40148a0e88facfec7b9b066890051ebad073d496e38207d14ef398",
+          "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+          "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+          "id": "GRCh38",
+          "max_candidates": 50000,
+          "max_guides": 10,
+          "mismatch_range": [
+            0,
+            4
+          ],
+          "name": "Human GRCh38 primary assembly (Ensembl 115)",
+          "pam": "NGG",
+          "publisher_bsd_checksum": "22450 861294",
+          "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+          "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+          "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+          "total_bases": 3099750718,
+          "verified": true
+        },
+        "sequence_origin": "Fixed synthetic 20 nt protospacer with an explicitly specified synthetic TGG PAM; not sampled from a private assay or claimed as a genomic target."
+      },
+      "settings": {
+        "annotation_release": "115",
+        "annotation_source": "Ensembl",
+        "assembly": "GRCh38",
+        "bulges": false,
+        "cfd": true,
+        "max_mismatches": 1,
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "pam": "NGG"
+      },
+      "summary": "A deliberately synthetic guide illustrates an empty result from a successful bounded search.",
+      "tasks": [
+        "Check that the submitted guide remains visible with zero candidates.",
+        "Read the reference, PAM and mismatch limits.",
+        "Distinguish a completed empty search from an API failure or a safety conclusion."
+      ],
+      "title": "Interpret a completed search with no hits"
+    },
+    {
+      "completed_job": null,
+      "document_filename": null,
+      "document_sha256": null,
+      "expected_error": {
+        "detail": "Row 1: guide must contain exactly 23 bases (20 nt + 3 nt PAM); got 20.",
+        "http_status": 422
+      },
+      "expected_observations": [
+        "The server rejects the missing-PAM input with HTTP 422 before creating a prediction job.",
+        "The correction requires the actual three-base PAM, obtained from the intended reference locus or trusted input."
+      ],
+      "id": "missing-pam",
+      "input": {
+        "assembly": "GRCh38",
+        "format": "text",
+        "input": "TGAGACTCTTGCAGTCACAC",
+        "max_mismatches": 1,
+        "mode": "genome",
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "name": "Missing PAM validation example"
+      },
+      "kind": "validation",
+      "provenance": {
+        "backend_release_id": "nar-v2-staging",
+        "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+        "sequence_origin": "First 20 nt of the public-reference walkthrough guide; deliberately incomplete for validation."
+      },
+      "settings": {
+        "assembly": "GRCh38",
+        "max_mismatches": 1,
+        "models": [
+          1,
+          2,
+          3
+        ],
+        "pam": "NGG"
+      },
+      "summary": "A 20 nt spacer needs a real, guide-associated PAM before the sequence model can score it.",
+      "tasks": [
+        "Notice that this input is only 20 nt.",
+        "Use the guide resolver with chromosome 1 interval 100057\u2013100076, then choose the actual public-reference locus.",
+        "Verify the resulting 23 nt sequence instead of inventing or appending a guessed PAM."
+      ],
+      "title": "Fix a guide with a missing PAM"
+    }
+  ],
+  "schema_version": 1,
+  "staging_jobs_created_and_deleted": 2
+}

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['frontend/**', '.github/workflows/pages.yml']
+    paths: ['frontend/**', '.github/workflows/pages.yml', 'CITATION.cff', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'docs/validation/web-diagnostics.json']
 permissions:
   contents: read
   pages: write

@@ -14,26 +14,70 @@ from .jobs import JobStore, write_json
 
 
 def execute_job(settings: Settings, store: JobStore, job_id: str):
-    from .inference import InferenceEngine
+    from .progress import JobProgress
     directory = store.directory(job_id)
-    payload = json.loads((directory / "input.json").read_text())
-    if payload["mode"] == "genome":
-        from .search import CasOffinderSearch
+    progress = JobProgress(directory)
+    with progress.phase("preparing"):
+        from .inference import InferenceEngine
+        from .annotations import AnnotationIndex, AnnotationUnavailable, annotate_rows
+        from .cfd import score_cfd, cfd_metadata
+        payload = json.loads((directory / "input.json").read_text())
         reference = settings.reference()
-        if not reference:
-            raise RuntimeError("Reference unavailable")
-        search = CasOffinderSearch(settings.cas_offinder, settings.genome_dir, reference, timeout=settings.job_timeout_seconds - 60, max_candidates=settings.max_candidates)
-        pairs = search.search(payload["guides"], mismatches=payload["max_mismatches"], work_dir=directory / "search")
+    if payload["mode"] == "genome":
+        with progress.phase("search"):
+            from .search import CasOffinderSearch
+            if not reference:
+                raise RuntimeError("Reference unavailable")
+            search = CasOffinderSearch(settings.cas_offinder, settings.genome_dir, reference, timeout=settings.job_timeout_seconds - 60, max_candidates=settings.max_candidates)
+            pairs = search.search(payload["guides"], mismatches=payload["max_mismatches"], work_dir=directory / "search")
     else:
         pairs = payload["pairs"]
-    engine = InferenceEngine(settings.model_dir, device=settings.device, batch_size=256)
-    model_keys = [f"k{k}" for k in payload["models"]]
-    rows = engine.score(pairs, models=model_keys) if pairs else []
+    with progress.phase("scoring"):
+        engine = InferenceEngine(settings.model_dir, device=settings.device, batch_size=256)
+        model_keys = [f"k{k}" for k in payload["models"]]
+        rows = engine.score(pairs, models=model_keys) if pairs else []
+        for row in rows:
+            row["baselines"] = {"cfd": score_cfd(row["target"], row["off_target"])}
     metadata = {"mode": payload["mode"], "model_keys": model_keys, "release_id": settings.release_id, "device": engine.device, "score_label": "CRISPert score", "calibrated": False, "coordinate_system": "0-based half-open" if payload["mode"] == "genome" else None, "models": engine.metadata()}
     if payload["mode"] == "genome":
         metadata["reference"] = search.metadata()
         metadata["max_mismatches"] = payload["max_mismatches"]
-    write_json(directory / "results.json", {"rows": rows, "metadata": metadata})
+        metadata["submitted_guides"] = payload["guides"]
+        metadata["intended_loci"] = payload.get("intended_loci", [])
+        for row in rows:
+            row["user_selected_locus"] = any(row.get("target") == locus.get("target") and all(row.get(key) == locus.get(key) for key in ("chromosome", "start", "end", "strand", "assembly")) for locus in payload.get("intended_loci", []))
+    with progress.phase("annotation"):
+        has_coordinates = any(all(row.get(key) is not None for key in ("chromosome", "start", "end")) for row in rows)
+        annotation_reason = "Compatible local annotations are not installed."
+        if not has_coordinates:
+            annotation_reason = "No candidate rows contain genomic coordinates."
+        elif settings.annotation_db and reference:
+            try:
+                with AnnotationIndex(settings.annotation_db, reference_metadata=reference) as index:
+                    rows = index.annotate_rows(rows)
+                    metadata["annotations"] = {"available": True, **index.metadata()}
+            except AnnotationUnavailable:
+                annotation_reason = "The local annotation resource is unavailable or incompatible with the reference."
+        if "annotations" not in metadata:
+            rows = annotate_rows(rows, reason=annotation_reason)
+            metadata["annotations"] = {"available": False, "reason": annotation_reason}
+    job_row = store.get(job_id)
+    metadata.update({
+        "schema_version": "2.0",
+        "baselines": {"cfd": cfd_metadata()},
+        "elapsed_seconds": progress.elapsed(),
+        "timings": {
+            "queue_seconds": round(max(0, (job_row["started"] or job_row["created"]) - job_row["created"]), 3),
+            "phase_seconds": dict(progress.phase_seconds),
+            "scope": "Measured child-process phases. Scoring includes checkpoint loading and CFD. Search includes reference verification. Final result serialization time is available in job status progress.",
+        },
+        "candidate_count": len(rows),
+        "candidate_scope": "Complete within the stated reference, PAM and mismatch limits." if payload["mode"] == "genome" else "User-supplied candidate list; genomic completeness is unknown.",
+        "limitations": ["Scores are not calibrated cleavage probabilities.", "Genomic annotations do not change sequence-model scores.", "Model disagreement is not calibrated uncertainty."],
+    })
+    with progress.phase("writing"):
+        write_json(directory / "results.json", {"rows": rows, "metadata": metadata})
+    progress.publish("complete")
 
 
 def stop_child(process):

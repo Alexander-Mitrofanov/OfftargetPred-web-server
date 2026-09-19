@@ -1,0 +1,23 @@
+.guide-discovery { margin: 18px 0; border: 1px solid var(--border, #d7e2ea); border-radius: 5px; background: #f8fafc; min-width: 0; }
+.guide-discovery > summary { padding: 13px 16px; color: var(--teal, #087f79); cursor: pointer; font-weight: 600; }
+.guide-discovery-body { padding: 0 16px 16px; min-width: 0; }
+.guide-discovery p { font-size: 13px; margin: 10px 0; color: var(--muted, #526b7e); }
+.guide-discovery fieldset { border: 0; border-top: 1px solid var(--border, #d7e2ea); margin: 18px 0 0; padding: 12px 0 0; min-width: 0; }
+.guide-discovery legend { font-size: 14px; font-weight: 600; padding-right: 8px; }
+.guide-discovery label { display: block; font-size: 13px; font-weight: 600; }
+.guide-discovery input:not([type="radio"]) { display: block; width: 100%; box-sizing: border-box; margin-top: 5px; font-weight: 400; }
+.guide-discovery-coordinates { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.guide-discovery button { border: 1px solid #8aa7ba; border-radius: 4px; color: var(--ink, #16334a); background: white; padding: 8px 12px; font-size: 13px; }
+.guide-discovery button:hover:enabled { border-color: var(--teal, #087f79); background: #f1f8f8; }
+.guide-discovery .guide-discovery-note { font-size: 12px; line-height: 1.55; }
+.guide-discovery .guide-discovery-error { color: #9e2424; margin-top: 12px; }
+.guide-discovery-locus { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 10px 0; padding: 10px; border: 1px solid var(--border, #d7e2ea); background: white; font-size: 12px; overflow-wrap: anywhere; }
+.guide-discovery-locus > span:first-child { flex: 1 1 250px; }
+.guide-discovery-locus .guide-discovery-note { flex-basis: 100%; }
+.guide-discovery-results { border-top: 1px solid var(--border, #d7e2ea); padding-top: 10px; margin-top: 16px; }
+.guide-discovery-table { max-height: 340px; overflow: auto; margin: 12px 0; border: 1px solid var(--border, #d7e2ea); border-radius: 4px; background: white; }
+.guide-discovery-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.guide-discovery-table caption { padding: 8px 10px; color: var(--muted, #526b7e); font-size: 11px; text-align: left; }
+.guide-discovery-table th, .guide-discovery-table td { padding: 8px 10px; text-align: left; white-space: nowrap; border-top: 1px solid var(--border, #d7e2ea); }
+.guide-discovery-table strong { margin-left: 3px; color: var(--teal, #087f79); }
+@media (max-width: 620px) { .guide-discovery-coordinates { grid-template-columns: 1fr; gap: 8px; } }

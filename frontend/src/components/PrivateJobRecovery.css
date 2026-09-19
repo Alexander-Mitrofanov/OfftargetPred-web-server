@@ -1,0 +1,11 @@
+.private-job-recovery { margin-top: 24px; padding: 18px; border: 1px solid var(--border, #d7e2ea); border-radius: 8px; background: #f5f8fb; min-width: 0; }
+.private-job-recovery h3 { margin-top: 0; }
+.private-job-recovery p { max-width: 78ch; overflow-wrap: anywhere; }
+.private-job-recovery label { display: block; margin-bottom: 6px; font-weight: 600; }
+.private-job-recovery textarea { box-sizing: border-box; width: 100%; min-width: 0; resize: vertical; font: .85rem/1.5 ui-monospace, monospace; overflow-wrap: anywhere; word-break: break-all; }
+.private-job-recovery-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.private-job-recovery-actions button { min-height: 44px; }
+.private-job-recovery [role="status"] { min-height: 1.5em; }
+.private-job-recovery-local { border-top: 1px solid var(--border, #d7e2ea); padding-top: 12px; }
+.private-job-recovery :focus-visible { outline: 3px solid #1266a8; outline-offset: 3px; }
+@media (max-width: 400px) { .private-job-recovery { padding: 12px; } .private-job-recovery-actions { align-items: stretch; flex-direction: column; } }

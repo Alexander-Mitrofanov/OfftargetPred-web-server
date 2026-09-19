@@ -107,6 +107,31 @@ Search verifies the actual FASTA on each job and passes this exact file to the
 search engine. Coordinate starts are zero-based on the forward reference,
 end-exclusive; candidate sequences are already oriented with the query.
 
+### Indexed reference tools and annotations
+
+The spacer/PAM resolver and interval discovery require a provenance-bound FASTA
+index. Create it once with `deploy/prepare-fasta-index.py` (see its `--help`),
+then install both `.fai` and `.fai.json` beside the fixed FASTA. The API verifies
+the reference and index hashes on first use and again after any file identity
+changes; subsequent bounded interval reads avoid a full genome scan.
+
+Build the complete Ensembl 115 annotation database with
+`deploy/prepare-annotations.py` and the pinned GTF archive. Install the SQLite
+database and same-basename JSON manifest on the service volume. Set
+`OFFTARGET_ANNOTATION_DB` in `/etc/offtarget-web/runtime.env`; the example path is
+`/srv/crispert/references/GRCh38/ensembl-115-GRCh38.sqlite`. Both the API and worker
+need read access through the `offtarget` group. Keep all these files read-only
+for the service account. Gene lookup and positional annotation verify that the
+index is compatible with the installed reference. Failure leaves sequence
+scoring available with explicit annotation availability information.
+
+The deployed API uses bounded helper admission separately from the prediction
+queue: at most four concurrent reference-tool calls and thirty calls per minute
+per client. No user sequence, locus or job token is placed in an access log.
+
+See [operations](operations.md) for readiness monitoring, safe configuration
+backup/restore, rollback and the current NTP/authentication follow-ups.
+
 ## Stage and activate
 
 Create a versioned release with `backend/`, `deploy/`, `pyproject.toml`, and the
@@ -161,7 +186,8 @@ python tests/smoke_api.py --api-origin https://offtargetpred-web.tail58d78e.ts.n
 ```
 
 Public CI runs contract tests without private weights. Operator acceptance must
-also run the real model tests, original-framework parity and held-out benchmark,
+also run the real model tests, original-framework parity and checkpoint diagnostics
+with documented dataset roles and overlap,
 GPU/CPU parity, synthetic Cas-OFFinder oracle and a real GRCh38 search. Check
 the deployed browser's form, private result recovery, CSV/JSON downloads and
 mobile layout. Test again after reboot to verify storage, GPU and service startup.

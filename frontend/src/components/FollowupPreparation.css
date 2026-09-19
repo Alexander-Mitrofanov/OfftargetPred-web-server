@@ -1,0 +1,17 @@
+.followup-preparation { border: 1px solid #d8e2ef; border-radius: 8px; background: #fff; margin-top: 1rem; }
+.followup-preparation > summary { padding: 1rem; font-weight: 650; cursor: pointer; color: #183d68; }
+.followup-preparation-body { padding: 0 1rem 1rem; min-width: 0; }
+.followup-preparation-body p { margin: .65rem 0; }
+.followup-preparation-note { color: #4a5b70; font-size: .875rem; line-height: 1.55; }
+.followup-preparation-controls, .followup-preparation-downloads { display: flex; gap: .75rem; flex-wrap: wrap; align-items: end; margin: .8rem 0; }
+.followup-preparation-controls label { display: grid; gap: .35rem; font-size: .875rem; font-weight: 600; }
+.followup-preparation-controls input { width: 10rem; max-width: 100%; padding: .6rem; border: 1px solid #7b8ba0; border-radius: 5px; }
+.followup-preparation-error { color: #922c2c; }
+.followup-preparation-table { width: 100%; overflow-x: auto; }
+.followup-preparation-table table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: .875rem; }
+.followup-preparation-table th, .followup-preparation-table td { padding: .6rem; text-align: left; vertical-align: top; border-bottom: 1px solid #d8e2ef; overflow-wrap: anywhere; }
+.followup-preparation-table thead th { white-space: nowrap; }
+.followup-preparation-table th:first-child { min-width: 7rem; }
+.followup-preparation-table caption { text-align: left; padding: .5rem 0; color: #4a5b70; }
+.followup-preparation button:focus-visible, .followup-preparation input:focus-visible, .followup-preparation summary:focus-visible, .followup-preparation-table:focus-visible { outline: 3px solid #2458a6; outline-offset: 3px; }
+@media (max-width: 520px) { .followup-preparation-controls, .followup-preparation-downloads { align-items: stretch; flex-direction: column; } .followup-preparation button { white-space: normal; text-align: center; } }

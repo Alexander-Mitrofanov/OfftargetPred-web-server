@@ -14,6 +14,7 @@ class Settings:
     cas_offinder: str = field(default_factory=lambda: os.environ.get("OFFTARGET_CAS_OFFINDER", ""))
     genome_dir: Path | None = field(default_factory=lambda: Path(os.environ["OFFTARGET_GENOME_DIR"]) if os.environ.get("OFFTARGET_GENOME_DIR") else None)
     reference_metadata: Path | None = field(default_factory=lambda: Path(os.environ["OFFTARGET_REFERENCE_METADATA"]) if os.environ.get("OFFTARGET_REFERENCE_METADATA") else None)
+    annotation_db: Path | None = field(default_factory=lambda: Path(os.environ["OFFTARGET_ANNOTATION_DB"]) if os.environ.get("OFFTARGET_ANNOTATION_DB") else None)
     max_request_bytes: int = 5 * 1024 * 1024
     max_pairs: int = 10_000
     max_guides: int = 10

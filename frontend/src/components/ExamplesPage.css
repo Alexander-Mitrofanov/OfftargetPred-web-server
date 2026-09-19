@@ -1,0 +1,37 @@
+.examples-page { min-width: 0; color: var(--ink, #16334a); }
+.examples-intro { max-width: 800px; margin-bottom: 28px; }
+.examples-intro h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 8px 0 16px; }
+.examples-intro p { line-height: 1.65; }
+.example-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0 0 32px; }
+.example-card { display: flex; flex-direction: column; padding: 24px; background: #fff; border: 1px solid var(--border, #d7e2ea); border-radius: 7px; }
+.example-card.is-selected { border-color: #1266a8; box-shadow: inset 4px 0 #1266a8; }
+.example-card h2 { font-size: 1.25rem; margin: 10px 0; }
+.example-card p { line-height: 1.55; margin: 0 0 14px; }
+.example-card .button { align-self: flex-start; margin-top: auto; }
+.example-kind { font-size: .82rem; font-weight: 650; color: #087368; }
+.example-learning { font-size: .9rem; }
+.example-detail { padding: 28px; margin-bottom: 24px; background: #fff; border: 1px solid var(--border, #d7e2ea); border-radius: 7px; scroll-margin-top: 24px; }
+.example-detail-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.example-detail-heading h2 { font-size: 1.45rem; margin: 0; }
+.example-detail-heading h2:focus { outline: 2px solid #1266a8; outline-offset: 6px; }
+.example-frozen { font-size: .8rem; font-weight: 600; color: #087368; padding: 4px 8px; background: #edf8f5; border-radius: 4px; }
+.example-scope { display: flex; flex-wrap: wrap; gap: 20px 32px; margin: 24px 0; padding: 16px 0; border-top: 1px solid #d7e2ea; border-bottom: 1px solid #d7e2ea; }
+.example-scope dt { font-size: .8rem; color: #526b7e; margin-bottom: 5px; }
+.example-scope dd { margin: 0; font-weight: 600; }
+.example-tasks { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+.example-tasks h3, .example-validation h3 { font-size: 1.05rem; margin: 0 0 12px; }
+.example-tasks ol, .example-tasks ul { padding-left: 22px; margin: 0; }
+.example-tasks li { padding-left: 3px; margin-bottom: 10px; line-height: 1.6; }
+.example-input { margin-top: 20px; }
+.example-input summary { cursor: pointer; font-weight: 600; padding: 8px 0; }
+.example-input pre { overflow: auto; max-height: 320px; padding: 16px; background: #f5f8fb; font-size: .85rem; }
+.example-use { margin-top: 20px; }
+.example-use .field-hint { max-width: 680px; margin-bottom: 0; }
+.example-validation { margin-top: 24px; padding: 20px; border-left: 4px solid #976215; background: #fff8ed; }
+.example-validation p { margin-bottom: 0; overflow-wrap: anywhere; }
+.example-integrity { margin: 20px 0 0; color: #526b7e; font-size: .8rem; }
+@media (max-width: 720px) {
+  .example-cards, .example-tasks { grid-template-columns: minmax(0, 1fr); }
+  .example-card, .example-detail { padding: 20px; }
+  .example-detail-heading { align-items: flex-start; }
+}

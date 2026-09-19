@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "audited_on": "2026-09-19",
+  "method": "SpCas9 cutting frequency determination (CFD), per-site score",
+  "citation": "Doench et al. (2016), Optimized sgRNA design to maximize activity and minimize off-target effects of CRISPR-Cas9. Nature Biotechnology 34:184-191. doi:10.1038/nbt.3437",
+  "parameter_repository": "https://github.com/crisprVerse/crisprScore",
+  "parameter_commit": "595d9a8ad1f4ba95ee2dca20786921f89be3004c",
+  "parameter_files": {
+    "cfd.mm.scores.cas9.txt": {
+      "source_path": "inst/cfd_cas9/cfd.mm.scores.cas9.txt",
+      "entries": 240,
+      "key_convention": "guide DNA + candidate DNA + 1-based position from guide 5-prime end"
+    },
+    "cfd.pam.scores.cas9.txt": {
+      "source_path": "inst/cfd_cas9/cfd.pam.scores.cas9.txt",
+      "entries": 16,
+      "key_convention": "final two DNA bases of candidate PAM"
+    }
+  },
+  "redistribution": {
+    "license": "MIT",
+    "copyright": "Copyright (c) 2022, Genentech, Inc.",
+    "license_source": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/LICENSE",
+    "scope_evidence": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/README.md#license",
+    "rationale": "The repository explicitly licenses the project as a whole under MIT, with separately licensed underlying Python packages in inst/python. The CFD parameter tables and their process.R script are in inst/cfd_cas9; no separate CFD license or exclusion was present in the inspected tree. The original MIT notice is retained unchanged. This records the upstream distribution terms; the user-selected license for project-owned code is not used as permission for the tables.",
+    "notice_file": "LICENSE.crisprScore.txt",
+    "third_party_code_and_pickles_bundled": false
+  },
+  "source_artifacts_sha256": {
+    "LICENSE": "023d7b6c330e5e1d769d28b329a1b4efcac23d36f169394cebc58b60dbd3dc11",
+    "README.md": "ebb3864984e2aa52dbc3f913b4b8107c8adde7662a6c9bd4284dad22a49a6c6e",
+    "DESCRIPTION": "ed9485d90a66e6b8cdc1f606651d2ed4fd07724f9d1dc5cc97ea594cfdbfbb43",
+    "R/getCFDScores.R": "2a7217641b0f15cde17cbb95a89d8f29dbe420144f728a138dacead68871a8d7",
+    "inst/cfd_cas9/process.R": "21554a5226bdc9651bde2b6b7be4bf58aae0809fedfad0788f4166e64ca1102d",
+    "inst/cfd_cas9/cfd.mm.scores.cas9.txt": "636e1d8e65f429db8c578036a673cb4516e896c05f594e3ab134734aab84dafc",
+    "inst/cfd_cas9/cfd.pam.scores.cas9.txt": "3f83c4f659cda48795312c080f8528984a3ce25f9b2475d79cb80b4835fb3b45"
+  },
+  "reference_validation": {
+    "fixtures": "reference_vectors.json",
+    "generator": "generate_reference_vectors.py",
+    "vectors": 280,
+    "maximum_parameter_absolute_difference_vs_original": 1.1102230246251565e-16,
+    "absolute_tolerance": 1e-12,
+    "reference_code_url": "https://github.com/maximilianh/crisporWebsite/blob/486659fb3594f57fa108698a5f2a1f3ae649968c/CFD_Scoring/cfd-score-calculator.py",
+    "reference_attribution_url": "https://github.com/maximilianh/crisporWebsite/blob/486659fb3594f57fa108698a5f2a1f3ae649968c/CFD_Scoring/README.txt",
+    "procedure": "Execute unchanged revcom/calc_cfd bodies from the Doench calculator distributed in CRISPOR, using its original tables from data-only deserialization. The Python 2 CLI is excluded. No offtargetpred.cfd implementation or crisprScore tables are used to generate expected values."
+  },
+  "bundled_artifacts_sha256": {
+    "LICENSE.crisprScore.txt": "023d7b6c330e5e1d769d28b329a1b4efcac23d36f169394cebc58b60dbd3dc11",
+    "cfd.mm.scores.cas9.txt": "636e1d8e65f429db8c578036a673cb4516e896c05f594e3ab134734aab84dafc",
+    "cfd.pam.scores.cas9.txt": "3f83c4f659cda48795312c080f8528984a3ce25f9b2475d79cb80b4835fb3b45",
+    "generate_reference_vectors.py": "4288c16847b1a702c0335450879c180a2198c3a9b661fce83e8ecf83fdfb6d0b",
+    "reference_vectors.json": "043676d77e741c0f767947934e894e6f3b2df8e3cbdbf3dc150a0c46dc43237c"
+  }
+}

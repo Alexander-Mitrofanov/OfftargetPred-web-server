@@ -1,0 +1,21 @@
+.assay-evidence { margin-block: 1rem; border: 1px solid #d7e2ea; border-radius: .45rem; background: #fff; padding: 1rem; color: #16334a; }
+.assay-evidence summary { cursor: pointer; font-weight: 650; }
+.assay-evidence p { max-width: 85ch; }
+.assay-evidence label { display: block; font-weight: 600; margin-top: .7rem; }
+.assay-evidence input:not([type="checkbox"]), .assay-evidence select, .assay-evidence textarea { display: block; box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: .5rem; margin-top: .3rem; color: #16334a; background: #fff; border: 1px solid #a4bacb; border-radius: .3rem; }
+.assay-evidence textarea { font-family: ui-monospace, monospace; }
+.assay-evidence code { overflow-wrap: anywhere; }
+.assay-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1rem; }
+.assay-note, .assay-applied { padding: .7rem .9rem; background: #f5f8fb; border-left: .2rem solid #1266a8; }
+.assay-applied { border-color: #087f79; }
+.assay-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-block: .8rem; }
+.assay-evidence button { min-height: 2.75rem; }
+.assay-evidence :focus-visible { outline: 3px solid #1266a8; outline-offset: 3px; }
+.assay-errors { padding: .7rem 1rem; border: 1px solid #b44343; border-radius: .3rem; }
+.assay-table { width: 100%; overflow-x: auto; margin-block: .8rem; }
+.assay-table table { width: 100%; border-collapse: collapse; }
+.assay-table th, .assay-table td { text-align: left; vertical-align: top; padding: .55rem; border-bottom: 1px solid #d7e2ea; }
+.assay-table small { display: block; font-size: .8rem; font-weight: 400; margin-top: .25rem; }
+.assay-match-list { background: #f5f8fb; padding: .8rem 1rem; margin-block: 1rem; overflow-wrap: anywhere; }
+.assay-match-list li { margin-block: .5rem; }
+@media (max-width: 640px) { .assay-fields { grid-template-columns: 1fr; } .assay-evidence { padding: .7rem; } }

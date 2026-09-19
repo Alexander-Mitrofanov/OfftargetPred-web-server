@@ -1,0 +1,16 @@
+.input-guide {
+  margin-block: 0.5rem 1rem;
+  color: #4a6377;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.input-guide p {
+  margin: 0.3rem 0;
+}
+.input-guide strong {
+  color: #16334a;
+  font-variant-numeric: tabular-nums;
+}
+.input-guide .input-guide-action {
+  color: #8d241e;
+}

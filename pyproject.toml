@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "offtargetpred-web"
-version = "0.1.0"
+version = "0.2.0"
 description = "Sequence-only CRISPert scoring and bounded CRISPR candidate discovery"
 requires-python = ">=3.12,<3.13"
 dependencies = [
@@ -26,6 +26,9 @@ offtarget-worker = "offtargetpred.worker:main"
 
 [tool.setuptools.packages.find]
 where = ["backend"]
+
+[tool.setuptools.package-data]
+offtargetpred = ["resources/cfd/*.txt", "resources/cfd/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

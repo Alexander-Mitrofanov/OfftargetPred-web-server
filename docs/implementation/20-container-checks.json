@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-19",
+  "engine": "Podman 4.9.3 on de.NBI staging VM",
+  "platform": "linux/amd64",
+  "device": "cpu",
+  "image_id": "a76fe3163dc09356cbbaf10280505068eadf999eed6ac98ea97d01554101d844",
+  "image_release_label": "nar-v2-staging",
+  "runtime_release_id": "nar-v2-container-staging",
+  "source_sha256": {
+    "backend/offtargetpred/__init__.py": "ee483f29cce1b2f72a72ae785fb5f620667b65caad3aa0a665938e941f54881a",
+    "backend/offtargetpred/annotations.py": "1b5d1b6775bc86e73258e5839f16a19d6426104f1658faf898aa0136858d6050",
+    "backend/offtargetpred/api.py": "a2ddd7ad18de51cce7e3fa148ac5a2df1f8ed7965f538eddd4bebeb5b82f38d0",
+    "backend/offtargetpred/cfd.py": "b8d45a8e344f9139a5ff59f620b244123900ab33146ee3cc32d25a4bb233847f",
+    "backend/offtargetpred/config.py": "167080c72561ce65b0f0ffe4842b3e1c5216722d2b1fa63767b6c7ee86af0163",
+    "backend/offtargetpred/discovery.py": "13e6646d0253cdc3ce0e2757a1e1739289f87bb43ad178f17dc82fef9dfa9339",
+    "backend/offtargetpred/followup.py": "d00d000ae89fc2d350b8b728d84cbb61623c7324a63aa4b9b5935b3e5ebe98af",
+    "backend/offtargetpred/inference.py": "1ee7a2a0f7c631edf5764c3c9e24de9aad2932097323902de711d6b9090d3fc9",
+    "backend/offtargetpred/input_metadata.py": "3c7fe359d38298a281a228be9a12cffce93d3491d2d96ce0e4b15bd29cbc0d3d",
+    "backend/offtargetpred/jobs.py": "0fcf22969018a4eb005779ff9017eab97ac7918e21fec16f64b500bc994f6584",
+    "backend/offtargetpred/progress.py": "1163bbad3d813f4999008856d079321efabbd8c5ed8bd887f243f27491dc197b",
+    "backend/offtargetpred/reference.py": "b9c940054f9b76e47a1e832c898e4afdb197aef32796bd51b9f7785b6653315a",
+    "backend/offtargetpred/resolver.py": "9dc3340b42ab4f4901e5d2a026f2bce5e6fda7d4be3578acef34990036de275f",
+    "backend/offtargetpred/resources/cfd/generate_reference_vectors.py": "4288c16847b1a702c0335450879c180a2198c3a9b661fce83e8ecf83fdfb6d0b",
+    "backend/offtargetpred/search.py": "825920f279c3e8221edebe6c7d9451a0c37f4d4fee79828c26dab9100329bc45",
+    "backend/offtargetpred/sequence.py": "dbe7e7c39b8c92eef0a0e3f677dc482b0476da687ca0ef85f0be09be5d62239c",
+    "backend/offtargetpred/tokenizer.py": "b15aae904e073d53d0c878199a3a04e2eeccb81faeb3e11738dc00bc282cb2e2",
+    "backend/offtargetpred/tool_limits.py": "2915d242c9456d19778f04be2841bfd550cc937f5ef6a13e57f5bae91839cf5a",
+    "backend/offtargetpred/worker.py": "76d9f0ca0baf3e98072a07d660071b4013ad95ebc184b8464c18ed20ce6c4309"
+  },
+  "dependency_validation": "Image build completed; pip check passed with pinned runtime versions. Wheel hashes are not locked.",
+  "runtime": [
+    "unprivileged UID10001; read-only root filesystems; all capabilities dropped; no-new-privileges",
+    "private shared staging job directory; models mounted read-only only into worker",
+    "worker network disabled; API test bound127.0.0.1:18030; CPU4 and memory bounds",
+    "21 actual HTTP acceptance checks passed, including all3 models, authorization,CORS,exports,cancellation,deletion",
+    "actual CLI submit,poll,JSON/CSV downloads and deletion passed; credentials and outputs0600; credential file removed",
+    "temporary containers stopped and removed after acceptance"
+  ],
+  "limits": [
+    "Podman single-container runtime tested with equivalent security settings; Docker Compose orchestration was not run.",
+    "Local image built from staged source hashes above, not published to any registry.",
+    "Checkpoints are separately supplied and not distributed in the image.",
+    "Tests establish supplied-pair CPU operation, not genome/GPU container support."
+  ]
+}

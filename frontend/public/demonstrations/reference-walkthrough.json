@@ -1,0 +1,3259 @@
+{
+  "metadata": {
+    "annotations": {
+      "assembly": "GRCh38",
+      "available": true,
+      "complete": true,
+      "contig_count": 194,
+      "contig_lengths_sha256": "3acb4fa3ef42660a8e4383df055d08e0e65549ca6c161c0ae64e35cf9f3a637d",
+      "coordinate_system": "0-based half-open, forward-reference coordinates",
+      "feature_counts": {
+        "CDS": 2283168,
+        "UTR": 767221,
+        "exon": 3683354,
+        "gene": 78899,
+        "intron": 3173704,
+        "transcript": 509650
+      },
+      "gtf_headers": [
+        "#!genome-build GRCh38.p14",
+        "#!genome-version GRCh38",
+        "#!genome-date 2013-12",
+        "#!genome-build-accession GCA_000001405.29",
+        "#!genebuild-last-updated 2025-05"
+      ],
+      "ignored_nonreference_features": 0,
+      "index_sha256": "5dd8477439a334bb35c002da7f1e0fcf599f5437fadff2c8c7cedb231231eb6d",
+      "interval": "23 nt including the 20-nt protospacer and 3-nt PAM; any-base overlap; both feature strands",
+      "intron_definition": "Gaps between merged exons within each transcript",
+      "limitations": [
+        "Feature overlap is genomic context, not evidence of functional harm.",
+        "Transcript categories can overlap; no canonical transcript is selected.",
+        "Intergenic means no annotated gene or transcript feature in this release."
+      ],
+      "reference": {
+        "assembly": "GRCh38",
+        "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+        "contigs": 194,
+        "coordinate_system": "0-based start, half-open end, forward-reference coordinates",
+        "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+        "id": "GRCh38",
+        "name": "Human GRCh38 primary assembly (Ensembl 115)",
+        "publisher_bsd_checksum": "22450 861294",
+        "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+        "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+        "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+        "total_bases": 3099750718,
+        "verified": true
+      },
+      "release": "115",
+      "schema_version": 1,
+      "source": "Ensembl",
+      "source_archive_sha256": "2f8e31578c3aa2f35646927c4a3b3b0dcf0321e57c0ebd3ecc81afcbc836d1a8",
+      "source_filename": "Homo_sapiens.GRCh38.115.gtf.gz",
+      "source_gtf_sha256": "eed078d2d5aedcd6ce3163175a552b03cb6cf6887f03566e4f57b18c085e391f",
+      "source_url": "https://ftp.ensembl.org/pub/release-115/gtf/homo_sapiens/Homo_sapiens.GRCh38.115.gtf.gz"
+    },
+    "baselines": {
+      "cfd": {
+        "available": true,
+        "calibrated_probability": false,
+        "citation": "Doench et al. (2016), Nature Biotechnology 34:184-191, doi:10.1038/nbt.3437",
+        "citation_url": "https://doi.org/10.1038/nbt.3437",
+        "higher_means": "Greater predicted relative off-target cleavage activity",
+        "input": "Two ungapped, guide-oriented 23 nt DNA sequences (20 nt spacer + actual 3 nt PAM)",
+        "license_url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/LICENSE",
+        "limitations": [
+          "Sequence-only baseline; no cell or chromatin context.",
+          "N, gaps, ambiguous bases, RNA inputs and non-23 nt inputs are unsupported.",
+          "Zero is a model weight, not proof of no cleavage.",
+          "Separate from CRISPert; no averaging or guide-level risk aggregation.",
+          "A score does not establish candidate-search completeness."
+        ],
+        "name": "CFD",
+        "nuclease": "SpCas9",
+        "pam_convention": "Candidate final two bases; guide PAM and candidate PAM first base have no effect",
+        "parameter_commit": "595d9a8ad1f4ba95ee2dca20786921f89be3004c",
+        "parameter_files": [
+          {
+            "filename": "cfd.mm.scores.cas9.txt",
+            "sha256": "636e1d8e65f429db8c578036a673cb4516e896c05f594e3ab134734aab84dafc",
+            "url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/inst/cfd_cas9/cfd.mm.scores.cas9.txt"
+          },
+          {
+            "filename": "cfd.pam.scores.cas9.txt",
+            "sha256": "3f83c4f659cda48795312c080f8528984a3ce25f9b2475d79cb80b4835fb3b45",
+            "url": "https://github.com/crisprVerse/crisprScore/blob/595d9a8ad1f4ba95ee2dca20786921f89be3004c/inst/cfd_cas9/cfd.pam.scores.cas9.txt"
+          }
+        ],
+        "parameter_license": "MIT; Copyright (c) 2022 Genentech, Inc.",
+        "parameter_source": "crisprVerse/crisprScore",
+        "position_convention": "1-based from guide 5-prime end; 1 PAM-distal, 20 PAM-proximal",
+        "score_range": [
+          0.0,
+          1.0
+        ],
+        "score_scope": "per-site",
+        "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+      }
+    },
+    "calibrated": false,
+    "candidate_count": 15,
+    "candidate_scope": "Complete within the stated reference, PAM and mismatch limits.",
+    "coordinate_system": "0-based half-open",
+    "demonstration": {
+      "complete_result": true,
+      "frozen_at": "2026-09-19T18:46:59.535698+00:00",
+      "id": "reference-walkthrough",
+      "note": "Frozen software demonstration using public reference DNA or an explicitly synthetic query. No experimental cleavage measurement or guide-safety claim.",
+      "original_result_created_at": null,
+      "original_result_finished_at": null,
+      "sequence_origin": "Ensembl115 GRCh38 primary assembly; plus-strand chromosome 1 interval [100056,100079), read from the pinned public FASTA."
+    },
+    "device": "cuda",
+    "elapsed_seconds": 23.991,
+    "intended_loci": [
+      {
+        "assembly": "GRCh38",
+        "chromosome": "1",
+        "end": 100079,
+        "start": 100056,
+        "strand": "+",
+        "target": "TGAGACTCTTGCAGTCACACAGG"
+      }
+    ],
+    "limitations": [
+      "Scores are not calibrated cleavage probabilities.",
+      "Genomic annotations do not change sequence-model scores.",
+      "Model disagreement is not calibrated uncertainty."
+    ],
+    "max_mismatches": 1,
+    "mode": "genome",
+    "model_keys": [
+      "k1",
+      "k2",
+      "k3"
+    ],
+    "models": {
+      "default_model": "k1",
+      "device": "cuda",
+      "family": "CRISPert-small sequence-only",
+      "models": [
+        {
+          "id": "k1",
+          "kmer": 1,
+          "parameters": 552962,
+          "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+        },
+        {
+          "id": "k2",
+          "kmer": 2,
+          "parameters": 583554,
+          "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+        },
+        {
+          "id": "k3",
+          "kmer": 3,
+          "parameters": 1074946,
+          "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+        }
+      ],
+      "precision": "float32",
+      "runtime": {
+        "cuda": "12.1",
+        "torch": "2.4.1+cu121",
+        "transformers": "4.46.3"
+      },
+      "score_definition": "Uncalibrated positive-class softmax; not cleavage frequency or clinical safety.",
+      "sequence_length": 23
+    },
+    "reference": {
+      "assembly": "GRCh38",
+      "bulges": false,
+      "compressed_sha256": "d8c3af0094a7bba6125763bad779ec18a81483c739c6ed122094bdf86c187b92",
+      "contigs": 194,
+      "coordinate_system": "0-based half-open",
+      "engine": "Cas-OFFinder 2.4.1",
+      "engine_binary_sha256": "73edfc381a40148a0e88facfec7b9b066890051ebad073d496e38207d14ef398",
+      "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
+      "filename": "Homo_sapiens.GRCh38.dna.primary_assembly.fa",
+      "id": "GRCh38",
+      "max_candidates": 50000,
+      "max_guides": 10,
+      "mismatch_range": [
+        0,
+        4
+      ],
+      "name": "Human GRCh38 primary assembly (Ensembl 115)",
+      "pam": "NGG",
+      "publisher_bsd_checksum": "22450 861294",
+      "scope": "Primary assembly only; excludes alternate haplotypes and individual variants",
+      "sha256": "1e74081a49ceb9739cc14c812fbb8b3db978eb80ba8e5350beb80d8ad8dfef3b",
+      "source_url": "https://ftp.ensembl.org/pub/release-115/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+      "total_bases": 3099750718,
+      "verified": true
+    },
+    "release_id": "nar-v2-staging",
+    "schema_version": "2.0",
+    "score_label": "CRISPert score",
+    "submitted_guides": [
+      {
+        "id": "guide-1",
+        "target": "TGAGACTCTTGCAGTCACACAGG"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 181719,
+            "feature": "gene",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 89294,
+            "strand": "-"
+          },
+          {
+            "end": 112699,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92240,
+            "strand": "-",
+            "transcript_id": "ENST00000466430"
+          },
+          {
+            "end": 120932,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 89294,
+            "strand": "-",
+            "transcript_id": "ENST00000466430"
+          },
+          {
+            "end": 112699,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92240,
+            "strand": "-",
+            "transcript_id": "ENST00000477740"
+          },
+          {
+            "end": 129217,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92229,
+            "strand": "-",
+            "transcript_id": "ENST00000477740"
+          },
+          {
+            "end": 165883,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92240,
+            "strand": "-",
+            "transcript_id": "ENST00000831081"
+          },
+          {
+            "end": 181207,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 91176,
+            "strand": "-",
+            "transcript_id": "ENST00000831081"
+          },
+          {
+            "end": 165883,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92240,
+            "strand": "-",
+            "transcript_id": "ENST00000831082"
+          },
+          {
+            "end": 181151,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 91490,
+            "strand": "-",
+            "transcript_id": "ENST00000831082"
+          },
+          {
+            "end": 165883,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92240,
+            "strand": "-",
+            "transcript_id": "ENST00000831083"
+          },
+          {
+            "end": 181161,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 92212,
+            "strand": "-",
+            "transcript_id": "ENST00000831083"
+          },
+          {
+            "end": 112699,
+            "feature": "intron",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 97250,
+            "strand": "-",
+            "transcript_id": "ENST00000831084"
+          },
+          {
+            "end": 181155,
+            "feature": "transcript",
+            "gene_id": "ENSG00000241860",
+            "gene_name": "ENSG00000241860",
+            "start": 97160,
+            "strand": "-",
+            "transcript_id": "ENST00000831084"
+          },
+          {
+            "end": 105742,
+            "feature": "gene",
+            "gene_id": "ENSG00000308314",
+            "gene_name": "ENSG00000308314",
+            "start": 96637,
+            "strand": "+"
+          },
+          {
+            "end": 104635,
+            "feature": "intron",
+            "gene_id": "ENSG00000308314",
+            "gene_name": "ENSG00000308314",
+            "start": 96810,
+            "strand": "+",
+            "transcript_id": "ENST00000833190"
+          },
+          {
+            "end": 105742,
+            "feature": "transcript",
+            "gene_id": "ENSG00000308314",
+            "gene_name": "ENSG00000308314",
+            "start": 96637,
+            "strand": "+",
+            "transcript_id": "ENST00000833190"
+          }
+        ],
+        "interval": {
+          "end": 100079,
+          "includes_pam": true,
+          "length": 23,
+          "start": 100056
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 7
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 100079,
+      "exact_match": true,
+      "guide_id": "guide-1",
+      "id": "candidate-1",
+      "mismatch_positions": [],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACAGG",
+      "pam_mismatches": 0,
+      "position": 100056,
+      "protospacer_match": true,
+      "row_index": 1,
+      "scores": {
+        "k1": 0.9957923889160156,
+        "k2": 0.99346923828125,
+        "k3": 0.995896577835083
+      },
+      "start": 100056,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": true,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 284291,
+            "feature": "gene",
+            "gene_id": "ENSG00000286448",
+            "gene_name": "ENSG00000286448",
+            "start": 266752,
+            "strand": "+"
+          },
+          {
+            "end": 283199,
+            "feature": "intron",
+            "gene_id": "ENSG00000286448",
+            "gene_name": "ENSG00000286448",
+            "start": 273394,
+            "strand": "+",
+            "transcript_id": "ENST00000784892"
+          },
+          {
+            "end": 284291,
+            "feature": "transcript",
+            "gene_id": "ENSG00000286448",
+            "gene_name": "ENSG00000286448",
+            "start": 273221,
+            "strand": "+",
+            "transcript_id": "ENST00000784892"
+          },
+          {
+            "end": 281199,
+            "feature": "intron",
+            "gene_id": "ENSG00000286448",
+            "gene_name": "ENSG00000286448",
+            "start": 273394,
+            "strand": "+",
+            "transcript_id": "ENST00000784893"
+          },
+          {
+            "end": 282306,
+            "feature": "transcript",
+            "gene_id": "ENSG00000286448",
+            "gene_name": "ENSG00000286448",
+            "start": 273293,
+            "strand": "+",
+            "transcript_id": "ENST00000784893"
+          },
+          {
+            "end": 359681,
+            "feature": "gene",
+            "gene_id": "ENSG00000292994",
+            "gene_name": "ENSG00000292994",
+            "start": 257863,
+            "strand": "-"
+          },
+          {
+            "end": 289265,
+            "feature": "intron",
+            "gene_id": "ENSG00000292994",
+            "gene_name": "ENSG00000292994",
+            "start": 268816,
+            "strand": "-",
+            "transcript_id": "ENST00000424587"
+          },
+          {
+            "end": 297502,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292994",
+            "gene_name": "ENSG00000292994",
+            "start": 263014,
+            "strand": "-",
+            "transcript_id": "ENST00000424587"
+          },
+          {
+            "end": 356684,
+            "feature": "intron",
+            "gene_id": "ENSG00000292994",
+            "gene_name": "ENSG00000292994",
+            "start": 259025,
+            "strand": "-",
+            "transcript_id": "ENST00000441866"
+          },
+          {
+            "end": 359681,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292994",
+            "gene_name": "ENSG00000292994",
+            "start": 258143,
+            "strand": "-",
+            "transcript_id": "ENST00000441866"
+          }
+        ],
+        "interval": {
+          "end": 276642,
+          "includes_pam": true,
+          "length": 23,
+          "start": 276619
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 4
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 276642,
+      "exact_match": true,
+      "guide_id": "guide-1",
+      "id": "candidate-2",
+      "mismatch_positions": [],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACAGG",
+      "pam_mismatches": 0,
+      "position": 276619,
+      "protospacer_match": true,
+      "row_index": 2,
+      "scores": {
+        "k1": 0.9957923889160156,
+        "k2": 0.99346923828125,
+        "k3": 0.995896577835083
+      },
+      "start": 276619,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 532459,
+            "feature": "gene",
+            "gene_id": "ENSG00000290385",
+            "gene_name": "ENSG00000290385",
+            "start": 365126,
+            "strand": "-"
+          },
+          {
+            "end": 485039,
+            "feature": "intron",
+            "gene_id": "ENSG00000290385",
+            "gene_name": "ENSG00000290385",
+            "start": 379870,
+            "strand": "-",
+            "transcript_id": "ENST00000455207"
+          },
+          {
+            "end": 485208,
+            "feature": "transcript",
+            "gene_id": "ENSG00000290385",
+            "gene_name": "ENSG00000290385",
+            "start": 373181,
+            "strand": "-",
+            "transcript_id": "ENST00000455207"
+          }
+        ],
+        "interval": {
+          "end": 410478,
+          "includes_pam": true,
+          "length": 23,
+          "start": 410455
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 1
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 410478,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-3",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 410455,
+      "protospacer_match": true,
+      "row_index": 3,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 410455,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 827989,
+            "feature": "gene",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 586944,
+            "strand": "-"
+          },
+          {
+            "end": 703684,
+            "feature": "intron",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 586955,
+            "strand": "-",
+            "transcript_id": "ENST00000419394"
+          },
+          {
+            "end": 720194,
+            "feature": "transcript",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 586944,
+            "strand": "-",
+            "transcript_id": "ENST00000419394"
+          },
+          {
+            "end": 720031,
+            "feature": "intron",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 608056,
+            "strand": "-",
+            "transcript_id": "ENST00000440200"
+          },
+          {
+            "end": 720200,
+            "feature": "transcript",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 601435,
+            "strand": "-",
+            "transcript_id": "ENST00000440200"
+          },
+          {
+            "end": 698926,
+            "feature": "intron",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 608056,
+            "strand": "-",
+            "transcript_id": "ENST00000634337"
+          },
+          {
+            "end": 827796,
+            "feature": "transcript",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 594307,
+            "strand": "-",
+            "transcript_id": "ENST00000634337"
+          },
+          {
+            "end": 711710,
+            "feature": "intron",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 601577,
+            "strand": "-",
+            "transcript_id": "ENST00000635509"
+          },
+          {
+            "end": 827769,
+            "feature": "transcript",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 594307,
+            "strand": "-",
+            "transcript_id": "ENST00000635509"
+          },
+          {
+            "end": 698926,
+            "feature": "intron",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 608056,
+            "strand": "-",
+            "transcript_id": "ENST00000648019"
+          },
+          {
+            "end": 733064,
+            "feature": "transcript",
+            "gene_id": "ENSG00000225880",
+            "gene_name": "LINC00115",
+            "start": 594457,
+            "strand": "-",
+            "transcript_id": "ENST00000648019"
+          }
+        ],
+        "interval": {
+          "end": 646230,
+          "includes_pam": true,
+          "length": 23,
+          "start": 646207
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 5
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 646230,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-4",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 646207,
+      "protospacer_match": true,
+      "row_index": 4,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 646207,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intergenic"
+        ],
+        "features": [],
+        "interval": {
+          "end": 223916063,
+          "includes_pam": true,
+          "length": 23,
+          "start": 223916040
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 0
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 223916063,
+      "exact_match": true,
+      "guide_id": "guide-1",
+      "id": "candidate-5",
+      "mismatch_positions": [],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACAGG",
+      "pam_mismatches": 0,
+      "position": 223916040,
+      "protospacer_match": true,
+      "row_index": 5,
+      "scores": {
+        "k1": 0.9957923889160156,
+        "k2": 0.99346923828125,
+        "k3": 0.995896577835083
+      },
+      "start": 223916040,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 90222852,
+            "feature": "gene",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90101033,
+            "strand": "+"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194225,
+            "strand": "+",
+            "transcript_id": "ENST00000568418"
+          },
+          {
+            "end": 90216935,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90185996,
+            "strand": "+",
+            "transcript_id": "ENST00000568418"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000568947"
+          },
+          {
+            "end": 90217370,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000568947"
+          },
+          {
+            "end": 90214696,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000569162"
+          },
+          {
+            "end": 90222685,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000569162"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000656587"
+          },
+          {
+            "end": 90222851,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000656587"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194225,
+            "strand": "+",
+            "transcript_id": "ENST00000658135"
+          },
+          {
+            "end": 90222673,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000658135"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000663101"
+          },
+          {
+            "end": 90222680,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000663101"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000663757"
+          },
+          {
+            "end": 90222664,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000663757"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000665776"
+          },
+          {
+            "end": 90222685,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000665776"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194225,
+            "strand": "+",
+            "transcript_id": "ENST00000668039"
+          },
+          {
+            "end": 90222673,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000668039"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000668099"
+          },
+          {
+            "end": 90222846,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000668099"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000669853"
+          },
+          {
+            "end": 90222673,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187182,
+            "strand": "+",
+            "transcript_id": "ENST00000669853"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194225,
+            "strand": "+",
+            "transcript_id": "ENST00000715692"
+          },
+          {
+            "end": 90216326,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90127785,
+            "strand": "+",
+            "transcript_id": "ENST00000715692"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90136600,
+            "strand": "+",
+            "transcript_id": "ENST00000833276"
+          },
+          {
+            "end": 90214709,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90128622,
+            "strand": "+",
+            "transcript_id": "ENST00000833276"
+          },
+          {
+            "end": 90214681,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187282,
+            "strand": "+",
+            "transcript_id": "ENST00000833291"
+          },
+          {
+            "end": 90222673,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90187237,
+            "strand": "+",
+            "transcript_id": "ENST00000833291"
+          },
+          {
+            "end": 90222385,
+            "feature": "intron",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194225,
+            "strand": "+",
+            "transcript_id": "ENST00000833293"
+          },
+          {
+            "end": 90222852,
+            "feature": "transcript",
+            "gene_id": "ENSG00000260528",
+            "gene_name": "FAM157C",
+            "start": 90194120,
+            "strand": "+",
+            "transcript_id": "ENST00000833293"
+          },
+          {
+            "end": 90210288,
+            "feature": "gene",
+            "gene_id": "ENSG00000308383",
+            "gene_name": "ENSG00000308383",
+            "start": 90190726,
+            "strand": "-"
+          },
+          {
+            "end": 90210115,
+            "feature": "intron",
+            "gene_id": "ENSG00000308383",
+            "gene_name": "ENSG00000308383",
+            "start": 90191378,
+            "strand": "-",
+            "transcript_id": "ENST00000833728"
+          },
+          {
+            "end": 90210288,
+            "feature": "transcript",
+            "gene_id": "ENSG00000308383",
+            "gene_name": "ENSG00000308383",
+            "start": 90190726,
+            "strand": "-",
+            "transcript_id": "ENST00000833728"
+          },
+          {
+            "end": 90210115,
+            "feature": "intron",
+            "gene_id": "ENSG00000308383",
+            "gene_name": "ENSG00000308383",
+            "start": 90202302,
+            "strand": "-",
+            "transcript_id": "ENST00000833729"
+          },
+          {
+            "end": 90210288,
+            "feature": "transcript",
+            "gene_id": "ENSG00000308383",
+            "gene_name": "ENSG00000308383",
+            "start": 90201194,
+            "strand": "-",
+            "transcript_id": "ENST00000833729"
+          }
+        ],
+        "interval": {
+          "end": 90206885,
+          "includes_pam": true,
+          "length": 23,
+          "start": 90206862
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 17
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "16",
+      "coordinate_system": "0-based half-open",
+      "end": 90206885,
+      "exact_match": true,
+      "guide_id": "guide-1",
+      "id": "candidate-7",
+      "mismatch_positions": [],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACAGG",
+      "pam_mismatches": 0,
+      "position": 90206862,
+      "protospacer_match": true,
+      "row_index": 6,
+      "scores": {
+        "k1": 0.9957923889160156,
+        "k2": 0.99346923828125,
+        "k3": 0.995896577835083
+      },
+      "start": 90206862,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 242176052,
+            "feature": "gene",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242086098,
+            "strand": "+"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000431796"
+          },
+          {
+            "end": 242167647,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088683,
+            "strand": "+",
+            "transcript_id": "ENST00000431796"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000433444"
+          },
+          {
+            "end": 242160021,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088658,
+            "strand": "+",
+            "transcript_id": "ENST00000433444"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000614114"
+          },
+          {
+            "end": 242160153,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088695,
+            "strand": "+",
+            "transcript_id": "ENST00000614114"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000622435"
+          },
+          {
+            "end": 242159382,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088683,
+            "strand": "+",
+            "transcript_id": "ENST00000622435"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000682139"
+          },
+          {
+            "end": 242175694,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242131841,
+            "strand": "+",
+            "transcript_id": "ENST00000682139"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242130812,
+            "strand": "+",
+            "transcript_id": "ENST00000682782"
+          },
+          {
+            "end": 242167654,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088714,
+            "strand": "+",
+            "transcript_id": "ENST00000682782"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242131941,
+            "strand": "+",
+            "transcript_id": "ENST00000683938"
+          },
+          {
+            "end": 242175997,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242131841,
+            "strand": "+",
+            "transcript_id": "ENST00000683938"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000692555"
+          },
+          {
+            "end": 242167651,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088641,
+            "strand": "+",
+            "transcript_id": "ENST00000692555"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242095027,
+            "strand": "+",
+            "transcript_id": "ENST00000797783"
+          },
+          {
+            "end": 242176052,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088641,
+            "strand": "+",
+            "transcript_id": "ENST00000797783"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797784"
+          },
+          {
+            "end": 242176052,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797784"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797785"
+          },
+          {
+            "end": 242175947,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088644,
+            "strand": "+",
+            "transcript_id": "ENST00000797785"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797786"
+          },
+          {
+            "end": 242175846,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088683,
+            "strand": "+",
+            "transcript_id": "ENST00000797786"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797787"
+          },
+          {
+            "end": 242175709,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088646,
+            "strand": "+",
+            "transcript_id": "ENST00000797787"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797788"
+          },
+          {
+            "end": 242175691,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088647,
+            "strand": "+",
+            "transcript_id": "ENST00000797788"
+          },
+          {
+            "end": 242172559,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797789"
+          },
+          {
+            "end": 242175691,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088665,
+            "strand": "+",
+            "transcript_id": "ENST00000797789"
+          },
+          {
+            "end": 242172559,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797790"
+          },
+          {
+            "end": 242175691,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088683,
+            "strand": "+",
+            "transcript_id": "ENST00000797790"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797791"
+          },
+          {
+            "end": 242175662,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088686,
+            "strand": "+",
+            "transcript_id": "ENST00000797791"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797792"
+          },
+          {
+            "end": 242175662,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088695,
+            "strand": "+",
+            "transcript_id": "ENST00000797792"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088801,
+            "strand": "+",
+            "transcript_id": "ENST00000797793"
+          },
+          {
+            "end": 242175691,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088725,
+            "strand": "+",
+            "transcript_id": "ENST00000797793"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088801,
+            "strand": "+",
+            "transcript_id": "ENST00000797794"
+          },
+          {
+            "end": 242175662,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088699,
+            "strand": "+",
+            "transcript_id": "ENST00000797794"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797795"
+          },
+          {
+            "end": 242175576,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088678,
+            "strand": "+",
+            "transcript_id": "ENST00000797795"
+          },
+          {
+            "end": 242172559,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797796"
+          },
+          {
+            "end": 242175662,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088765,
+            "strand": "+",
+            "transcript_id": "ENST00000797796"
+          },
+          {
+            "end": 242175168,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797797"
+          },
+          {
+            "end": 242175583,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088702,
+            "strand": "+",
+            "transcript_id": "ENST00000797797"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797798"
+          },
+          {
+            "end": 242175280,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797798"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797799"
+          },
+          {
+            "end": 242167649,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088643,
+            "strand": "+",
+            "transcript_id": "ENST00000797799"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797800"
+          },
+          {
+            "end": 242167647,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088683,
+            "strand": "+",
+            "transcript_id": "ENST00000797800"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797801"
+          },
+          {
+            "end": 242167649,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797801"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797802"
+          },
+          {
+            "end": 242167649,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088695,
+            "strand": "+",
+            "transcript_id": "ENST00000797802"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797803"
+          },
+          {
+            "end": 242167653,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088703,
+            "strand": "+",
+            "transcript_id": "ENST00000797803"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797804"
+          },
+          {
+            "end": 242167647,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088702,
+            "strand": "+",
+            "transcript_id": "ENST00000797804"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797805"
+          },
+          {
+            "end": 242167595,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088658,
+            "strand": "+",
+            "transcript_id": "ENST00000797805"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797806"
+          },
+          {
+            "end": 242167649,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088770,
+            "strand": "+",
+            "transcript_id": "ENST00000797806"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797807"
+          },
+          {
+            "end": 242167467,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088647,
+            "strand": "+",
+            "transcript_id": "ENST00000797807"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242122455,
+            "strand": "+",
+            "transcript_id": "ENST00000797808"
+          },
+          {
+            "end": 242167487,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088644,
+            "strand": "+",
+            "transcript_id": "ENST00000797808"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797809"
+          },
+          {
+            "end": 242167477,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088663,
+            "strand": "+",
+            "transcript_id": "ENST00000797809"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797810"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088667,
+            "strand": "+",
+            "transcript_id": "ENST00000797810"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797811"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088668,
+            "strand": "+",
+            "transcript_id": "ENST00000797811"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797812"
+          },
+          {
+            "end": 242167474,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088664,
+            "strand": "+",
+            "transcript_id": "ENST00000797812"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797813"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088682,
+            "strand": "+",
+            "transcript_id": "ENST00000797813"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797814"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797814"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242095027,
+            "strand": "+",
+            "transcript_id": "ENST00000797815"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797815"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797816"
+          },
+          {
+            "end": 242167466,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088678,
+            "strand": "+",
+            "transcript_id": "ENST00000797816"
+          },
+          {
+            "end": 242167189,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797817"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088695,
+            "strand": "+",
+            "transcript_id": "ENST00000797817"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797818"
+          },
+          {
+            "end": 242167481,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088699,
+            "strand": "+",
+            "transcript_id": "ENST00000797818"
+          },
+          {
+            "end": 242167044,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797819"
+          },
+          {
+            "end": 242167472,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088695,
+            "strand": "+",
+            "transcript_id": "ENST00000797819"
+          },
+          {
+            "end": 242159348,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797820"
+          },
+          {
+            "end": 242159488,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242088692,
+            "strand": "+",
+            "transcript_id": "ENST00000797820"
+          },
+          {
+            "end": 242167186,
+            "feature": "intron",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242138888,
+            "strand": "+",
+            "transcript_id": "ENST00000797826"
+          },
+          {
+            "end": 242167647,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291147",
+            "gene_name": "ENSG00000291147",
+            "start": 242114638,
+            "strand": "+",
+            "transcript_id": "ENST00000797826"
+          }
+        ],
+        "interval": {
+          "end": 242151547,
+          "includes_pam": true,
+          "length": 23,
+          "start": 242151524
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 47
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "2",
+      "coordinate_system": "0-based half-open",
+      "end": 242151547,
+      "exact_match": true,
+      "guide_id": "guide-1",
+      "id": "candidate-8",
+      "mismatch_positions": [],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACAGG",
+      "pam_mismatches": 0,
+      "position": 242151524,
+      "protospacer_match": true,
+      "row_index": 7,
+      "scores": {
+        "k1": 0.9957923889160156,
+        "k2": 0.99346923828125,
+        "k3": 0.995896577835083
+      },
+      "start": 242151524,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intergenic"
+        ],
+        "features": [],
+        "interval": {
+          "end": 181408430,
+          "includes_pam": true,
+          "length": 23,
+          "start": 181408407
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 0
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "5",
+      "coordinate_system": "0-based half-open",
+      "end": 181408430,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-10",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 181408407,
+      "protospacer_match": true,
+      "row_index": 8,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 181408407,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 170745923,
+            "feature": "gene",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170612423,
+            "strand": "+"
+          },
+          {
+            "end": 170721305,
+            "feature": "intron",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170627354,
+            "strand": "+",
+            "transcript_id": "ENST00000426839"
+          },
+          {
+            "end": 170738203,
+            "feature": "transcript",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170627302,
+            "strand": "+",
+            "transcript_id": "ENST00000426839"
+          },
+          {
+            "end": 170721305,
+            "feature": "intron",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170615611,
+            "strand": "+",
+            "transcript_id": "ENST00000656791"
+          },
+          {
+            "end": 170728493,
+            "feature": "transcript",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170615514,
+            "strand": "+",
+            "transcript_id": "ENST00000656791"
+          },
+          {
+            "end": 170714783,
+            "feature": "intron",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170614481,
+            "strand": "+",
+            "transcript_id": "ENST00000716161"
+          },
+          {
+            "end": 170728487,
+            "feature": "transcript",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170612623,
+            "strand": "+",
+            "transcript_id": "ENST00000716161"
+          },
+          {
+            "end": 170721305,
+            "feature": "intron",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170627315,
+            "strand": "+",
+            "transcript_id": "ENST00000833330"
+          },
+          {
+            "end": 170728493,
+            "feature": "transcript",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170612608,
+            "strand": "+",
+            "transcript_id": "ENST00000833330"
+          },
+          {
+            "end": 170714783,
+            "feature": "intron",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170612700,
+            "strand": "+",
+            "transcript_id": "ENST00000833331"
+          },
+          {
+            "end": 170728496,
+            "feature": "transcript",
+            "gene_id": "ENSG00000230423",
+            "gene_name": "ENSG00000230423",
+            "start": 170612615,
+            "strand": "+",
+            "transcript_id": "ENST00000833331"
+          }
+        ],
+        "interval": {
+          "end": 170683987,
+          "includes_pam": true,
+          "length": 23,
+          "start": 170683964
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 5
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "6",
+      "coordinate_system": "0-based half-open",
+      "end": 170683987,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-11",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 170683964,
+      "protospacer_match": true,
+      "row_index": 9,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 170683964,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 233225,
+            "feature": "gene",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 63712,
+            "strand": "-"
+          },
+          {
+            "end": 232128,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805562"
+          },
+          {
+            "end": 232243,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 71067,
+            "strand": "-",
+            "transcript_id": "ENST00000805562"
+          },
+          {
+            "end": 232975,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805563"
+          },
+          {
+            "end": 233111,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805563"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805564"
+          },
+          {
+            "end": 233061,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805564"
+          },
+          {
+            "end": 179275,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805565"
+          },
+          {
+            "end": 233043,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78869,
+            "strand": "-",
+            "transcript_id": "ENST00000805565"
+          },
+          {
+            "end": 232128,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805566"
+          },
+          {
+            "end": 232381,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78855,
+            "strand": "-",
+            "transcript_id": "ENST00000805566"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805567"
+          },
+          {
+            "end": 232360,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78867,
+            "strand": "-",
+            "transcript_id": "ENST00000805567"
+          },
+          {
+            "end": 230803,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805568"
+          },
+          {
+            "end": 232349,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78867,
+            "strand": "-",
+            "transcript_id": "ENST00000805568"
+          },
+          {
+            "end": 232128,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805569"
+          },
+          {
+            "end": 232339,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78859,
+            "strand": "-",
+            "transcript_id": "ENST00000805569"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805570"
+          },
+          {
+            "end": 232324,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805570"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805571"
+          },
+          {
+            "end": 232313,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805571"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805572"
+          },
+          {
+            "end": 232310,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805572"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805573"
+          },
+          {
+            "end": 232310,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78865,
+            "strand": "-",
+            "transcript_id": "ENST00000805573"
+          },
+          {
+            "end": 230803,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805574"
+          },
+          {
+            "end": 232310,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78865,
+            "strand": "-",
+            "transcript_id": "ENST00000805574"
+          },
+          {
+            "end": 179275,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805575"
+          },
+          {
+            "end": 232299,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805575"
+          },
+          {
+            "end": 179314,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86580,
+            "strand": "-",
+            "transcript_id": "ENST00000805576"
+          },
+          {
+            "end": 232276,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805576"
+          },
+          {
+            "end": 179314,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805577"
+          },
+          {
+            "end": 232269,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78860,
+            "strand": "-",
+            "transcript_id": "ENST00000805577"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805578"
+          },
+          {
+            "end": 232237,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 79132,
+            "strand": "-",
+            "transcript_id": "ENST00000805578"
+          },
+          {
+            "end": 232128,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805579"
+          },
+          {
+            "end": 232307,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 86387,
+            "strand": "-",
+            "transcript_id": "ENST00000805579"
+          },
+          {
+            "end": 219289,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805580"
+          },
+          {
+            "end": 232369,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 90051,
+            "strand": "-",
+            "transcript_id": "ENST00000805580"
+          },
+          {
+            "end": 184071,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805581"
+          },
+          {
+            "end": 232237,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 90051,
+            "strand": "-",
+            "transcript_id": "ENST00000805581"
+          },
+          {
+            "end": 232128,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805582"
+          },
+          {
+            "end": 232237,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 90056,
+            "strand": "-",
+            "transcript_id": "ENST00000805582"
+          },
+          {
+            "end": 200391,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 96709,
+            "strand": "-",
+            "transcript_id": "ENST00000805583"
+          },
+          {
+            "end": 232288,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 96608,
+            "strand": "-",
+            "transcript_id": "ENST00000805583"
+          },
+          {
+            "end": 200391,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 97245,
+            "strand": "-",
+            "transcript_id": "ENST00000805584"
+          },
+          {
+            "end": 232231,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 96760,
+            "strand": "-",
+            "transcript_id": "ENST00000805584"
+          },
+          {
+            "end": 200391,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 96709,
+            "strand": "-",
+            "transcript_id": "ENST00000805585"
+          },
+          {
+            "end": 206268,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 78865,
+            "strand": "-",
+            "transcript_id": "ENST00000805585"
+          },
+          {
+            "end": 191011,
+            "feature": "intron",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 93198,
+            "strand": "-",
+            "transcript_id": "ENST00000805586"
+          },
+          {
+            "end": 191108,
+            "feature": "transcript",
+            "gene_id": "ENSG00000292979",
+            "gene_name": "ENSG00000292979",
+            "start": 79132,
+            "strand": "-",
+            "transcript_id": "ENST00000805586"
+          }
+        ],
+        "interval": {
+          "end": 124212,
+          "includes_pam": true,
+          "length": 23,
+          "start": 124189
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 25
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "8",
+      "coordinate_system": "0-based half-open",
+      "end": 124212,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-12",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 124189,
+      "protospacer_match": true,
+      "row_index": 10,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 124189,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intergenic"
+        ],
+        "features": [],
+        "interval": {
+          "end": 33211,
+          "includes_pam": true,
+          "length": 23,
+          "start": 33188
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 0
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "KI270748.1",
+      "coordinate_system": "0-based half-open",
+      "end": 33211,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-15",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 33188,
+      "protospacer_match": true,
+      "row_index": 11,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 33188,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 24321645,
+            "feature": "gene",
+            "gene_id": "ENSG00000306111",
+            "gene_name": "ENSG00000306111",
+            "start": 24312569,
+            "strand": "-"
+          },
+          {
+            "end": 24321471,
+            "feature": "intron",
+            "gene_id": "ENSG00000306111",
+            "gene_name": "ENSG00000306111",
+            "start": 24313662,
+            "strand": "-",
+            "transcript_id": "ENST00000815376"
+          },
+          {
+            "end": 24321645,
+            "feature": "transcript",
+            "gene_id": "ENSG00000306111",
+            "gene_name": "ENSG00000306111",
+            "start": 24312569,
+            "strand": "-",
+            "transcript_id": "ENST00000815376"
+          }
+        ],
+        "interval": {
+          "end": 24318269,
+          "includes_pam": true,
+          "length": 23,
+          "start": 24318246
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 1
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "Y",
+      "coordinate_system": "0-based half-open",
+      "end": 24318269,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-13",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 24318246,
+      "protospacer_match": true,
+      "row_index": 12,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 24318246,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intergenic"
+        ],
+        "features": [],
+        "interval": {
+          "end": 25351903,
+          "includes_pam": true,
+          "length": 23,
+          "start": 25351880
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 0
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 1.0,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "Y",
+      "coordinate_system": "0-based half-open",
+      "end": 25351903,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-14",
+      "mismatch_positions": [
+        21
+      ],
+      "mismatches": 0,
+      "off_target": "TGAGACTCTTGCAGTCACACGGG",
+      "pam_mismatches": 1,
+      "position": 25351880,
+      "protospacer_match": true,
+      "row_index": 13,
+      "scores": {
+        "k1": 0.9957929849624634,
+        "k2": 0.9935278296470642,
+        "k3": 0.9959030747413635
+      },
+      "start": 25351880,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": false,
+        "assembly": "GRCh38",
+        "categories": [
+          "intergenic"
+        ],
+        "features": [],
+        "interval": {
+          "end": 243018823,
+          "includes_pam": true,
+          "length": 23,
+          "start": 243018800
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 0
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 0.3,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "1",
+      "coordinate_system": "0-based half-open",
+      "end": 243018823,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-6",
+      "mismatch_positions": [
+        20,
+        21
+      ],
+      "mismatches": 1,
+      "off_target": "TGAGACTCTTGCAGTCACATGGG",
+      "pam_mismatches": 1,
+      "position": 243018800,
+      "protospacer_match": false,
+      "row_index": 14,
+      "scores": {
+        "k1": 0.9957696199417114,
+        "k2": 0.9937001466751099,
+        "k3": 0.9959158301353455
+      },
+      "start": 243018800,
+      "strand": "+",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    },
+    {
+      "annotations": {
+        "ambiguous_transcripts": true,
+        "assembly": "GRCh38",
+        "categories": [
+          "intron"
+        ],
+        "features": [
+          {
+            "end": 118685627,
+            "feature": "gene",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118662101,
+            "strand": "-"
+          },
+          {
+            "end": 118673498,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118665199,
+            "strand": "-",
+            "transcript_id": "ENST00000628457"
+          },
+          {
+            "end": 118685313,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118664167,
+            "strand": "-",
+            "transcript_id": "ENST00000628457"
+          },
+          {
+            "end": 118673498,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118665199,
+            "strand": "-",
+            "transcript_id": "ENST00000629462"
+          },
+          {
+            "end": 118684466,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118664086,
+            "strand": "-",
+            "transcript_id": "ENST00000629462"
+          },
+          {
+            "end": 118673191,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118663154,
+            "strand": "-",
+            "transcript_id": "ENST00000736704"
+          },
+          {
+            "end": 118685351,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118662101,
+            "strand": "-",
+            "transcript_id": "ENST00000736704"
+          },
+          {
+            "end": 118673191,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118663154,
+            "strand": "-",
+            "transcript_id": "ENST00000736705"
+          },
+          {
+            "end": 118685340,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118662101,
+            "strand": "-",
+            "transcript_id": "ENST00000736705"
+          },
+          {
+            "end": 118673464,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118663194,
+            "strand": "-",
+            "transcript_id": "ENST00000736706"
+          },
+          {
+            "end": 118685320,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118662109,
+            "strand": "-",
+            "transcript_id": "ENST00000736706"
+          },
+          {
+            "end": 118673498,
+            "feature": "intron",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118665199,
+            "strand": "-",
+            "transcript_id": "ENST00000736707"
+          },
+          {
+            "end": 118683725,
+            "feature": "transcript",
+            "gene_id": "ENSG00000281731",
+            "gene_name": "METTL14-DT",
+            "start": 118664085,
+            "strand": "-",
+            "transcript_id": "ENST00000736707"
+          },
+          {
+            "end": 118679860,
+            "feature": "gene",
+            "gene_id": "ENSG00000291201",
+            "gene_name": "ENSG00000291201",
+            "start": 118591711,
+            "strand": "+"
+          },
+          {
+            "end": 118679729,
+            "feature": "intron",
+            "gene_id": "ENSG00000291201",
+            "gene_name": "ENSG00000291201",
+            "start": 118657126,
+            "strand": "+",
+            "transcript_id": "ENST00000736495"
+          },
+          {
+            "end": 118679860,
+            "feature": "transcript",
+            "gene_id": "ENSG00000291201",
+            "gene_name": "ENSG00000291201",
+            "start": 118629953,
+            "strand": "+",
+            "transcript_id": "ENST00000736495"
+          }
+        ],
+        "interval": {
+          "end": 118669800,
+          "includes_pam": true,
+          "length": 23,
+          "start": 118669777
+        },
+        "release": "115",
+        "source": "Ensembl",
+        "status": "annotated",
+        "transcript_count": 7
+      },
+      "assembly": "GRCh38",
+      "baselines": {
+        "cfd": {
+          "score": 0.3,
+          "version": "cfd-spcas9-doench2016-crisprscore-595d9a8-v1"
+        }
+      },
+      "chromosome": "4",
+      "coordinate_system": "0-based half-open",
+      "end": 118669800,
+      "exact_match": false,
+      "guide_id": "guide-1",
+      "id": "candidate-9",
+      "mismatch_positions": [
+        20,
+        21
+      ],
+      "mismatches": 1,
+      "off_target": "TGAGACTCTTGCAGTCACATGGG",
+      "pam_mismatches": 1,
+      "position": 118669777,
+      "protospacer_match": false,
+      "row_index": 15,
+      "scores": {
+        "k1": 0.9957696199417114,
+        "k2": 0.9937001466751099,
+        "k3": 0.9959158301353455
+      },
+      "start": 118669777,
+      "strand": "-",
+      "target": "TGAGACTCTTGCAGTCACACAGG",
+      "unknown_positions": [],
+      "user_selected_locus": false,
+      "warnings": []
+    }
+  ]
+}

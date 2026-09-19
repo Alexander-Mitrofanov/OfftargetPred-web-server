@@ -1,0 +1,33 @@
+.genome-context{border:1px solid #d7e2ea;border-radius:8px;background:#fff;margin:1rem 0;color:#16334a;min-width:0}
+.genome-context>summary{padding:1rem;font-weight:650;cursor:pointer}
+.genome-context>section{padding:0 1rem 1rem;min-width:0}
+.genome-context p,.genome-context h3,.genome-context h4{overflow-wrap:anywhere}
+.genome-context-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:1rem;margin:1rem 0}
+.genome-context-controls label,.genome-context-chooser{display:flex;flex-direction:column;gap:.4rem;min-width:0;font-weight:600}
+.genome-context input,.genome-context select{min-height:44px;min-width:0;max-width:100%;width:100%}
+.genome-context-check{display:flex;gap:.5rem;align-items:center;min-height:44px;margin:.5rem 0}
+.genome-context-check input{width:18px;height:18px;min-height:18px;flex:none}
+.genome-context-hint,.genome-context figcaption{font-size:.9rem;color:#435d71}
+.genome-context-scope,.genome-context-notice{background:#f5f8fb;border-left:3px solid #1266a8;padding:.8rem 1rem}
+.genome-context-figure{margin:1rem 0;max-width:100%}
+.genome-context-picture{overflow-x:auto;max-width:100%;border:1px solid #d7e2ea;border-radius:4px}
+.genome-context-picture svg{width:100%;min-width:680px;display:block;background:#fff;font-size:12px;fill:#16334a;font-family:inherit}
+.genome-context-track-label{font-weight:700}
+.genome-context-axis{stroke:#435d71;stroke-width:1}
+.genome-context-site rect{fill:#1266a8}.genome-context-site path{stroke:#fff;fill:none;stroke-width:1.5}
+.genome-context-focal rect{stroke:#16334a;stroke-width:2}
+.genome-context-feature rect{fill:#087f79}.genome-context-feature path{stroke:#fff;fill:none;stroke-width:1.5}
+.genome-context-intron rect{fill:#fff;stroke:#087f79;stroke-width:2;stroke-dasharray:4 2}.genome-context-intron path{stroke:#087f79}
+.genome-context-table-details{margin:.8rem 0;border-top:1px solid #d7e2ea;padding-top:.6rem}
+.genome-context-table-details>summary{cursor:pointer;font-weight:600;min-height:32px}
+.genome-context-table{overflow-x:auto;max-width:100%;margin:.5rem 0}
+.genome-context-table table{width:100%;border-collapse:collapse;font-size:.9rem}
+.genome-context-table caption{text-align:left;color:#435d71;padding:.5rem 0}
+.genome-context-table th,.genome-context-table td{padding:.6rem;border-bottom:1px solid #d7e2ea;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.genome-context-table small{display:block}
+.genome-context-table button{min-height:44px}
+.genome-context-table thead{background:#f5f8fb}
+.genome-context-pager{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin:.7rem 0}
+.genome-context-pager button{min-height:44px}
+.genome-context :focus-visible{outline:3px solid #1266a8;outline-offset:3px}
+@media(max-width:650px){.genome-context-controls{grid-template-columns:minmax(0,1fr)}.genome-context>section{padding:0 .7rem .7rem}.genome-context-pager>span{flex-basis:100%}}

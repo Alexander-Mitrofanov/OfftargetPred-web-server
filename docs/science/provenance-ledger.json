@@ -1,0 +1,363 @@
+{
+  "base_method_publication": {
+    "authors": [
+      "William Jobson Pargeter",
+      "Rolf Backofen",
+      "Van Dinh Tran"
+    ],
+    "doi": "10.1007/978-3-031-70368-3_6",
+    "first_online": "2024-08-22",
+    "pages": "92\u2013104",
+    "publisher_checked": "2026-09-19",
+    "publisher_url": "https://link.springer.com/chapter/10.1007/978-3-031-70368-3_6",
+    "scope": "Base-method citation. The publisher record does not identify these exact four-layer sequence-only checkpoint hashes or their original training membership.",
+    "title": "CRISPert: A Transformer-Based Model for CRISPR-Cas Off-Target Prediction",
+    "venue": "ECML PKDD 2024"
+  },
+  "benchmark_conditions": {
+    "full_k562_reference": {
+      "all_five_guides_retained": true,
+      "dataset": "k562_dataset_invivo_full.csv",
+      "metrics_source": "benchmark_reproduction",
+      "overlap_report": "aggregate_audit",
+      "role": "reference_score_reproduction"
+    },
+    "full_k562_reported_corpus_disjoint_subset": {
+      "definition": "Exclude the entire K562 guide whose 20 nt identity overlaps the reported T-cell corpus.",
+      "guides": 4,
+      "independent_test_status": "unverified",
+      "limitation": "Guide-disjoint from the reported corpus does not prove actual training or model-selection independence.",
+      "metrics_status": "not_computed_in_this_provenance_task",
+      "positives": 180,
+      "rows": 33407
+    }
+  },
+  "claims": [
+    {
+      "allowed_wording": "The deployed artifacts are identified by exact hashes.",
+      "does_not_establish": [
+        "Independent biological validity",
+        "Original training rows or run seed",
+        "Redistribution permission"
+      ],
+      "evidence": [
+        "model_manifest",
+        "checkpoint_metadata",
+        "tokenizer"
+      ],
+      "id": "artifact_identity",
+      "statement": "The three supplied checkpoints and production tokenizer have pinned SHA-256 identities.",
+      "status": "verified_locally"
+    },
+    {
+      "allowed_wording": "The reported T-cell training corpus contains 51,906 rows and 17 distinct guides. Exact gradient-training and validation membership remain unverified.",
+      "does_not_establish": [
+        "Every bundled row participated in gradient updates",
+        "Equivalence to the original training CSV"
+      ],
+      "evidence": [
+        "supplied_readme",
+        "aggregate_audit",
+        "dataset_roles"
+      ],
+      "id": "reported_training_corpus",
+      "statement": "The bundle README identifies tcell_guideseq.csv as the 17-guide T-cell GUIDE-seq training corpus.",
+      "status": "reported_only"
+    },
+    {
+      "allowed_wording": "Original-to-bundled training-file equivalence is unknown.",
+      "evidence": [
+        "checkpoint_metadata",
+        "supplied_readme"
+      ],
+      "id": "original_training_file_equivalence",
+      "needed_evidence": [
+        "Original training file hash and provenance",
+        "Reproducible transformation from original file to supplied bundle",
+        "Per-checkpoint row-level training and validation manifests"
+      ],
+      "statement": "All checkpoint configs name Tcell_AG+histones+EX_compare_2bit.csv, not the bundled tcell_guideseq.csv. Equivalence has not been established.",
+      "status": "unresolved"
+    },
+    {
+      "allowed_wording": "Full-K562 scores reproduce the supplied cross-cell benchmark; they do not establish fully guide-independent performance. Actual gradient-training membership remains unknown.",
+      "does_not_establish": [
+        "Proven leakage of all 981 pairs into gradient training",
+        "Annotation errors in discordant labels",
+        "An untouched independent test after removing shared pairs"
+      ],
+      "evidence": [
+        "aggregate_audit",
+        "dataset_roles"
+      ],
+      "id": "full_k562_guide_independence",
+      "observed": {
+        "k562_overlapping_guide_positives": 8,
+        "k562_overlapping_guide_rows": 9725,
+        "overlapping_guides": 1,
+        "overlapping_pairs": 981,
+        "shared_label_zero_both": 933,
+        "shared_positive_both": 8,
+        "tcell_positive_k562_label_zero": 40
+      },
+      "statement": "The full five-guide K562 in-vivo file is not guide-disjoint from the reported T-cell training corpus: one exact 20 nt/23 nt guide and 981 sequence pairs overlap.",
+      "status": "not_supported"
+    },
+    {
+      "allowed_wording": "These supplied evaluation files are disjoint from the reported training corpus by the audited exact-sequence comparisons; untouched independent-test status is unverified.",
+      "does_not_establish": [
+        "No model-selection exposure",
+        "Absence of near-sequence or genomic-context relationships",
+        "Guide-disjointness between every evaluation dataset"
+      ],
+      "evidence": [
+        "aggregate_audit",
+        "dataset_roles",
+        "supplied_readme"
+      ],
+      "id": "other_supplied_evaluation_independence",
+      "statement": "The 12-guide K562 DeepCRISPR and three-guide iPSC files have no exact directional guide or pair overlap with the reported T-cell corpus. Their model-selection use and original training-file relationship are unknown.",
+      "status": "unresolved"
+    },
+    {
+      "allowed_wording": "Repeated guide groups across cells and datasets must stay together in any future guide split.",
+      "does_not_establish": [
+        "Independent replicate evidence for overlapping sites"
+      ],
+      "evidence": [
+        "aggregate_audit",
+        "dataset_roles"
+      ],
+      "id": "evaluation_dataset_overlap",
+      "statement": "Evaluation files are not mutually guide-disjoint: iPSC/K562 in-vivo share one guide and 5,066 pairs; K562 in-vivo/DeepCRISPR share one guide and 1,020 pairs.",
+      "status": "verified_locally"
+    },
+    {
+      "allowed_wording": "iPSC has three guides, two with positives; macro metrics must identify any single-class group skipped.",
+      "does_not_establish": [
+        "A robust population-wide conclusion from this small evaluation"
+      ],
+      "evidence": [
+        "aggregate_audit",
+        "dataset_roles",
+        "supplied_readme"
+      ],
+      "id": "ipsc_guide_count",
+      "statement": "The supplied iPSC file contains three guides with 0, 1 and 52 positive rows. Two guides have positives; one has only label-zero rows. This differs from the bundle README description.",
+      "status": "verified_locally"
+    },
+    {
+      "allowed_wording": "The bundle reports run seed 0; the actual run seed is not independently verified. cfg.seed=42 alone does not disprove it.",
+      "evidence": [
+        "supplied_readme",
+        "checkpoint_metadata",
+        "training_code",
+        "data_code"
+      ],
+      "id": "actual_run_seed",
+      "needed_evidence": [
+        "Original run invocation and logs",
+        "Per-checkpoint split manifest and run metadata"
+      ],
+      "statement": "The README reports run seed 0. Saved cfg.seed is 42, but supplied training code passes the run seed separately to splitting and initialization. The saved config neither verifies nor contradicts the claimed run seed.",
+      "status": "unresolved"
+    },
+    {
+      "allowed_wording": "README-described pretraining: none for k=1; artificial MLM for k=2/3.",
+      "evidence": [
+        "supplied_readme",
+        "checkpoint_metadata"
+      ],
+      "id": "pretraining_history",
+      "needed_evidence": [
+        "Pretraining checkpoint and corpus/generator identity",
+        "Source genome/version and sampling parameters",
+        "Training run records"
+      ],
+      "statement": "The README describes k=1 as trained from scratch and k=2/3 as artificial MLM pretraining on synthetic pairs from GRCh38 windows. Saved hyperparameter pretraining-directory names for k=2/3 are consistent with this account but do not prove corpus content.",
+      "status": "reported_only"
+    },
+    {
+      "allowed_wording": "k=1 is the service default based on the supplied selection rationale; no universal best k is established.",
+      "does_not_establish": [
+        "A locked, prospective default selection before all supplied evaluations"
+      ],
+      "evidence": [
+        "supplied_readme"
+      ],
+      "id": "k1_default_selection",
+      "statement": "The README gives leave-one-guide-out and multi-seed summaries as rationale for k=1 default. Underlying sweep records and the full model-selection history are not present in the reviewed evidence.",
+      "status": "reported_only"
+    },
+    {
+      "allowed_wording": "All three supplied reference AP values were reproduced on the full K562 benchmark.",
+      "does_not_establish": [
+        "Fully guide-independent generalization",
+        "Superiority to external predictors",
+        "Calibrated cleavage probabilities",
+        "End-to-end genome-search sensitivity"
+      ],
+      "evidence": [
+        "benchmark_reproduction",
+        "aggregate_audit",
+        "model_manifest"
+      ],
+      "id": "full_k562_reference_reproduction",
+      "observed": {
+        "guides": 5,
+        "macro_average_precision": {
+          "k1": 0.6475958233768351,
+          "k2": 0.5369227102305915,
+          "k3": 0.5533421696383052
+        },
+        "pooled_average_precision": {
+          "k1": 0.3093239955283632,
+          "k2": 0.2303681842533568,
+          "k3": 0.26728872367021705
+        },
+        "positives": 188,
+        "rows": 43132
+      },
+      "statement": "Saved validation reproduces the supplied five-guide K562 macro average precision for all three checkpoints to four decimal places. This is implementation/reference reproduction evidence.",
+      "status": "verified_locally"
+    },
+    {
+      "allowed_wording": "Report positives and label-zero rows within the supplied candidate universe.",
+      "evidence": [
+        "supplied_readme",
+        "aggregate_audit",
+        "dataset_roles"
+      ],
+      "id": "label_zero_semantics",
+      "needed_evidence": [
+        "Original assay publications/accessions and label definition",
+        "Candidate-generation and negative-sampling protocol",
+        "Row filtering, alignment, reference, and coordinate transformations"
+      ],
+      "statement": "The bundle contains binary labels, but source assay detection limits, candidate-negative generation, and original filtering have not been traced. Label-zero rows cannot be assumed proven biological negatives.",
+      "status": "unresolved"
+    },
+    {
+      "allowed_wording": "Sequence eligibility is separate from measured GRCh38 presence, nomination recall, and ranking performance.",
+      "does_not_establish": [
+        "Actual genomic retrieval or end-to-end search recall"
+      ],
+      "evidence": [
+        "aggregate_audit",
+        "audit_code"
+      ],
+      "id": "sequence_eligibility_is_not_retrieval",
+      "statement": "The audit finds 91/188 full-K562, 117/118 K562 DeepCRISPR and 37/53 iPSC positives satisfy NGG and at most four protospacer substitutions. These are sequence-eligibility counts only.",
+      "status": "verified_locally"
+    },
+    {
+      "allowed_wording": "Code licensing and upstream artifact permissions are separate. No weights or raw datasets are published by this ledger.",
+      "decision_basis": "Owner instruction in the implementation task; no upstream permission document supplied.",
+      "evidence": [],
+      "id": "redistribution_rights",
+      "needed_evidence": [
+        "Written permission or explicit license for each upstream artifact and source dataset"
+      ],
+      "statement": "The owner selected MIT for code they own. Permissions to redistribute supplied weights, data and third-party code are unresolved and are not granted by that decision.",
+      "status": "unresolved"
+    }
+  ],
+  "open_dependencies": [
+    {
+      "blocks": "Verified gradient membership, original-to-bundle equivalence and run-seed confirmation.",
+      "id": "author_training_records",
+      "needed": "Exact original training/pretraining sources, file hashes, transforms, run seeds and row-level split manifests for all three checkpoint hashes."
+    },
+    {
+      "blocks": "Calling any supplied evaluation an untouched independent test.",
+      "id": "author_selection_records",
+      "needed": "Complete dataset usage and model/seed/k/hyperparameter selection history, including multi-seed sweep records."
+    },
+    {
+      "blocks": "Interpretation beyond the supplied candidate universe and exact eligibility audit.",
+      "id": "source_dataset_records",
+      "needed": "Original publication/accession, assay/cell/nuclease, candidate-negative generation, preprocessing and reference/coordinate records."
+    },
+    {
+      "blocks": "Attribution of the discrepancy; local observed counts remain usable.",
+      "id": "ipsc_description_reconciliation",
+      "needed": "Data-owner explanation of the README two-guide description versus the file three-guide count with two positive groups."
+    },
+    {
+      "blocks": "Redistribution of those artifacts.",
+      "id": "upstream_permissions",
+      "needed": "Explicit permissions/licenses covering supplied weights, datasets, and upstream code."
+    }
+  ],
+  "review_date": "2026-09-19",
+  "schema_version": 1,
+  "scope": "Exact sequence-only CRISPert-small artifact provenance; aggregate audit and saved validation only. No new benchmark inference or training.",
+  "sources": {
+    "aggregate_audit": {
+      "availability": "repository",
+      "path": "docs/nar-readiness/dataset-audit.json",
+      "scope": "Counts, file hashes, exact directional guide/pair overlap, and sequence eligibility; no inference.",
+      "sha256": "d50c2c205130cdf7963cb419eee449d8157b4031717e0d4b4b3635254cd0e3bd"
+    },
+    "audit_code": {
+      "availability": "repository",
+      "path": "docs/nar-readiness/audit_dataset_overlap.py",
+      "scope": "Read-only aggregate CSV audit implementation.",
+      "sha256": "1e7d401f0cc5c82d76f79a8ffea38c3e3c30f2f3c10e4ceea21ef323b5cb4d34"
+    },
+    "benchmark_reproduction": {
+      "availability": "repository",
+      "path": "docs/validation/model-benchmark.json",
+      "scope": "Saved CPU benchmark reproduction on the complete five-guide K562 file; no new inference in this provenance task.",
+      "sha256": "a7af471bc5a76e801ebfd21aaaebdcb4a1e5e893a9e79d233d2ac67e59a3b81a"
+    },
+    "checkpoint_metadata": {
+      "availability": "repository",
+      "path": "docs/science/checkpoint-metadata.json",
+      "scope": "Selected metadata read from the three hash-verified checkpoints, weights_only=True on CPU.",
+      "sha256": "d01ff1917e4c9b9fab2c696660c4418ee8faa77423560abacb85a7c25fa8a896"
+    },
+    "data_code": {
+      "availability": "private_supplied_bundle",
+      "path": "Model/crispert_share/crispert_small/data.py",
+      "scope": "stratified_split is label-stratified and uses an explicit seed before cfg.seed; balanced_loader samples with replacement. Code availability does not establish the original run.",
+      "sha256": "f90b7e835a46da1ce35e795df41d9ffa4ab42c41e02bb764f5b9e33f396f08ab"
+    },
+    "dataset_roles": {
+      "availability": "repository",
+      "path": "docs/science/dataset-roles.json",
+      "scope": "All 37 guide occurrences across four files, with hashed guide identities and explicit unknown membership.",
+      "sha256": "816fed1c7039f50093dd88d629336679f02e874d057015c438aecaaf98469331"
+    },
+    "model_manifest": {
+      "availability": "repository",
+      "path": "models.manifest.json",
+      "scope": "Pinned checkpoint/tokenizer hashes and model identities.",
+      "sha256": "ba8bedeb8ab263896a00a0d17218bcdc67268f62072846be00abdfc654e36f55"
+    },
+    "supplied_readme": {
+      "availability": "private_supplied_bundle",
+      "path": "Model/crispert_share/README.md",
+      "scope": "Model/training descriptions and reference metrics; author-supplied claims, not independently established history.",
+      "sha256": "26533cd143182f908b9e0b07507ff603db009252dccf1cc3aeeb2bc99864dd33"
+    },
+    "tokenizer": {
+      "availability": "repository",
+      "path": "backend/offtargetpred/tokenizer.py",
+      "scope": "Production tokenizer bytes identified by models.manifest.json.",
+      "sha256": "b15aae904e073d53d0c878199a3a04e2eeccb81faeb3e11738dc00bc282cb2e2"
+    },
+    "training_code": {
+      "availability": "private_supplied_bundle",
+      "path": "Model/crispert_share/crispert_small/finetune.py",
+      "scope": "run_benchmark passes seed separately to stratified_split and _fit_and_predict_many; seed_everything uses the passed seed.",
+      "sha256": "9733c502ee513b3373d2ae5752369070c508907a509bb351fa40d0d5ec3e4dbc"
+    }
+  },
+  "status_definitions": {
+    "not_supported": "The proposed stronger interpretation is not supported; use the stated narrower wording.",
+    "reported_only": "Attributed to the supplied bundle without sufficient original records to establish independently.",
+    "unresolved": "Required history, source documentation, or permission is not available in the reviewed evidence.",
+    "verified_locally": "Supported within the stated scope by inspected local files, hashes, audit, or saved validation output; not a claim of independent replication of the underlying experiment."
+  }
+}

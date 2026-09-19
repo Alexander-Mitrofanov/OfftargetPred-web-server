@@ -1,0 +1,884 @@
+{
+  "aggregate_audit": {
+    "path": "docs/nar-readiness/dataset-audit.json",
+    "sha256": "d50c2c205130cdf7963cb419eee449d8157b4031717e0d4b4b3635254cd0e3bd"
+  },
+  "audit_date": "2026-09-19",
+  "datasets": {
+    "ipscs_dataset_invivo_full.csv": {
+      "guides": [
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": false,
+          "guide_23nt_sha256": "02b1a6d43cbc6fd5db8c6aa2395ffc93b082e6a48d4942ff22daba9a0b8f9578",
+          "label_zero_rows": 3846,
+          "model_selection_use": "unknown",
+          "positives": 0,
+          "present_in_datasets_by_20nt_guide": [
+            "ipscs_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 3846,
+          "split_group_20nt_sha256": "27f968a769c0139f8306b855eccdb8c2dcb17f8183c2da88efc4f225061867d1"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "53578149df0524eb4e8e94513c36a5cccc8f79f508a1e76ebafa11172e186610",
+          "label_zero_rows": 17437,
+          "model_selection_use": "unknown",
+          "positives": 52,
+          "present_in_datasets_by_20nt_guide": [
+            "ipscs_dataset_invivo_full.csv",
+            "k562_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 17489,
+          "split_group_20nt_sha256": "6e6d065994d9271a07a760865fde6621f0f502adbf799e5d5c9eecac3a9c6910"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "f6b4e4aceecb426c81c593bf24c7dca9840ba06c725dd40e4b9cef670363dc3c",
+          "label_zero_rows": 4405,
+          "model_selection_use": "unknown",
+          "positives": 1,
+          "present_in_datasets_by_20nt_guide": [
+            "ipscs_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 4406,
+          "split_group_20nt_sha256": "88dcdc43adc187f1f395642f62494939a659def448727dfc0c88ef7570077b8a"
+        }
+      ],
+      "local_evidence_use": "aggregate_provenance_audit_only",
+      "null_meaning": "Unknown or unverified; not evidence of absence or permission.",
+      "path": "Model/crispert_share/data/ipscs_dataset_invivo_full.csv",
+      "reported_context": {
+        "assay": null,
+        "assay_status": "original_assay_not_verified",
+        "cell": "iPSC",
+        "nuclease": "SpCas9-style aligned sequence input; experimental reagent identity unverified"
+      },
+      "reported_role": "supplied_cross_cell_evaluation",
+      "role_evidence": "supplied_readme",
+      "sha256": "8c25bd5d7cec56913b9aedadda3f96d4242387fecbf63107427b6658fc38a153",
+      "unresolved_provenance": {
+        "actual_training_validation_row_manifest": null,
+        "assembly_and_coordinate_harmonization": null,
+        "candidate_and_label_zero_generation": null,
+        "experimental_protocol_and_nuclease_variant": null,
+        "model_selection_history": null,
+        "original_accession": null,
+        "original_download_url": null,
+        "original_publication": null,
+        "original_training_csv_equivalence": null,
+        "redistribution_permission": null,
+        "upstream_preprocessing_and_row_filtering": null
+      }
+    },
+    "k562_dataset_invivo_full.csv": {
+      "guides": [
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "051da7e709f2b0b02aa2cc8c653296f2a64be84b5d3120091d1bec78fe027e6a",
+          "label_zero_rows": 4911,
+          "model_selection_use": "unknown",
+          "positives": 2,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 4913,
+          "split_group_20nt_sha256": "8b9c023b4ebca80392299e7502bdccef44f78a4eb2f2650a3e585f89f9b06ca3"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "0a7610a00b9608d71916e3fba51027ce8da2ebb88c7bdbb6bd1ea478e2a95b67",
+          "label_zero_rows": 9542,
+          "model_selection_use": "unknown",
+          "positives": 14,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 9556,
+          "split_group_20nt_sha256": "3e4445222e1d446ca6846fcee8f06430450c038f74325c1c17ca5bf7c75d75b0"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "53578149df0524eb4e8e94513c36a5cccc8f79f508a1e76ebafa11172e186610",
+          "label_zero_rows": 14695,
+          "model_selection_use": "unknown",
+          "positives": 162,
+          "present_in_datasets_by_20nt_guide": [
+            "ipscs_dataset_invivo_full.csv",
+            "k562_dataset_invivo_full.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 14857,
+          "split_group_20nt_sha256": "6e6d065994d9271a07a760865fde6621f0f502adbf799e5d5c9eecac3a9c6910"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "55bee55a269a9523482978d797b06202b22145d094c61ca5705a6d950242a1b6",
+          "label_zero_rows": 9717,
+          "model_selection_use": "unknown",
+          "positives": 8,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv",
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 981
+          },
+          "rows": 9725,
+          "split_group_20nt_sha256": "9c2035b7228c53e4eacd53e1b561fc3f6a81cc1f0e5c5649395428a106d3ad1c"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "ad78be1e2d499149d72fce46de36ee633ac9a1d8f28396171c2b0ff1c44025c0",
+          "label_zero_rows": 4079,
+          "model_selection_use": "unknown",
+          "positives": 2,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv",
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 4081,
+          "split_group_20nt_sha256": "72ecff5e7148b612f5ec029d45dd6f9febf5b9a8c605ac095338afddcb52b939"
+        }
+      ],
+      "local_evidence_use": "reference_score_reproduction",
+      "null_meaning": "Unknown or unverified; not evidence of absence or permission.",
+      "path": "Model/crispert_share/data/k562_dataset_invivo_full.csv",
+      "reported_context": {
+        "assay": null,
+        "assay_status": "original_assay_not_verified",
+        "cell": "K562",
+        "nuclease": "SpCas9-style aligned sequence input; experimental reagent identity unverified"
+      },
+      "reported_role": "supplied_cross_cell_evaluation",
+      "role_evidence": "supplied_readme",
+      "sha256": "90e9ccbbe07f337007cfa60bf39b9f5e0e9a0aba65554149ec2da8ad07df748a",
+      "unresolved_provenance": {
+        "actual_training_validation_row_manifest": null,
+        "assembly_and_coordinate_harmonization": null,
+        "candidate_and_label_zero_generation": null,
+        "experimental_protocol_and_nuclease_variant": null,
+        "model_selection_history": null,
+        "original_accession": null,
+        "original_download_url": null,
+        "original_publication": null,
+        "original_training_csv_equivalence": null,
+        "redistribution_permission": null,
+        "upstream_preprocessing_and_row_filtering": null
+      }
+    },
+    "k562_deepcrispr_withCoords_hg38.csv": {
+      "guides": [
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "42aa5f34f9c143536e48b60db60fa7d52b217a3e5012f6dfa371cee880511e77",
+          "label_zero_rows": 874,
+          "model_selection_use": "unknown",
+          "positives": 5,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 879,
+          "split_group_20nt_sha256": "6cc5050d00d43929dc4ec6f8a5042aca44e9b938e12bbf10d2951ef1c9c611be"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "55356ae824964f8365f12f93bebb160fcf5c0e0213a5d0d8bb9622be821f6794",
+          "label_zero_rows": 1284,
+          "model_selection_use": "unknown",
+          "positives": 13,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 1297,
+          "split_group_20nt_sha256": "1ce2cada4bcd62923df503136491974d68579e4d4e694e063842380770f41243"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "576eb1ea2d8a0472f38c0bee79050f1fa5d47643ac861d84168307be71e74f9f",
+          "label_zero_rows": 6022,
+          "model_selection_use": "unknown",
+          "positives": 13,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 6035,
+          "split_group_20nt_sha256": "8271263356f581c2e9f8215c3dc7b7c4a55ed49a5eaa58c7205adc8ca7171534"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "731111c91966484d3d67450635a33b971e8678eb0c73a09c69323fc737ad2294",
+          "label_zero_rows": 990,
+          "model_selection_use": "unknown",
+          "positives": 9,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 999,
+          "split_group_20nt_sha256": "1e6bd0f3f18b6becc07c83b6607bd8c674403485ae684eecce276b2dfed704f9"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "7a84f1a9ea12643b8577a58ceef6b563a9880e46857a1211b6b9a203d26533be",
+          "label_zero_rows": 694,
+          "model_selection_use": "unknown",
+          "positives": 13,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 707,
+          "split_group_20nt_sha256": "76c43ef5e868f0a6dbfe8f6dce23cf8c9d1314fb063d75e8843f8076cca1ff89"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "7d9be1a3ce6660da23c3275446e0a9e6a8329ae1b755caa5d5d224f42c60de0f",
+          "label_zero_rows": 720,
+          "model_selection_use": "unknown",
+          "positives": 11,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 731,
+          "split_group_20nt_sha256": "60301bcd26a052729fd16887ee28b3073f8966b5596732d97d2fc7281641781c"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "ad78be1e2d499149d72fce46de36ee633ac9a1d8f28396171c2b0ff1c44025c0",
+          "label_zero_rows": 1016,
+          "model_selection_use": "unknown",
+          "positives": 4,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv",
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 1020,
+          "split_group_20nt_sha256": "72ecff5e7148b612f5ec029d45dd6f9febf5b9a8c605ac095338afddcb52b939"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "bae3641cbd79dddc38b5dd93e9b04ec85e07b38ff285413cd0dcffd5d658cc35",
+          "label_zero_rows": 1551,
+          "model_selection_use": "unknown",
+          "positives": 13,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 1564,
+          "split_group_20nt_sha256": "57a20518fa7c026e3d90d248c04d1c3a4de087a83c0c7c5d5e3bdfb28dc8a435"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "cb0a7d8ffb8efc1de95ec95234acabe79ad81a8bbcce6323dc5300ea51942c29",
+          "label_zero_rows": 2252,
+          "model_selection_use": "unknown",
+          "positives": 8,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 2260,
+          "split_group_20nt_sha256": "0f8f5faf8dc88303218b4680d81d7422966c5c4febc9a965da9a9391d83e02c3"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "dbae20a75487124ee502d21b19a2fb271e97d253bd6468e9b68eeeec4c50e427",
+          "label_zero_rows": 821,
+          "model_selection_use": "unknown",
+          "positives": 6,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 827,
+          "split_group_20nt_sha256": "8157dad8ab86d41c1b40979696d92ef79600b1c7af75a894df0f8ab52a93f183"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "e6aae5dfbe30e523f7e27cb8183fbff3f46cf0ea99eeb365ace87bdb13585554",
+          "label_zero_rows": 844,
+          "model_selection_use": "unknown",
+          "positives": 12,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 856,
+          "split_group_20nt_sha256": "e801e08ba8822f6b6e4f8224d42d6d77377d94a9fad5656c6ef45c6cfeb47f05"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "e72f1a7cdad667e9084a933eca2915d2b32932fc91ade6da44871f877a807388",
+          "label_zero_rows": 1235,
+          "model_selection_use": "unknown",
+          "positives": 11,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_deepcrispr_withCoords_hg38.csv"
+          ],
+          "reported_role": "supplied_cross_cell_evaluation",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": false,
+            "exact_23nt_guide": false,
+            "exact_sequence_pairs": 0
+          },
+          "rows": 1246,
+          "split_group_20nt_sha256": "13f4294b928d9a316e064d42b9ea73566cb5a47bf0b9c37dd020d2e75a66b223"
+        }
+      ],
+      "local_evidence_use": "aggregate_provenance_audit_only",
+      "null_meaning": "Unknown or unverified; not evidence of absence or permission.",
+      "path": "Model/crispert_share/data/k562_deepcrispr_withCoords_hg38.csv",
+      "reported_context": {
+        "assay": null,
+        "assay_status": "original_assay_not_verified",
+        "cell": "K562",
+        "nuclease": "SpCas9-style aligned sequence input; experimental reagent identity unverified"
+      },
+      "reported_role": "supplied_cross_cell_evaluation",
+      "role_evidence": "supplied_readme",
+      "sha256": "9c76a3043995290ea0c697e6da90bdd57c788b6d28cd99112879b9bab8140153",
+      "unresolved_provenance": {
+        "actual_training_validation_row_manifest": null,
+        "assembly_and_coordinate_harmonization": null,
+        "candidate_and_label_zero_generation": null,
+        "experimental_protocol_and_nuclease_variant": null,
+        "model_selection_history": null,
+        "original_accession": null,
+        "original_download_url": null,
+        "original_publication": null,
+        "original_training_csv_equivalence": null,
+        "redistribution_permission": null,
+        "upstream_preprocessing_and_row_filtering": null
+      }
+    },
+    "tcell_guideseq.csv": {
+      "guides": [
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "05888068ba9a78f7ae7500c676ae40714aa31c0d8f0ada267f7c45b725554fd9",
+          "label_zero_rows": 6304,
+          "model_selection_use": "unknown",
+          "positives": 30,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 6334
+          },
+          "rows": 6334,
+          "split_group_20nt_sha256": "dfe4a26d8a06e9353a4b597397199b97c5ee4d75921d27bcc9cee6d4a0a57c87"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "0ed5034c52936e9d2a1f149c7b8c79d9c341919620920096fc6b248488750b36",
+          "label_zero_rows": 1148,
+          "model_selection_use": "unknown",
+          "positives": 33,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1181
+          },
+          "rows": 1181,
+          "split_group_20nt_sha256": "b86f5580b2d2584a3ccd744c8f4aea967e0f407d7c340af5b74484125c4fd7cb"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "20f2d6eef9b471ac8d3f5f2d50cd64695a01b766cc2c9c2654112bdfbbe4835b",
+          "label_zero_rows": 1541,
+          "model_selection_use": "unknown",
+          "positives": 48,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1589
+          },
+          "rows": 1589,
+          "split_group_20nt_sha256": "d0df1c8f9bea0b47f88a7ff30773a13465742663b2e6fad8fcc6482a53c8bcf1"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "55bee55a269a9523482978d797b06202b22145d094c61ca5705a6d950242a1b6",
+          "label_zero_rows": 2473,
+          "model_selection_use": "unknown",
+          "positives": 51,
+          "present_in_datasets_by_20nt_guide": [
+            "k562_dataset_invivo_full.csv",
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 2524
+          },
+          "rows": 2524,
+          "split_group_20nt_sha256": "9c2035b7228c53e4eacd53e1b561fc3f6a81cc1f0e5c5649395428a106d3ad1c"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "659df599d933b579c88d8b29f45a1c5f9d61a26f4def854c8ebe50575f160179",
+          "label_zero_rows": 2289,
+          "model_selection_use": "unknown",
+          "positives": 44,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 2333
+          },
+          "rows": 2333,
+          "split_group_20nt_sha256": "73c20b8c43b5d2a42371886999e9cb50c96a71fa72570ff0c556e96f20fedf61"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "68164effa4c0c83b0362a23d285530133f149a9957c1a50c42a972d67286cce2",
+          "label_zero_rows": 4697,
+          "model_selection_use": "unknown",
+          "positives": 117,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 4814
+          },
+          "rows": 4814,
+          "split_group_20nt_sha256": "618704398cf492db9d58643d224e1f40286fdb4bbecffd0521019d277add3568"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "6be1df22985f83c6e3002bdeb54bb5eccc3ffe0a14afc378c84658ba39e7c095",
+          "label_zero_rows": 2429,
+          "model_selection_use": "unknown",
+          "positives": 12,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 2441
+          },
+          "rows": 2441,
+          "split_group_20nt_sha256": "4a328087d3bd42694fcd30d11cfc213feaf231b1af0bdeb6218a961565dd58d8"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "71c1f9488d789230c5c3edfa941591bb16311237e5e6ebbf9a57abc19f32e47b",
+          "label_zero_rows": 1531,
+          "model_selection_use": "unknown",
+          "positives": 46,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1577
+          },
+          "rows": 1577,
+          "split_group_20nt_sha256": "d0dd1c52858777b39b5b1486754d43c1de48f8082dd0cebc9180c0a90d4b8f77"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "7644521226842da92a048d71ad3944a85b2d6dde0f5191be3f412aede24f566f",
+          "label_zero_rows": 2061,
+          "model_selection_use": "unknown",
+          "positives": 24,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 2085
+          },
+          "rows": 2085,
+          "split_group_20nt_sha256": "344f3837d3d3947078b0092372e9aef8e1fd8f89223bf6477655f2dc06e75603"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "76ecf97b37556518f0a18b5aeec8357d8b23742402f7b2f16086b20d204d6b82",
+          "label_zero_rows": 4299,
+          "model_selection_use": "unknown",
+          "positives": 59,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 4358
+          },
+          "rows": 4358,
+          "split_group_20nt_sha256": "a13bf8575852e27cd659e8b00b2fd6b3c3fd2d086028b0aa77705ed59744bc26"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "77daf3a415f40c14f656cbcb11af3ba2aff5ded70d0701017421517009aaac87",
+          "label_zero_rows": 8780,
+          "model_selection_use": "unknown",
+          "positives": 532,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 9312
+          },
+          "rows": 9312,
+          "split_group_20nt_sha256": "53f1b8029e2ba9c53eb7d9d5a9205d92dc552d684ca8e992fb2a1261ffb34c3c"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "b6bb9249ad8a0bd8866e635cbb3f5765475d50bab441350607c6975a21d11200",
+          "label_zero_rows": 3165,
+          "model_selection_use": "unknown",
+          "positives": 76,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 3241
+          },
+          "rows": 3241,
+          "split_group_20nt_sha256": "93f77a52c79960dc009ccbb92df8b4677ff120b0c71b8ec1b782b1d34dab6f8f"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "bc2993b1f52ad954b7257c47de41f5a294214f36393d257a7008c7c4c5199015",
+          "label_zero_rows": 3689,
+          "model_selection_use": "unknown",
+          "positives": 119,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 3808
+          },
+          "rows": 3808,
+          "split_group_20nt_sha256": "3a8599236472e93060285ce161c4b0ac00d903fa95cc89879d41de656b1e55bc"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "c5e03474dee6dffc425aac05e23c19e26e20b4c9cf6d5c7625a61ae38f03e85e",
+          "label_zero_rows": 1029,
+          "model_selection_use": "unknown",
+          "positives": 11,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1040
+          },
+          "rows": 1040,
+          "split_group_20nt_sha256": "846fcaa8a205a1222f692cbab7142beab894e4ce7f9a42faab404c7eceb22d00"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "d7b4a5510d99b296ba88e31c9af5e756d2bef51c8161b9db90a37c336e84ff68",
+          "label_zero_rows": 1072,
+          "model_selection_use": "unknown",
+          "positives": 12,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1084
+          },
+          "rows": 1084,
+          "split_group_20nt_sha256": "2480b83e66965e64a19b8e529c72b77205404e163733a051e0a9ce3be214682a"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "d86e23270c72f6afa64c4b38912b5ec7af22e1114ba69ab27b88c14f0f196a2d",
+          "label_zero_rows": 2304,
+          "model_selection_use": "unknown",
+          "positives": 21,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 2325
+          },
+          "rows": 2325,
+          "split_group_20nt_sha256": "3d3052fb4eabc42c6ab0e8f8776df6efdc1ac1e82160add90030b2374679a150"
+        },
+        {
+          "actual_gradient_training_membership": "unknown",
+          "actual_validation_membership": "unknown",
+          "both_label_classes_present": true,
+          "guide_23nt_sha256": "f5ac095d74ce67de104aab827dc9add92564c57a112bd9733e2d919f9d4dcb91",
+          "label_zero_rows": 1829,
+          "model_selection_use": "unknown",
+          "positives": 31,
+          "present_in_datasets_by_20nt_guide": [
+            "tcell_guideseq.csv"
+          ],
+          "reported_role": "reported_training_corpus",
+          "reported_training_corpus_overlap": {
+            "exact_20nt_guide": true,
+            "exact_23nt_guide": true,
+            "exact_sequence_pairs": 1860
+          },
+          "rows": 1860,
+          "split_group_20nt_sha256": "08410f84475236025d80ac8407aee65df13f8e05012745df85bf9a5fc09e21d5"
+        }
+      ],
+      "local_evidence_use": "aggregate_provenance_audit_only",
+      "null_meaning": "Unknown or unverified; not evidence of absence or permission.",
+      "path": "Model/crispert_share/data/tcell_guideseq.csv",
+      "reported_context": {
+        "assay": "GUIDE-seq",
+        "assay_status": "reported_by_bundle_readme",
+        "cell": "T-cell",
+        "nuclease": "SpCas9-style aligned sequence input; experimental reagent identity unverified"
+      },
+      "reported_role": "reported_training_corpus",
+      "role_evidence": "supplied_readme",
+      "sha256": "15130da35b6f236bad2890352ea0bbb5065ae0782a6bcca7471f5ac8bcf6f007",
+      "unresolved_provenance": {
+        "actual_training_validation_row_manifest": null,
+        "assembly_and_coordinate_harmonization": null,
+        "candidate_and_label_zero_generation": null,
+        "experimental_protocol_and_nuclease_variant": null,
+        "model_selection_history": null,
+        "original_accession": null,
+        "original_download_url": null,
+        "original_publication": null,
+        "original_training_csv_equivalence": null,
+        "redistribution_permission": null,
+        "upstream_preprocessing_and_row_filtering": null
+      }
+    }
+  },
+  "guide_identity": {
+    "guide_23nt_sha256": "SHA-256 of the normalized 23 nt guide as ASCII, without a newline.",
+    "limitation": "Fingerprints support exact identity checks; they do not anonymize sequences or establish biological equivalence. No raw sequence, pair row, or coordinate is included.",
+    "normalization": "Trim outer whitespace; uppercase; directional sequence with PAM last.",
+    "split_group_20nt_sha256": "SHA-256 of the first 20 normalized guide bases as ASCII, without a newline. Repeated protospacers across all cells/datasets share this group."
+  },
+  "role_policy": {
+    "future_split_policy": "Keep the same split_group_20nt_sha256 together across datasets. Exclude entire overlapping guide groups, not only repeated pairs, for a guide-disjoint comparison to the reported training corpus. Such a comparison still is not an untouched independent test.",
+    "reported_training_corpus": "Training-corpus role is attributed to the supplied README, not verified row-level gradient membership.",
+    "supplied_cross_cell_evaluation": "Supplied evaluation role does not establish independence from training or model selection.",
+    "unknown_membership": "Actual gradient-training and validation row membership and model-selection use remain unknown for every guide."
+  },
+  "schema_version": 1
+}

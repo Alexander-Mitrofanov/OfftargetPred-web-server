@@ -1,0 +1,22 @@
+.sequence-sensitivity { margin: 1.4rem 0; border: 1px solid #d7e2ea; border-radius: .5rem; background: #fff; min-width: 0; }
+.sequence-sensitivity > summary { padding: 1rem; font-weight: 700; color: #16334a; cursor: pointer; }
+.sequence-sensitivity > section { padding: 0 1rem 1rem; min-width: 0; }
+.sequence-sensitivity p { line-height: 1.55; overflow-wrap: anywhere; }
+.sequence-sensitivity code { overflow-wrap: anywhere; white-space: normal; }
+.sequence-sensitivity h4 { margin: 1.25rem 0 .5rem; }
+.sensitivity-scope { border-left: 3px solid #087f79; padding: .6rem .8rem; background: #f5f8fb; }
+.sensitivity-result dd { margin: .3rem 0 .7rem; }
+.sensitivity-result dt { font-weight: 600; }
+.sensitivity-model { display: flex; flex-direction: column; gap: .4rem; max-width: 20rem; font-weight: 600; }
+.sensitivity-model select { padding: .6rem; border: 1px solid #b6c8d5; border-radius: .3rem; background: #fff; font: inherit; }
+.sensitivity-table { max-width: 100%; overflow-x: auto; border: 1px solid #d7e2ea; border-radius: .3rem; }
+.sensitivity-table table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+.sensitivity-table caption { text-align: left; padding: .8rem; line-height: 1.5; }
+.sensitivity-table th, .sensitivity-table td { padding: .65rem; text-align: left; border-top: 1px solid #d7e2ea; vertical-align: top; }
+.sensitivity-table thead { background: #f5f8fb; }
+.sensitivity-table summary { cursor: pointer; min-width: 6.3rem; white-space: nowrap; }
+.sensitivity-table details > span { display: block; margin-top: .5rem; line-height: 1.5; overflow-wrap: anywhere; }
+.sensitivity-original { background: #eaf4f2; }
+.sensitivity-original small { display: block; color: #244e49; }
+.sequence-sensitivity :focus-visible { outline: 3px solid #1266a8; outline-offset: 3px; }
+@media (max-width: 600px) { .sequence-sensitivity > section { padding: 0 .65rem .8rem; } .sensitivity-table th, .sensitivity-table td { padding: .55rem; } }

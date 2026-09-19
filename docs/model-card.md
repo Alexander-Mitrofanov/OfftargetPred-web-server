@@ -25,8 +25,8 @@ infer alignment, append a PAM, or reverse-complement submitted pairs.
 Pair scoring accepts A/C/G/T/N, normalizes case and outer whitespace, and
 rejects all gaps, RNA U, other characters, and incorrect lengths. An N produces
 an unknown token in every overlapping k-mer containing it; the result carries
-an ambiguity warning. The deployed training data uses unambiguous bases, so
-N-containing scores have less support from that training distribution.
+an ambiguity warning. The supplied T-cell corpus uses unambiguous bases;
+biological performance on N-containing pairs is unverified.
 
 CSV/TSV requires `target` and `off_target`. Recognized alternatives are:
 
@@ -73,23 +73,48 @@ Lightning is used only to independently verify parity with the supplied script.
 
 ## Training and interpretation limits
 
-According to the supplied README, all three checkpoints were fine-tuned on the
-full 17-guide T-cell GUIDE-seq set. The included T-cell file is training data
-and its high scores are not generalization evidence. Other included cell-type
-datasets contain held-out guides. Model performance varies by guide and
-dataset, so there is no universal best k. The supplied selection rationale
-supports k=1 as the default. Training uses balanced sampling despite the rare
-positive class; the output has not been calibrated to real-world prevalence.
+The supplied README identifies `tcell_guideseq.csv` as the full 17-guide T-cell
+GUIDE-seq training corpus. The file contains 51,906 rows, but the checkpoints
+name an original file, `Tcell_AG+histones+EX_compare_2bit.csv`. Equivalence of the
+two files and exact gradient-training/validation row membership are unverified.
+The saved validation fraction is 0.2; available code makes a label-stratified
+row split and uses balanced training sampling. High scores on the reported
+training corpus are not generalization evidence.
 
-The README describes these as seed 0 sweep artifacts, while their saved config
-contains `seed=42`. The deployed artifacts are identified by hash; the service
-does not assert an independently verified training seed.
+The complete five-guide K562 in-vivo benchmark shares **one guide and 981 exact
+sequence pairs** with the reported T-cell corpus. It therefore does not
+establish fully guide-independent performance. This is observed corpus overlap,
+not proof of which rows reached gradient training. The 12-guide K562 DeepCRISPR
+and iPSC files have no exact directional guide/pair overlap with the reported
+T-cell corpus; their model-selection independence remains unverified. Evaluation
+files also share guides with each other. The iPSC file contains **three guides**,
+with 0, 1 and 52 positive rows; two guides have positives, contrary to the
+supplied README's description.
 
-The embedded manuscript, *CRISPert: A Transformer-based Model for CRISPR-Cas
-Off-target Prediction* (Pargeter, Backofen and Tran), explains the base method
-and optional CasKAS extensions. Its 12-layer architecture and historical
-DeepCRISPR/CasKAS experiments differ from these 4-layer checkpoints. Its reported
-benchmark values and CasKAS improvements are not claimed for this deployment.
+The README reports run seed 0. Saved `cfg.seed` is 42, but the available code
+passes the run seed separately to splitting and model initialization. The
+config value neither verifies nor contradicts the reported run seed; the actual
+run seed remains unverified. Model performance varies by guide and dataset, so
+there is no universal best k. The supplied selection rationale supports k=1 as
+the default; the underlying sweep and selection history are not independently
+verified. Outputs have not been calibrated to real-world prevalence.
+
+Original dataset accessions, assay details, candidate/label-zero generation,
+upstream filtering and permissions remain unresolved. Label-zero rows must not
+be treated as proven biological negatives. See the [provenance guide](science/README.md),
+[claim/evidence ledger](science/provenance-ledger.json) and
+[per-guide role manifest](science/dataset-roles.json) for hashes, evidence and
+explicit unknowns. These records describe the evidence available for the service.
+
+The published base method is William Jobson Pargeter, Rolf Backofen and Van Dinh
+Tran, *CRISPert: A Transformer-Based Model for CRISPR-Cas Off-Target Prediction*,
+ECML PKDD 2024, pp. 92–104, DOI
+[10.1007/978-3-031-70368-3_6](https://link.springer.com/chapter/10.1007/978-3-031-70368-3_6).
+This web service exposes the supplied four-layer, sequence-only CRISPert-small
+checkpoints identified above. The publication establishes the base method;
+its historical benchmark and CasKAS results are not asserted for these exact
+artifacts. Cite the paper for CRISPert and this service's pinned artifact and
+validation records for the deployed implementation.
 
 ## Verified numerical behavior
 
@@ -108,13 +133,23 @@ reproduced every reference per-guide macro average precision to four decimals:
 
 These values are average precision as implemented by scikit-learn, called
 “AUPRC” in the supplied package. The macro calculation weights each eligible
-guide equally and skips groups with only one class. Results are from CPU
+guide equally and skips groups with only one class. Macro and pooled AP answer
+different questions; neither is universally the preferred summary. This is
+reference-score reproduction on the full dataset, including its overlapping
+guide, and is not a fully guide-independent or untouched independent test.
+The [aggregate overlap audit](nar-readiness/dataset-audit.json) accompanies this
+benchmark. Results are from CPU
 PyTorch 2.4.1 with Transformers 4.46.3; the run took 34.37 seconds on the local
 development host. See `docs/validation/model-benchmark.json` and reproduce with:
 
 ```bash
 PYTHONPATH=backend .venv/bin/python tests/benchmark_models.py
 ```
+
+Only 91 of the 188 positive K562 rows satisfy NGG and at most four protospacer
+substitutions, the deployed genome-search sequence conditions. This is sequence
+eligibility only; reference presence, coordinates and actual retrieval were not
+measured by that audit. Pair-scoring AP is not end-to-end genome-search recall.
 
 ## Optional genome candidate discovery
 

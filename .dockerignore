@@ -1,0 +1,12 @@
+# Default-deny build context: never send private models, datasets, jobs or Git history.
+**
+!backend/
+!backend/**
+!deploy/
+!deploy/container/
+!deploy/container/Dockerfile
+!deploy/container/requirements-cpu.lock
+!LICENSE
+!THIRD_PARTY_NOTICES.md
+**/__pycache__/
+**/*.pyc

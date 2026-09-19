@@ -1,0 +1,100 @@
+{
+  "interpretation": "Saved configuration describes an artifact; absent fields are not assumed false. cfg.seed does not identify a separately passed run seed. Neither metadata nor a pretraining directory proves actual training membership or pretraining corpus identity.",
+  "method": "SHA-256 verified against models.manifest.json before torch.load(map_location='cpu', weights_only=True); selected non-weight fields only.",
+  "models": {
+    "k1": {
+      "absent_config_fields": [
+        "epi_enabled",
+        "late_cols",
+        "synth_dir"
+      ],
+      "independently_verified_run_seed": null,
+      "original_training_csv_basename": "Tcell_AG+histones+EX_compare_2bit.csv",
+      "path": "Model/crispert_share/models/k1/model.ckpt",
+      "row_level_split_manifest_available": false,
+      "saved_config": {
+        "epi_dim": null,
+        "ft_val_split": 0.2,
+        "guide_col": "ID",
+        "hidden_size": 128,
+        "intermediate_size": 256,
+        "kmer": 1,
+        "label_col": "label",
+        "max_len": 25,
+        "n_samples_per_epoch": 2000,
+        "num_heads": 4,
+        "num_layers": 4,
+        "off_target_col": "off_target",
+        "pretrained_dir": null,
+        "seed": 42,
+        "target_col": "target",
+        "vocab_size": 21
+      },
+      "saved_hyperparameter_pretrained_dir": null,
+      "sha256": "3e7122c71ef17dbc7ff106a4e8fb8bc28f76d9437adb91713bb8c5ad5c097341"
+    },
+    "k2": {
+      "absent_config_fields": [
+        "epi_enabled",
+        "late_cols",
+        "synth_dir"
+      ],
+      "independently_verified_run_seed": null,
+      "original_training_csv_basename": "Tcell_AG+histones+EX_compare_2bit.csv",
+      "path": "Model/crispert_share/models/k2/model.ckpt",
+      "row_level_split_manifest_available": false,
+      "saved_config": {
+        "epi_dim": null,
+        "ft_val_split": 0.2,
+        "guide_col": "ID",
+        "hidden_size": 128,
+        "intermediate_size": 256,
+        "kmer": 2,
+        "label_col": "label",
+        "max_len": 24,
+        "n_samples_per_epoch": 2000,
+        "num_heads": 4,
+        "num_layers": 4,
+        "off_target_col": "off_target",
+        "pretrained_dir": null,
+        "seed": 42,
+        "target_col": "target",
+        "vocab_size": 261
+      },
+      "saved_hyperparameter_pretrained_dir": "runs/long_k2_artificial/hf_latest",
+      "sha256": "6301fac57abd68a33a5c3297c5370ad68cf60152902ad2d6435f8aa4eef6bd3c"
+    },
+    "k3": {
+      "absent_config_fields": [
+        "epi_enabled",
+        "late_cols",
+        "synth_dir"
+      ],
+      "independently_verified_run_seed": null,
+      "original_training_csv_basename": "Tcell_AG+histones+EX_compare_2bit.csv",
+      "path": "Model/crispert_share/models/k3/model.ckpt",
+      "row_level_split_manifest_available": false,
+      "saved_config": {
+        "epi_dim": null,
+        "ft_val_split": 0.2,
+        "guide_col": "ID",
+        "hidden_size": 128,
+        "intermediate_size": 256,
+        "kmer": 3,
+        "label_col": "label",
+        "max_len": 23,
+        "n_samples_per_epoch": 2000,
+        "num_heads": 4,
+        "num_layers": 4,
+        "off_target_col": "off_target",
+        "pretrained_dir": null,
+        "seed": 42,
+        "target_col": "target",
+        "vocab_size": 4101
+      },
+      "saved_hyperparameter_pretrained_dir": "runs/long_k3_artificial/hf_latest",
+      "sha256": "2cda2ea188794290a16ebf9d04e686fa5de4f61cdda76f6f16c3bdd5bba00dff"
+    }
+  },
+  "schema_version": 1
+}

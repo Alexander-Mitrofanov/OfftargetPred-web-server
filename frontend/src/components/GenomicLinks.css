@@ -1,0 +1,37 @@
+.genomic-links {
+  display: block;
+  max-width: 330px;
+  font-size: 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.genomic-links .genomic-links-locus {
+  display: block;
+  color: var(--text, #18364b);
+}
+.genomic-links > small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted, #526b7e);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.genomic-links .genomic-links-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+.genomic-links .genomic-links-actions a {
+  color: var(--teal, #087f79);
+  text-underline-offset: 3px;
+}
+.genomic-links .genomic-links-actions a:focus-visible {
+  outline: 2px solid var(--teal, #087f79);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.genomic-links-unavailable {
+  color: var(--muted, #526b7e);
+  line-height: 1.45;
+}

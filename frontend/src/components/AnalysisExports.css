@@ -1,0 +1,68 @@
+.analysis-exports {
+  margin: 1.25rem 0;
+  border: 1px solid #d7e2ea;
+  border-radius: 0.45rem;
+  background: #fff;
+  color: #16334a;
+}
+.analysis-exports > summary {
+  padding: 1rem;
+  cursor: pointer;
+  font-weight: 650;
+  color: #1266a8;
+}
+.analysis-exports > summary:focus-visible,
+.analysis-exports button:focus-visible {
+  outline: 3px solid #087f79;
+  outline-offset: 3px;
+}
+.analysis-exports section {
+  padding: 0 1rem 1rem;
+}
+.analysis-exports h3 {
+  margin-top: 0.2rem;
+}
+.analysis-exports h4 {
+  margin: 0 0 0.5rem;
+}
+.analysis-exports p,
+.analysis-exports li {
+  line-height: 1.55;
+}
+.analysis-exports-bed {
+  padding: 1rem;
+  background: #f5f8fb;
+  border-left: 3px solid #1266a8;
+  margin: 1rem 0;
+}
+.analysis-exports-bed p:last-child {
+  margin-bottom: 0;
+}
+.analysis-exports-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+.analysis-exports-actions button {
+  white-space: normal;
+  min-height: 44px;
+}
+.analysis-exports-note {
+  color: #37556b;
+  font-size: 0.94rem;
+}
+.analysis-exports-status {
+  min-height: 1.5em;
+  margin-bottom: 0;
+}
+.analysis-exports-error {
+  color: #8e2424;
+}
+@media (max-width: 600px) {
+  .analysis-exports-actions {
+    display: grid;
+  }
+  .analysis-exports-actions button {
+    width: 100%;
+  }
+}

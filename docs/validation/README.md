@@ -11,7 +11,8 @@ Validated on 19 September 2026. Application release:
 | Public GitHub CI | 38 passed; two private-model tests excluded; frontend built |
 | Original Lightning inference versus production adapter | All three models agree within 1e-6 |
 | V100 GPU versus CPU inference | Maximum absolute difference 0.0 on acceptance inputs |
-| Supplied held-out K562 benchmark | All three supplied reference AP values reproduced |
+| Full supplied K562 benchmark reproduction | All three supplied reference AP values reproduced; one guide/981 pairs overlap the reported training corpus |
+| Model/data provenance audit | Four file hashes, three checkpoint hashes and all 37 guide occurrences recorded; actual training/selection membership remains unresolved |
 | Cas-OFFinder synthetic oracle | Exact hit sets at 0, 1, 2 mismatches; both strands; zero hits; descriptive FASTA headers |
 | Real human GRCh38 search | Expected chromosome 1 site recovered; 15 candidates, all three models, 28.14 seconds after reboot |
 | Real private API acceptance | 21 checks passed, including authorization, CORS, sorting, downloads, cancellation and deletion |
@@ -27,9 +28,26 @@ outputs will always be bit-identical. The real-genome runtime is one acceptance
 query at one mismatch; it is not a general speed promise or biological accuracy
 measurement. The model card describes scientific limitations and evaluation.
 
+The full K562 benchmark is **reference reproduction evidence**, not a fully
+guide-independent test: one guide and 981 exact sequence pairs overlap the
+reported T-cell training corpus. Saved checkpoints name a different original
+training CSV and no row-level split manifest is available. Exact gradient
+membership and model-selection exposure remain unknown. The iPSC file has
+three guides, two with positives. Saved `cfg.seed=42` does not disprove the
+bundle's reported run seed 0 because the code passes run seed separately.
+
+The [provenance guide](../science/README.md) separates locally verified facts,
+bundle-reported history and unresolved dependencies. It accompanies the saved
+benchmark without altering its scores or claiming a new independent evaluation.
+No new inference was needed for this provenance correction.
+
 Machine-readable evidence:
 
-- [Held-out benchmark](model-benchmark.json)
+- [Full K562 benchmark reproduction](model-benchmark.json)
+- [Dataset overlap audit](../nar-readiness/dataset-audit.json)
+- [Claim/evidence ledger](../science/provenance-ledger.json)
+- [Per-guide dataset roles](../science/dataset-roles.json)
+- [Verified checkpoint metadata](../science/checkpoint-metadata.json)
 - [GPU parity](gpu-validation.json)
 - [Synthetic search oracle](search-validation.json)
 - [Human reference acceptance](live-genome.json)

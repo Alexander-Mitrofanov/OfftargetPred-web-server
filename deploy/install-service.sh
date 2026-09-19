@@ -19,6 +19,9 @@ install -d -o www-data -g www-data -m 0700 /srv/crispert/nginx-body
 install -d -o root -g root -m 0755 /etc/offtarget-web
 chown -R root:root "$release_dir" /srv/crispert/models /srv/crispert/bin /srv/crispert/references /srv/crispert/venv
 chmod -R go-w "$release_dir" /srv/crispert/models /srv/crispert/bin /srv/crispert/references /srv/crispert/venv
+# Release source is public code: preserve service access even after a restrictive
+# checkout umask. Private models/references keep their separate group-only policy.
+chmod -R u=rwX,go=rX "$release_dir"
 chgrp -R offtarget /srv/crispert/models /srv/crispert/references
 chmod -R u=rwX,g=rX,o= /srv/crispert/models /srv/crispert/references
 if [ ! -f /etc/offtarget-web/runtime.env ]; then

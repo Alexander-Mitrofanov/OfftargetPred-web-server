@@ -95,7 +95,7 @@ def test_adapter_matches_supplied_lightning_path(engine, monkeypatch):
     for name in MODEL_SHA256:
         checkpoint = SOURCE / "models" / name / "model.ckpt"
         cfg = Config(**torch.load(checkpoint, map_location="cpu", weights_only=True)["hyper_parameters"]["cfg"])
-        module = ClassifierModule.load_from_checkpoint(str(checkpoint), cfg=cfg, pretrained_dir=None).eval()
+        module = ClassifierModule.load_from_checkpoint(str(checkpoint), map_location="cpu", cfg=cfg, pretrained_dir=None).eval()
         ids, mask = OriginalTokenizer(max_len=cfg.max_len, k=cfg.kmer).encode_batch([p["target"] for p in pairs], [p["off_target"] for p in pairs])
         with torch.inference_mode():
             expected = torch.softmax(module(torch.tensor(ids), torch.tensor(mask)), dim=1)[:, 1].numpy()
