@@ -4,6 +4,7 @@ Set OFFTARGETPRED_UI_URL to the deployed frontend URL for public acceptance.
 Set OFFTARGETPRED_TEST_GENOME=1 to also search the installed GRCh38 reference.
 """
 import json
+import ipaddress
 import os
 from pathlib import Path
 import re
@@ -13,9 +14,16 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'output/playwright'
 OUT.mkdir(parents=True, exist_ok=True)
 UI_URL = os.environ.get('OFFTARGETPRED_UI_URL', 'http://127.0.0.1:5180/')
+RELAY_IP = os.environ.get('OFFTARGETPRED_TEST_RELAY_IP')
+launch_args = ['--no-sandbox']
+if RELAY_IP:
+    # Diagnostic only: preserve HTTPS/SNI/certificate validation. Reports must
+    # distinguish this from normal public DNS/browser acceptance.
+    relay = str(ipaddress.IPv4Address(RELAY_IP))
+    launch_args.append('--host-resolver-rules=MAP offtargetpred-web.tail58d78e.ts.net ' + relay)
 checks=[]
 with sync_playwright() as p:
-    browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox'])
+    browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=launch_args)
     context=browser.new_context(viewport={'width':1440,'height':1000}, accept_downloads=True)
     page=context.new_page()
     errors=[]
@@ -60,7 +68,7 @@ with sync_playwright() as p:
         page.set_viewport_size({'width':1440,'height':1000})
         page.get_by_role('button',name='Genome search',exact=False).click()
         page.get_by_label('Guide sequences',exact=False).fill(guide)
-        page.get_by_label('Maximum mismatches',exact=True).select_option('1')
+        page.get_by_role('combobox',name=re.compile('Maximum mismatches')).select_option('1')
         for k in (1, 2, 3):
             page.get_by_role('checkbox',name=re.compile(f'k={k}')).check()
         page.get_by_role('button',name='Find and score candidates',exact=True).click()
@@ -86,6 +94,6 @@ with sync_playwright() as p:
     assert not errors, errors
     checks.append('No browser JavaScript errors')
     browser.close()
-report={'passed':True,'frontend_url':UI_URL,'checks':checks}
+report={'passed':True,'frontend_url':UI_URL,'dns_mode':'explicit relay override' if RELAY_IP else 'normal resolver','checks':checks}
 (OUT/'live-browser-report.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

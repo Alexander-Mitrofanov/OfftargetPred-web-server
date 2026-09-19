@@ -18,6 +18,7 @@ Validated on 19 September 2026. Application release:
 | Nginx PROXY-v2 gateway | The same 21 real API checks passed through the production gateway |
 | VM restart | Data volume mounted, GPU initialized, API/worker/Nginx started and worker ready without intervention |
 | Browser against actual GPU API | Submission, three-model results, JSON export, refresh recovery, deletion and 390px layout passed |
+| Published frontend through explicit public relay override | Both pair scoring and real GRCh38 search passed; this diagnostic bypasses the missing DNS lookup only, with certificate verification retained |
 
 The synthetic GPU parity cases are numerical checks, not evidence that GPU/CPU
 outputs will always be bit-identical. The real-genome runtime is one acceptance
@@ -32,6 +33,8 @@ Machine-readable evidence:
 - [Human reference acceptance](live-genome.json)
 - [Private API acceptance](private-api.json)
 - [Live browser acceptance](live-browser.json)
+- [Published frontend/relay diagnostic](public-relay-browser.json)
+- [Public relay API diagnostic](public-relay-api.json)
 - [Restart and gateway acceptance](restart.json)
 - [Installed Python/CUDA packages](runtime-cuda.txt)
 
@@ -42,12 +45,18 @@ Independent CI:
 
 The backend is deployed on the dedicated de.NBI VM. GitHub contains the service,
 frontend, workflows and documentation. GitHub Pages is configured to use GitHub
-Actions, with HTTPS enforced. Following the owner's approval, Tailscale 1.102.4
-was installed from its signed Ubuntu repository and its service is enabled and
-running. Public API activation and frontend publication remain pending the
-owner's authentication of `offtargetpred-web` into the CasAndra tailnet. The Pages
-workflow intentionally skips publication until `OFFTARGET_API_ORIGIN` is set.
-No public deployment or public browser acceptance is claimed by these reports.
+Actions, with HTTPS enforced. The owner authenticated Tailscale 1.102.4, and
+Funnel is running at `offtargetpred-web.tail58d78e.ts.net:443` with a valid
+certificate. The frontend is published at
+<https://alexander-mitrofanov.github.io/OfftargetPred-web-server/>.
+
+**Public launch is not complete:** Tailscale's public DNS address records are
+still missing. Normal users cannot reach the API by hostname. Twenty-one API
+checks and both browser prediction workflows passed through a verified public
+relay with an explicit diagnostic DNS override. These do not prove ordinary
+end-user connectivity. See the [DNS diagnostic report](../tailscale-dns-report.md)
+for observations and bounded recovery attempts. Public API and browser checks
+must pass with normal DNS before this launch is marked complete.
 
 The VM's time service is active but NTP synchronization was not established:
 the tested university and Ubuntu NTP servers did not answer UDP port 123 from

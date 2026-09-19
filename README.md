@@ -5,6 +5,9 @@ CRISPert-small models. Its workflow is inspired by
 [CRISPRoff](https://rth.dk/resources/crispr/crisproff/); its deployment follows
 the CasAndra pattern: **GitHub Pages frontend + de.NBI backend**.
 
+**Website:** [Open OfftargetPred](https://alexander-mitrofanov.github.io/OfftargetPred-web-server/)
+· [API health](https://offtargetpred-web.tail58d78e.ts.net/api/v1/health)
+
 ## What it does
 
 - **Score candidate pairs:** paste or upload CSV/TSV containing aligned 23-base

@@ -20,6 +20,12 @@ VM's non-loopback interface. Tailscale terminates TLS and passes PROXY-v2 so
 admission limits use the original client's address. This is the CasAndra
 transport arrangement, on its own VM and hostname.
 
+Production endpoints:
+
+- Frontend: <https://alexander-mitrofanov.github.io/OfftargetPred-web-server/>
+- API origin: <https://offtargetpred-web.tail58d78e.ts.net>
+- Health/readiness: <https://offtargetpred-web.tail58d78e.ts.net/api/v1/health>
+
 ## Host and storage
 
 Ubuntu 24.04 / Python 3.12; NVIDIA Tesla V100 16 GiB, 12 vCPUs, about 60 GiB RAM.
@@ -150,7 +156,7 @@ PYTHONPATH=backend python tests/integration_search.py \
 python tests/smoke_api.py --api-origin http://127.0.0.1:8010 \
   --origin https://alexander-mitrofanov.github.io
 python tests/smoke_gateway.py  # On the VM: real API through Nginx/PROXY-v2
-python tests/smoke_api.py --api-origin https://ACTUAL-FUNNEL-HOST \
+python tests/smoke_api.py --api-origin https://offtargetpred-web.tail58d78e.ts.net \
   --origin https://alexander-mitrofanov.github.io
 ```
 
@@ -194,6 +200,13 @@ use `/api/v1/health` for worker readiness and release ID. Monitor disk capacity,
 GPU health, time synchronization and failed services. Do not retain user payloads
 in backups beyond the stated retention. Preserve source, models and reference
 manifests separately from ephemeral jobs.
+
+The installed Tailscale version at launch is 1.102.4. The owner authenticated
+`offtargetpred-web` in the existing `tail58d78e.ts.net` tailnet. Funnel runs in
+background mode through systemd's enabled `tailscaled` service. As reported at
+launch, this device's Tailscale key expires on **18 March 2027, 15:49 UTC**.
+Renew its authentication before that deadline, or have the tailnet owner apply
+the account's policy for long-lived servers. Key expiry has not been disabled.
 
 Rollback: stop API/worker, point `/srv/crispert/current` at a previously verified
 release, update `OFFTARGET_RELEASE_ID`, restart and repeat smoke checks. Review

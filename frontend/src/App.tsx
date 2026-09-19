@@ -1536,11 +1536,15 @@ export default function App() {
                 </p>
                 <AlignmentExample />
                 <div className="guide-note">
-                  <h3>Bring sites. Compare models.</h3>
+                  <h3>
+                    {mode === "genome"
+                      ? "Search the reference. Compare sites."
+                      : "Bring sites. Compare models."}
+                  </h3>
                   <p>
-                    Candidate mode scores the sites you provide. It does not
-                    search a genome or measure the overall specificity of a
-                    guide.
+                    {mode === "genome"
+                      ? "Genome mode finds NGG-PAM sites in the human GRCh38 reference, then scores each candidate with your selected models."
+                      : "Candidate mode scores the sites you provide. It does not search a genome or measure the overall specificity of a guide."}
                   </p>
                 </div>
                 <div className="guide-note">
@@ -1569,10 +1573,19 @@ export default function App() {
                   </div>
                   {capabilities && (
                     <div>
-                      <span>Pair limit</span>
+                      <span>{mode === "genome" ? "Guide limit" : "Pair limit"}</span>
                       <strong>
-                        {capabilities.limits.pairs.toLocaleString()} per job
+                        {(mode === "genome"
+                          ? capabilities.limits.guides
+                          : capabilities.limits.pairs
+                        ).toLocaleString()} per job
                       </strong>
+                    </div>
+                  )}
+                  {capabilities && mode === "genome" && (
+                    <div>
+                      <span>Candidate limit</span>
+                      <strong>{capabilities.limits.candidates.toLocaleString()} per job</strong>
                     </div>
                   )}
                 </div>
