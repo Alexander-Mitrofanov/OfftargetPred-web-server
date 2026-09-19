@@ -1,5 +1,30 @@
 # Validation and launch status
 
+## Current release: 0.2.0
+
+Published 19 September 2026 from commit
+`91323457d74121147a81eabd6b36f5bc212a186a` on both GitHub Pages and de.NBI.
+The [release evidence](release-0.2.0.json) records normal public DNS/TLS,
+21 real API checks, both-browser GPU pair and GRCh38 search workflows, reference
+helpers, downloads, recovery and deletion. The production queue was empty after
+acceptance. GitHub CI and Pages deployment succeeded.
+
+On the VM, 607 non-model checks, two additional opt-in real-reference checks and
+two real-model checks passed; all 163 frontend tests and the production build
+passed. Public CI passed 605 backend tests (four optional/private-resource checks
+skipped, two model tests deselected) and 163 frontend tests. Both browser audits
+passed 28 workflow/layout checks and 10 axe states, plus navigation-state export
+regressions. See [integrated verification](../implementation/INTEGRATION.md).
+
+The operational timer is active and the verified configuration backup was restored
+to a new private staging directory. **NTP synchronization remains unresolved**;
+the monitor correctly reports overall readiness false despite passing API,
+worker, GPU, storage, DNS, TLS and service checks. The
+[independent final council](../nar-readiness/FINAL-COUNCIL.md) separates this and
+owner/manuscript inputs from the completed software work.
+
+## Historical initial launch
+
 Validated on 19 September 2026. Application release:
 `e1d3260da0e6125c3cb6e52e82143c05dcf966c5`.
 

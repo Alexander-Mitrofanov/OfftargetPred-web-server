@@ -6,6 +6,14 @@ a historical uptime rate or an institutional hosting commitment.
 
 ## Responsibility and current state
 
+**Release update, 19 September 2026:** version 0.2.0, commit
+`91323457d74121147a81eabd6b36f5bc212a186a`, is active. The five-minute
+health timer is enabled. All service/public/GPU/storage probes pass; NTP remains
+unsynchronized, so the monitor's overall `ready` field is correctly false.
+Configuration backup verified every recorded artifact and restored into a new
+0700 staging directory with 0600 files. No user jobs, sequences or credentials
+were copied. See the [release evidence](validation/release-0.2.0.json).
+
 The repository maintainer is [Alexander-Mitrofanov](https://github.com/Alexander-Mitrofanov).
 Issues can be reported through the [project issue tracker](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/issues).
 Do not post a private result link, sequence, access capability, SSH key or account
@@ -115,9 +123,9 @@ sudo journalctl -u offtarget-healthcheck.service -n 10 --no-pager
 The service denies access to private job directories, upload bodies, worker
 temporary storage and Tailscale identity files. It can query tailscaled's local
 socket without copying node identity. It writes only its own state directory.
-The timer was prepared, its units validated, and the probes exercised in a
-temporary staging unit with the same access restrictions; activation remains a
-release step. It is **not** evidence that monitoring has already been operating for days.
+The timer was activated with version 0.2.0 on 19 September 2026 after its units
+and probes were exercised in isolated staging. It is **not** evidence that
+monitoring has already been operating for days.
 
 ## Configuration backup and safe restore
 

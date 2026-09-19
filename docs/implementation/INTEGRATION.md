@@ -8,8 +8,30 @@ The three supplied sequence-only checkpoints and tokenization are unchanged.
 
 All model inference, reference preparation, builds and browser acceptance checks
 run on the de.NBI V100 VM. Staging uses separate job storage and loopback API/UI
-ports 8020/5182. Production remains on 8010 until release activation. The pinned
+ports 8020/5182. Production runs on 8010. The pinned
 GRCh38 Ensembl 115 primary assembly and complete annotation index are local.
+
+## Public release acceptance
+
+Version 0.2.0, commit `91323457d74121147a81eabd6b36f5bc212a186a`, was
+activated on de.NBI and published through GitHub Pages on 19 September 2026.
+Exact-release imports and reference/annotation access passed as `offtarget`;
+all three model hashes remained unchanged. No production jobs were interrupted.
+GitHub [CI](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35466691923)
+and [Pages](https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35466691927)
+succeeded.
+
+Normal public DNS/TLS acceptance passed all 21 API checks and the complete real
+GPU pair/search/download/recovery/delete flow in Chromium 153 and Firefox 155.
+Both browsers also passed public TP53 lookup, bounded both-strand discovery,
+reference-flank preparation/download/hash/skip checks and mobile layouts.
+The production queue was empty after all acceptance jobs were deleted.
+
+The health timer is enabled; verified configuration backup and a separate staged
+restore passed. NTP synchronization remains the monitor's only failing check;
+it is not hidden behind HTTP 200. Temporary staging services were stopped after
+acceptance. The redacted [release record](../validation/release-0.2.0.json)
+contains the exact observations and remaining evidence limits.
 
 ## Cross-feature checks completed
 

@@ -1,0 +1,187 @@
+{
+  "release": "0.2.0",
+  "commit": "91323457d74121147a81eabd6b36f5bc212a186a",
+  "date": "2026-09-19",
+  "api": {
+    "status": "passed",
+    "checks": [
+      "API health",
+      "worker readiness",
+      "CORS allowed origin",
+      "no-store responses",
+      "all three models advertised",
+      "CORS preflight",
+      "untrusted origin cannot read through CORS",
+      "untrusted browser submission rejected",
+      "capability authorization",
+      "three real scored rows",
+      "pagination",
+      "all model scores finite",
+      "global score sort",
+      "scientific provenance",
+      "global search",
+      "CSV download",
+      "download attachment",
+      "JSON export preserves provenance",
+      "completed result deletion",
+      "queued or running cancellation",
+      "pending deletion revokes access"
+    ],
+    "release_id": "91323457d74121147a81eabd6b36f5bc212a186a",
+    "configured_device": "cuda"
+  },
+  "browsers": [
+    {
+      "passed": true,
+      "browser": "chromium",
+      "browser_version": "153.0.8010.12",
+      "frontend_url": "https://alexander-mitrofanov.github.io/OfftargetPred-web-server/",
+      "dns_mode": "normal resolver",
+      "checks": [
+        "Connected to actual GPU API from configured frontend",
+        "Submitted and rendered actual three-model predictions",
+        "Downloaded real GPU scores and provenance",
+        "Recovered result after browser refresh",
+        "390px viewport has no document overflow",
+        "Deleted private job through browser",
+        "Real GRCh38 browser search: 15 sites, expected locus and three GPU models",
+        "Deleted genome-search job through browser",
+        "No browser JavaScript errors"
+      ]
+    },
+    {
+      "passed": true,
+      "browser": "firefox",
+      "browser_version": "155.0",
+      "frontend_url": "https://alexander-mitrofanov.github.io/OfftargetPred-web-server/",
+      "dns_mode": "normal resolver",
+      "checks": [
+        "Connected to actual GPU API from configured frontend",
+        "Submitted and rendered actual three-model predictions",
+        "Downloaded real GPU scores and provenance",
+        "Recovered result after browser refresh",
+        "390px viewport has no document overflow",
+        "Deleted private job through browser",
+        "Real GRCh38 browser search: 15 sites, expected locus and three GPU models",
+        "Deleted genome-search job through browser",
+        "No browser JavaScript errors"
+      ]
+    }
+  ],
+  "operations": {
+    "checked_at": "2026-09-19T20:13:27.428958+00:00",
+    "checks": {
+      "api_worker": {
+        "release": "91323457d74121147a81eabd6b36f5bc212a186a",
+        "status": "pass",
+        "worker_available": true
+      },
+      "clock": {
+        "ntp_enabled": true,
+        "status": "fail",
+        "synchronized": false
+      },
+      "gpu": {
+        "device_count": 1,
+        "max_temperature_c": 38,
+        "memory_mib": [
+          16384
+        ],
+        "pending_retired_pages": false,
+        "status": "pass"
+      },
+      "memory": {
+        "available_gib": 56.04,
+        "status": "pass",
+        "total_gib": 58.86
+      },
+      "public_dns": {
+        "address_count": 6,
+        "all_addresses_public": true,
+        "families": [
+          4,
+          6
+        ],
+        "status": "pass"
+      },
+      "public_https": {
+        "release": "91323457d74121147a81eabd6b36f5bc212a186a",
+        "status": "pass",
+        "worker_available": true
+      },
+      "public_tls": {
+        "expiry_days": 89.78,
+        "status": "pass",
+        "verified": true
+      },
+      "services": {
+        "active": {
+          "nginx": true,
+          "offtarget-api": true,
+          "offtarget-worker": true,
+          "tailscaled": true
+        },
+        "status": "pass"
+      },
+      "storage": {
+        "free_gib": 937.79,
+        "reserve_gib": 20,
+        "root_free_gib": 22.19,
+        "status": "pass",
+        "total_gib": 953.7,
+        "volume_mounted": true
+      },
+      "tailscale": {
+        "funnel_configured": true,
+        "health_message_count": 0,
+        "key_expiry_days": 179.82,
+        "online": true,
+        "status": "pass"
+      }
+    },
+    "ready": false,
+    "schema_version": 1
+  },
+  "public_helpers": {
+    "chromium": "passed",
+    "firefox": "passed",
+    "gene_lookup": "TP53, ENSG00000141510",
+    "interval_discovery": "71 guides in 500 bases, both strands; large-span and >200-site bounds verified",
+    "reference_flanks": "both strands, FASTA hash, JSON metadata, zero flanks, mismatch skips, stale download clearing and mobile verified"
+  },
+  "vm_checks": {
+    "nonmodel_passed": 607,
+    "opt_in_reference_passed": 2,
+    "real_model_passed": 2,
+    "frontend_passed": 163,
+    "build": "passed",
+    "navigation_state_both_browsers": "passed",
+    "axe_scan_states_per_browser": 10,
+    "workflow_checks_per_browser": 28,
+    "detected_axe_violations": 0
+  },
+  "github_ci": {
+    "url": "https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35466691923",
+    "status": "success",
+    "backend_passed": 605,
+    "backend_skipped": 4,
+    "model_deselected": 2,
+    "frontend_passed": 163
+  },
+  "github_pages": {
+    "url": "https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/actions/runs/35466691927",
+    "status": "success"
+  },
+  "configuration_backup": {
+    "artifacts_byte_verified": true,
+    "artifact_failures": [],
+    "staged_restore": "passed",
+    "user_jobs_or_credentials_copied": false
+  },
+  "staging_services": "stopped after acceptance; artifacts retained",
+  "limitations": [
+    "NTP synchronization remains unconfirmed and monitor correctly reports not ready.",
+    "No human usability study or manual assistive-technology conformance audit performed.",
+    "Owner rights, published-validation correspondence and long-term maintenance commitments remain external inputs."
+  ]
+}

@@ -6,8 +6,10 @@ evidence; it does not assess the older release still public during the review.
 
 ## Verdict
 
-**A credible web-interface contribution for published CRISPert, conditional on
-completing public release acceptance.** The identified workflow defect has been
+**A credible web-interface contribution for published CRISPert.** After this
+independent review, the coordinator completed public release acceptance in both
+browsers; see the [release record](../validation/release-0.2.0.json).
+The identified workflow defect has been
 corrected and its regression checks pass. The contribution
 is a usable path from researcher input to interpretable, recoverable and
 exportable results. It does not depend on a new prediction algorithm, retraining,

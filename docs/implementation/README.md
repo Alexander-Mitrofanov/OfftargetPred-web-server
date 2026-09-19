@@ -3,6 +3,8 @@
 This release tracks work against the 30-item [council backlog](../nar-readiness/README.md).
 Implemented web workflows, partial deliveries and deferred research extensions
 are reported separately; this is not a claim that every proposed extension ships.
+Version 0.2.0 is published on GitHub Pages and de.NBI; see the
+[verified release record](INTEGRATION.md) and [independent final council](../nar-readiness/FINAL-COUNCIL.md).
 Each numbered improvement has a dedicated worker. The coordinator integrates
 shared files, verifies interactions, deploys a tested release, and commissions a
 fresh independent council after implementation. A scientific or institutional
@@ -43,9 +45,9 @@ the evidence page. The three model outputs must remain distinguishable.
 | 2 | Checkpoint diagnostics | improvement_02_benchmark | Frozen four-method diagnostics on 87,294 rows; independent benchmark claim remains unsupported |
 | 3 | Public-reference worked examples | improvement_03_cases; improvement_03_case_review | Implemented and independently checked; 15/13/0-hit and invalid-input demonstrations; manuscript biological case remains external |
 | 4 | Licence/citation/support | improvement_04_licence | Implemented; MIT, citations and support integrated |
-| 5 | Long-term operations | improvement_05_operations | Implemented; VM probes and config restore pass; NTP and institutional ownership unresolved |
-| 6 | Spacer/PAM resolver | improvement_06_resolver | Implemented; integrated and API-tested, staged reference ready |
-| 7 | Genomic annotations | improvement_07_annotations | Implemented; full GRCh38 annotation index staged |
+| 5 | Long-term operations | improvement_05_operations | Monitor active; verified config backup/restore pass; NTP and institutional ownership unresolved |
+| 6 | Spacer/PAM resolver | improvement_06_resolver | Implemented, API-tested and deployed with the verified reference index |
+| 7 | Genomic annotations | improvement_07_annotations | Implemented; full GRCh38 annotation index deployed |
 | 8 | Guide summaries/filters | improvement_08_overview | Implemented; full-result summaries and zero-hit guides integrated |
 | 9 | Browser links/BED | improvement_09_browser | Implemented; browser links and BED with explicit skipped-row export |
 | 10 | Model comparison | improvement_10_comparison | Implemented and integrated; 12 rank-math tests |

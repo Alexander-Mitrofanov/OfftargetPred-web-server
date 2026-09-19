@@ -19,6 +19,14 @@ useful biological cases and maintained public access.
 
 ## Independent discussion and software findings
 
+**Release acceptance completed:** version 0.2.0 is live on GitHub Pages and
+de.NBI from commit `91323457d74121147a81eabd6b36f5bc212a186a`. Both
+software findings below are resolved. Exact service-user imports, 21 public API
+checks, real GPU pair/search workflows and reference helpers passed; the public
+UI was exercised in Chromium and Firefox. CI and Pages succeeded. See the
+[redacted release evidence](../validation/release-0.2.0.json). The coordinator
+executed these checks after the independent source reviews.
+
 | Reviewer | Conclusion and action |
 |---|---|
 | [Usability](final-usability.md) | Useful published-method workflow. Found that Help navigation discarded browser-local edits. The coordinator retained workspaces in memory and verified selections, reasons, observations and ZIP contents in Chromium and Firefox. |
