@@ -3,39 +3,84 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['frontend/**', '.github/workflows/pages.yml', 'CITATION.cff', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'docs/validation/web-diagnostics.json']
+    paths:
+      - 'frontend/**'
+      - 'tests/frontend/**'
+      - '.github/workflows/pages.yml'
+      - 'CITATION.cff'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - 'docs/validation/web-diagnostics.json'
 permissions:
   contents: read
-  pages: write
-  id-token: write
+  pages: read
 concurrency:
   group: pages
+  # Let an active publication finish; GitHub keeps the newest pending run.
   cancel-in-progress: false
 jobs:
   build:
-    if: vars.OFFTARGET_API_ORIGIN != ''
+    # Manual runs from feature branches must not replace the production site.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+      - name: Validate existing API origin
+        env:
+          VITE_API_URL: ${{ vars.OFFTARGET_API_ORIGIN }}
+        run: |
+          node --input-type=module <<'NODE'
+          const value = process.env.VITE_API_URL;
+          let url;
+          try { url = new URL(value); } catch {}
+          if (!url || url.protocol !== 'https:' || url.origin !== value) {
+            console.error('::error::Set OFFTARGET_API_ORIGIN to the existing HTTPS API origin, without credentials, path, query, fragment or trailing slash.');
+            process.exit(1);
+          }
+          NODE
       - uses: actions/configure-pages@v5
       - run: npm ci
+        working-directory: frontend
+      - name: Test frontend before publishing
+        run: npm test
         working-directory: frontend
       - run: npm run build
         working-directory: frontend
         env:
           VITE_API_URL: ${{ vars.OFFTARGET_API_ORIGIN }}
+          VITE_BUILD_REVISION: ${{ github.sha }}
           BASE_PATH: /OfftargetPred-web-server/
+      - name: Record published frontend revision
+        env:
+          API_ORIGIN: ${{ vars.OFFTARGET_API_ORIGIN }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          writeFileSync('frontend/dist/deployment.json', JSON.stringify({
+            revision: process.env.GITHUB_SHA,
+            api_origin: process.env.API_ORIGIN,
+            run_url: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+          }, null, 2) + '\n');
+          NODE
+      # Only static frontend assets are uploaded. No VM access is needed.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -43,3 +88,9 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Link published revision
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          printf 'Published frontend commit `%s`.\n\n[Website](%s) · [Deployment metadata](%sdeployment.json)\n' \
+            "$GITHUB_SHA" "$PAGE_URL" "$PAGE_URL" >> "$GITHUB_STEP_SUMMARY"

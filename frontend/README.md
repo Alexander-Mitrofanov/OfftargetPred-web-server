@@ -23,6 +23,14 @@ VITE_API_URL=https://your-public-backend.example.org npm run build
 
 The build runs strict TypeScript checks before generating the static assets. The dependency lock is committed for repeatable `npm ci` builds. No third-party fonts, telemetry, or remote UI assets are requested.
 
+## Publish automatically
+
+Push or merge frontend changes to `main`. The **Deploy GitHub Pages** workflow
+runs the frontend tests and production build, then updates the live website.
+Backend services and the existing Tailscale connection are independent of this
+deployment. See [automatic frontend deployment](../docs/frontend-deployment.md)
+for triggers, verification, retries and rollback.
+
 ## Features and scientific boundaries
 
 - One guide with newline-separated candidate sites, or CSV/TSV pairs with a normal file picker.
