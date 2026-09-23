@@ -46,7 +46,7 @@ ACGTN bases including PAM; the entire request fails if any row is invalid.
 No invalid rows are silently dropped.
 
 Genome mode instead takes `mode: "genome"`, `assembly: "GRCh38"` and
-`max_mismatches: 0..4`. Input is FASTA/plain text full 23-base guide-associated
+`max_mismatches: 0..6`. Input is FASTA/plain text full 23-base guide-associated
 target sequences, or a guide CSV/TSV. Genome search requires unambiguous ACGT
 and NGG; it enumerates ungapped candidates then applies the selected models.
 
@@ -57,7 +57,7 @@ assembly is `GRCh38`, and coordinates are zero-based half-open 23-base intervals
 This preserves an explicit user selection; it does not infer a unique on-target
 site from sequence identity alone.
 
-Initial limits: 5 MiB serialized JSON; 10,000 supplied pairs; 10 genome guides;
+Initial limits: 5 MiB serialized JSON; 60,000 supplied pairs; 10 genome guides;
 50,000 genome candidates; 10 queued jobs globally; one active job; one pending
 or active job per client IP; 30 submissions per rolling hour. The same IP may
 represent several users behind a shared network. Candidate and runtime limits

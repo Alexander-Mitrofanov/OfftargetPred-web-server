@@ -316,8 +316,8 @@ test("private links in user identifiers are redacted before BED name normalizati
   for (const file of files) assert.doesNotMatch(await file.data.text(), /DO_NOT_EXPORT_THIS|DO_NOT_EXPORT_THAT/, file.name);
 });
 
-test("50,000-row CSV uses complete input, yields to event loop and preserves last row", async () => {
-  const rows = Array.from({ length: 50_000 }, (_, index) =>
+test("60,000-row CSV uses complete input, yields to event loop and preserves last row", async () => {
+  const rows = Array.from({ length: 60_000 }, (_, index) =>
     row({ row_index: index }),
   );
   let yielded = false;
@@ -328,7 +328,7 @@ test("50,000-row CSV uses complete input, yields to event loop and preserves las
   clearTimeout(timer);
   assert.equal(yielded, true);
   const csv = await blob.text();
-  assert.equal(csv.split("\r\n").length, 50_002);
-  assert.match(csv, /"49999","duplicate"/);
-  await assert.rejects(() => resultsCsvBlob([...rows, first]), /50,000/);
+  assert.equal(csv.split("\r\n").length, 60_002);
+  assert.match(csv, /"59999","duplicate"/);
+  await assert.rejects(() => resultsCsvBlob([...rows, first]), /60,000/);
 });

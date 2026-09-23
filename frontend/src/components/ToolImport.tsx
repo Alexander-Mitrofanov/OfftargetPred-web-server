@@ -70,7 +70,7 @@ export function ToolImport({ onApply, onUseMapper }: ToolImportProps) {
     <div className="tool-import-actions">
       <button type="button" className="secondary" onClick={() => { setPreview(previewToolImport(text, options)); setApplied(false); }}>Preview import</button>
       {onUseMapper && <button type="button" className="secondary" onClick={() => onUseMapper(text)}>Use generic column mapper</button>}
-      <a href="https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server/blob/main/docs/import-formats.md" target="_blank" rel="noreferrer">Supported formats and examples</a>
+      <a href="#help">Input help</a>
     </div>
     {fileError && <p role="alert">{fileError}</p>}
     {preview && <section aria-label="Tool import preview" aria-live="polite">

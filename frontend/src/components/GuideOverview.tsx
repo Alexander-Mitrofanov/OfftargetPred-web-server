@@ -22,7 +22,6 @@ export interface GuideOverviewProps {
 
 const pageSize = 25;
 const guideOptionLimit = 200;
-const integerOptions = Array.from({ length: 21 }, (_, index) => index);
 const number = (value: number) => value.toLocaleString();
 
 export function GuideOverview({
@@ -64,10 +63,7 @@ export function GuideOverview({
     return options;
   }, [matchingGuides, summary.guides, filters.guideKey]);
   const categories = useMemo(
-    () =>
-      [...summary.categories].sort(([left], [right]) =>
-        left.localeCompare(right),
-      ),
+    () => [...summary.categories].sort(([left], [right]) => left.localeCompare(right)),
     [summary.categories],
   );
   const lastPage = Math.max(0, Math.ceil(summary.guides.length / pageSize) - 1);
@@ -76,15 +72,6 @@ export function GuideOverview({
     currentPage * pageSize,
     (currentPage + 1) * pageSize,
   );
-  const scientificFilterCount =
-    Number(Boolean(filters.annotation)) +
-    Number(filters.minMismatches !== null || filters.maxMismatches !== null) +
-    Number(!filters.includeUnknownMismatches) +
-    Number(filters.exactMatch !== "all");
-  const invalidRange =
-    filters.minMismatches !== null &&
-    filters.maxMismatches !== null &&
-    filters.minMismatches > filters.maxMismatches;
   const change = (patch: Partial<OverviewFilters>) =>
     onChange({ ...filters, ...patch });
 
@@ -172,127 +159,6 @@ export function GuideOverview({
           />
         </label>
       </div>
-
-      <details className="guide-overview-scientific">
-        <summary>
-          Scientific filters
-          {scientificFilterCount > 0
-            ? ` · ${scientificFilterCount} active`
-            : ""}
-        </summary>
-        <div className="guide-overview-filters guide-overview-advanced">
-          <label>
-            Genomic annotation
-            <select
-              value={filters.annotation}
-              onChange={(event) => change({ annotation: event.target.value })}
-            >
-              <option value="">All annotation states</option>
-              <option value="status:annotated">
-                Annotated ({number(summary.annotated)})
-              </option>
-              <option value="status:unavailable">
-                Unavailable ({number(summary.unavailable)})
-              </option>
-              <option value="status:no_coordinates">
-                No coordinates ({number(summary.noCoordinates)})
-              </option>
-              {categories.map(([category, count]) => (
-                <option key={category} value={`category:${category}`}>
-                  {annotationCategoryLabel(category)} ({number(count)})
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Full-sequence exact matches
-            <select
-              value={filters.exactMatch}
-              onChange={(event) =>
-                change({
-                  exactMatch: event.target
-                    .value as OverviewFilters["exactMatch"],
-                })
-              }
-            >
-              <option value="all">Show all candidates</option>
-              <option value="hide">Hide known exact matches</option>
-              <option value="only">Only known exact matches</option>
-            </select>
-          </label>
-          <fieldset className="guide-overview-range">
-            <legend>Protospacer mismatches (20 bases)</legend>
-            <div>
-              <label>
-                Minimum
-                <select
-                  value={filters.minMismatches ?? ""}
-                  aria-invalid={invalidRange || undefined}
-                  onChange={(event) =>
-                    change({
-                      minMismatches:
-                        event.target.value === ""
-                          ? null
-                          : Number(event.target.value),
-                    })
-                  }
-                >
-                  <option value="">Any</option>
-                  {integerOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Maximum
-                <select
-                  value={filters.maxMismatches ?? ""}
-                  aria-invalid={invalidRange || undefined}
-                  onChange={(event) =>
-                    change({
-                      maxMismatches:
-                        event.target.value === ""
-                          ? null
-                          : Number(event.target.value),
-                    })
-                  }
-                >
-                  <option value="">Any</option>
-                  {integerOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label className="guide-overview-checkbox">
-              <input
-                type="checkbox"
-                checked={filters.includeUnknownMismatches}
-                onChange={(event) =>
-                  change({ includeUnknownMismatches: event.target.checked })
-                }
-              />
-              Include unknown mismatch counts
-            </label>
-            {invalidRange && (
-              <p className="guide-overview-warning" role="alert">
-                Minimum exceeds maximum. No known mismatch counts match this
-                range.
-              </p>
-            )}
-          </fieldset>
-        </div>
-        <p className="guide-overview-note">
-          An N in the protospacer makes its mismatch count unknown. Exact
-          matching compares all 23 unambiguous bases, including the PAM; it does
-          not establish the intended on-target locus. Hiding known exact matches
-          keeps rows with unknown identity.
-        </p>
-      </details>
 
       <p className="guide-overview-showing" role="status" aria-live="polite">
         Showing <strong>{number(visibleRows.length)}</strong> of{" "}

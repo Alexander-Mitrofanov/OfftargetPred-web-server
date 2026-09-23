@@ -136,3 +136,21 @@ def test_cancel_queued_job(client):
     assert result.status_code == 200
     assert result.json()["status"] == "cancelled"
     assert client.app.state.store.claim() is None
+
+
+def test_sixty_thousand_pairs_are_accepted_and_over_limit_is_rejected(tmp_path):
+    settings = Settings(data_dir=tmp_path, min_free_bytes=0)
+    client = ASGIClient(create_app(settings))
+    assert client.get("/api/v1/capabilities").json()["limits"]["pairs"] == 60_000
+    assert client.get("/api/v1/capabilities").json()["limits"]["mismatches"] == 6
+    row = "AAAAAAAAAAAAAAAAAAAAAGG,AAAAAAAAAAAAAAAAAAAATGG\n"
+    value = {"mode": "pairs", "input": "target,off_target\n" + row * 60_000}
+    response = client.post("/api/v1/jobs", json=value)
+    assert response.status_code == 202, response.text
+    store = client.app.state.store
+    payload = json.loads((store.directory(response.json()["id"]) / "input.json").read_text())
+    assert len(payload["pairs"]) == 60_000
+    value["input"] += row
+    response = client.post("/api/v1/jobs", json=value)
+    assert response.status_code == 422, response.text
+    assert "60,000" in response.text

@@ -19,7 +19,7 @@ SOURCE_URL = "https://ftp.ensembl.org/pub/release-115/gtf/homo_sapiens/Homo_sapi
 SOURCE_SHA256 = "2f8e31578c3aa2f35646927c4a3b3b0dcf0321e57c0ebd3ecc81afcbc836d1a8"
 RELEASE = "115"
 SCHEMA_VERSION = 1
-MAX_ROWS = 50_000
+MAX_ROWS = 60_000
 CATEGORIES = ("CDS", "exon", "UTR", "intron")
 _SOURCE_FEATURES = {"gene", "transcript", "exon", "CDS", "five_prime_utr", "three_prime_utr", "UTR"}
 _ATTRIBUTES = re.compile(r'(\w+)\s+"([^"\n]*)"\s*(?:;|$)')
@@ -294,11 +294,11 @@ class AnnotationIndex:
 
 def annotate_rows(rows: Iterable[dict], index: AnnotationIndex | None = None,
                   reason: str = "Compatible local annotations are not installed.") -> list[dict]:
-    """Preserve row order, identity and scores, adding annotation only; cap 50k."""
+    """Preserve row order, identity and scores, adding annotation only; cap 60k."""
     output = []
     for row in rows:
         if len(output) >= MAX_ROWS:
-            raise ValueError("Annotation is bounded to 50,000 result rows")
+            raise ValueError("Annotation is bounded to 60,000 result rows")
         annotation = index.annotate_row(row) if index is not None else _unavailable(row, reason)
         output.append({**row, "annotations": annotation})
     return output

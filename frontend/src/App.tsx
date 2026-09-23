@@ -1,5 +1,5 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { ChangeEvent, FormEvent, RefObject } from "react";
 import { api, apiOrigin, rememberJob, restoreJob } from "./api";
 import type {
   Capabilities,
@@ -9,12 +9,14 @@ import type {
   Mode,
   Submission,
 } from "./api";
+import { OpenAnalysis } from "./components/OpenAnalysis";
+import { AnalysisReplacement, useAnalysisReplacement } from "./components/AnalysisReplacement";
+import type { AnalysisActions } from "./components/AnalysisReplacement";
+import type { ImportedAnalysis } from "./features/analysisImports";
 import { AnalysisWorkspace } from "./components/AnalysisWorkspace";
-import { GuideResolver } from "./components/GuideResolver";
 import { GuideDiscovery } from "./components/GuideDiscovery";
 import { parseRecoveryFragment } from "./features/jobRecovery";
 import type { ResolvedGuideLocus } from "./components/GuideResolver";
-import { ServiceInformation } from "./components/ServiceInformation";
 import { ColumnMapper } from "./components/ColumnMapper";
 import { InputGuide } from "./components/InputGuide";
 import { ToolImport } from "./components/ToolImport";
@@ -27,16 +29,12 @@ import {
   validateInput,
 } from "./input";
 
-const ExamplesPage = lazy(() => import("./components/ExamplesPage").then(module => ({ default: module.ExamplesPage })));
-const EvidencePage = lazy(() => import("./components/EvidencePage").then(module => ({ default: module.EvidencePage })));
-type Page = "predict" | "help" | "about" | "examples" | "evidence";
+type Page = "predict" | "help";
 const pageFromHash = (): Page => {
   const value = window.location.hash.slice(1);
-  return ["help", "about", "examples", "evidence"].includes(value) ? value as Page : "predict";
+  return ["help", "about"].includes(value) ? "help" : "predict";
 };
 
-const repository =
-  "https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server";
 const initialCredentials = restoreJob();
 const terminal = (status: string) =>
   ["complete", "completed", "failed", "cancelled"].includes(status);
@@ -86,400 +84,60 @@ function Arrow({ down = false }: { down?: boolean }) {
     </svg>
   );
 }
-function Sequence({
-  sequence,
-  guide,
-  label,
-}: {
-  sequence: string;
-  guide?: string;
-  label?: string;
-}) {
-  return (
-    <code
-      role="img"
-      className="sequence"
-      aria-label={`${label ? label + ": " : ""}${sequence}`}
-    >
-      {sequence.split("").map((base, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className={`${i === 20 ? "pam-start " : ""}${i >= 20 ? "pam " : ""}${base === "N" ? "unknown " : guide && guide[i] !== base && guide[i] !== "N" ? "mismatch" : ""}`}
-        >
-          {base}
-        </span>
-      ))}
-    </code>
-  );
-}
-function AlignmentExample() {
-  return (
-    <div className="alignment-example">
-      <div className="alignment-legend">
-        <span>20-base protospacer</span>
-        <span>PAM</span>
-      </div>
-      <div className="alignment-row">
-        <span className="sequence-label">Guide</span>
-        <Sequence sequence={exampleGuide} />
-      </div>
-      <div className="alignment-row">
-        <span className="sequence-label">Site</span>
-        <Sequence sequence="GTTGCTCTTCAGAATCACTGAGG" guide={exampleGuide} />
-      </div>
-      <p>
-        <span className="mismatch-swatch" /> Highlighted bases differ from the
-        guide.
-      </p>
-    </div>
-  );
-}
-
-function Documentation({
-  page,
-  capabilities,
-}: {
-  page: "help" | "about";
-  capabilities: Capabilities | null;
-}) {
+function Documentation({ capabilities }: { capabilities: Capabilities | null }) {
   return (
     <div className="documentation">
-      <header className="page-intro">
-        <h1>
-          {page === "help"
-            ? "From sequences to scores"
-            : "The models behind the scores"}
-        </h1>
-        <p>
-          {page === "help"
-            ? "Input formats, search boundaries and practical guidance for reading your results."
-            : "OfftargetPred runs three sequence-only CRISPert models for candidate off-target assessment."}
-        </p>
-      </header>
-      {page === "help" ? (
-        <>
-          <section>
-            <h2>Choose your starting point</h2>
-            <p>
-              <strong>Candidate pairs:</strong> bring sites from your own search
-              or experiment. Score one guide against a list of sites, or upload
-              pairs for multiple guides. No genome search is performed in this
-              mode.
-            </p>
-            <p>
-              <strong>Genome search:</strong> find NGG-PAM candidates for up to{" "}
-              {capabilities?.limits.guides ?? 10} guides in the installed human
-              GRCh38 reference, then score those candidates. Search supports up
-              to four substitutions in the 20-base protospacer, both strands,
-              and no bulges. Availability is shown in the form.
-            </p>
-            <p>
-              Genome search covers the installed reference assembly; individual
-              variants and uninstalled alternate sequences are outside its
-              scope. A search exceeding the candidate limit fails with an
-              explanation instead of returning an undisclosed truncated list.
-            </p>
-          </section>
-          <section>
-            <h2>Two aligned sequences, 23 bases each</h2>
-            <p>
-              This service uses the supplied CRISPert-small checkpoints for
-              aligned SpCas9-style sequence pairs.{" "}
-              Provide guide and candidate DNA in the same 5′ to 3′ orientation.
-              Each sequence must contain a 20-base protospacer followed by its
-              3-base PAM. Use the actual guide-side PAM, not a 20-base RNA guide
-              alone. The server does not reverse-complement or realign your
-              input.
-            </p>
-            <AlignmentExample />
-            <p>
-              Candidate-pair scoring accepts A, C, G, T and N, regardless of
-              case. N produces unknown tokens and is flagged. Gaps, bulges, U
-              and other ambiguity codes are unsupported. Genome-search guides
-              require unambiguous A/C/G/T bases and an NGG PAM. Candidate-pair
-              scoring accepts other candidate PAMs; acceptance does not
-              establish their experimental validity.
-            </p>
-          </section>
-          <section>
-            <h2>CSV or TSV input</h2>
-            <p>
-              The simplest table has <code>target</code> and{" "}
-              <code>off_target</code> columns. An optional <code>ID</code>{" "}
-              identifies each pair. Do not include experimental labels unless
-              you need them as metadata; labels are not required to predict.
-            </p>
-            <pre>
-              <code>{exampleTable}</code>
-            </pre>
-            <a
-              href={`${import.meta.env.BASE_URL}examples/candidate-pairs.csv`}
-              download
-            >
-              Download the example CSV
-            </a>
-            <div className="table-scroll">
-              <table className="help-table">
-                <thead>
-                  <tr>
-                    <th>Meaning</th>
-                    <th>Accepted column names</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Guide + PAM</td>
-                    <td>
-                      <code>target</code>, <code>sgRNA</code>,{" "}
-                      <code>Guide_sequence</code>, <code>AlignedTarget</code>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Candidate + PAM</td>
-                    <td>
-                      <code>off_target</code>, <code>offtarget</code>,{" "}
-                      <code>Target_sequence</code>, <code>AlignedText</code>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p>
-              Names are case-sensitive. Choose one alias for each sequence
-              column. In the CRISPROfft convention, <code>Target_sequence</code>{" "}
-              is the genomic candidate, while <code>Guide_sequence</code> is the
-              guide. Invalid rows are reported; they are not silently removed.
-            </p>
-            <p>If your headings differ, use <strong>Map columns</strong> to preview and confirm their meaning. The tool-import panel accepts supported Cas-OFFinder and CRISPOR exports, plus explicitly enriched CHOPCHOP tables. It reports missing PAMs, strand information and coordinate declarations before submission. <a href={`${repository}/blob/main/docs/import-formats.md`}>Supported formats and examples</a>.</p>
-          </section>
-          <section>
-            <h2>Genome-search input</h2>
-            <p>
-              Paste one 23-base guide per line, or FASTA with a unique
-              identifier for each guide. To begin with a region, open
-              <strong> Start from a gene or genomic region</strong>, look up an
-              exact gene name or Ensembl ID, narrow the interval and explicitly
-              choose a reference-derived guide. This helper lists eligible NGG
-              sites; it does not predict on-target efficiency.
-            </p>
-            <pre>
-              <code>{exampleFasta}</code>
-            </pre>
-            <p>
-              Search results include reference positions and strands. Exact
-              protospacer matches are kept and labeled: an exact match alone
-              does not establish that a genomic locus is your intended target.
-              Mismatch counts exclude the PAM. Reference provenance and
-              coordinate convention are included with the server’s result
-              metadata.
-            </p>
-          </section>
-          <section>
-            <h2>Read a CRISPert score</h2>
-            <p>
-              Each score is the model’s positive-class softmax output, between 0
-              and 1. Larger values indicate stronger model support for an
-              off-target signal. These values are{" "}
-              <strong>
-                not calibrated cleavage probabilities or predicted editing
-                percentages
-              </strong>
-              . There is no validated universal safe/unsafe threshold.
-            </p>
-            <p>
-              Compare candidate rankings within each k=1, k=2 and k=3 model.
-              Equal numeric scores from different models need not have the same
-              meaning. No ensemble average is computed. Model disagreement is
-              useful context, and no model
-              wins on every supplied evaluation dataset. Scores do not measure guide-level
-              genome-wide specificity, particularly when scoring an incomplete
-              list of candidates.
-            </p>
-          </section>
-          <section>
-            <h2>Explore and keep your results</h2>
-            <p>The guide summary and filters operate on every returned candidate. Select rows manually or use a stated shortlist rule. Compare model ranks on the same candidates, inspect the local genomic annotations, and open external genome-browser links only when you choose to.</p>
-            <p>The optional CFD column is a separate published baseline. Missing CFD values mean unsupported inputs; they are not zero scores. Gene overlap describes location and does not measure biological harm.</p>
-            <p>You can import your own experimental observation table into the browser and inspect exact, ambiguous and unmatched observations. Missing or zero observations are not confirmed negatives. This evidence stays separate from predictions.</p>
-            <p>Download the full analysis ZIP to preserve full results, filtered results, selected candidates, selection notes, imported evidence, settings and citations. Server CSV/JSON downloads contain prediction results; browser-only selections and evidence are kept in the ZIP. Refreshing clears browser-only analysis edits.</p>
-            <p><a href="#examples">Try complete interactive examples</a> or <a href="#evidence">inspect the checkpoint diagnostics</a>.</p>
-          </section>
-          <section>
-            <h2>Jobs and data</h2>
-            <p>
-              {capabilities
-                ? `The current server accepts up to ${capabilities.limits.pairs.toLocaleString()} pairs per scoring job, ${capabilities.limits.guides} guides per search, and ${capabilities.limits.candidates.toLocaleString()} search candidates. Inputs and results expire after ${capabilities.retention_hours} hours.`
-                : "The form reads current input limits and result-retention settings from the prediction server when connected."}{" "}
-              Download the full CSV for analysis, or the JSON export for results
-              and provenance.
-            </p>
-            <p>
-              One job can wait or run per client IP address. People sharing an
-              institutional network may share this limit; retry after the
-              current job finishes.
-            </p>
-            <p>
-              Your browser tab keeps a private job-access token in session
-              storage. It is not sent in URLs to the server. Use Copy private
-              result link to reopen completed results in another browser. That
-              link grants access to anyone who has it; its access token is read
-              from the link fragment and removed from the address bar. The job
-              ID alone cannot recover private results. Download results before
-              they expire. You can delete a job and its submitted data from the
-              results panel. No email is required.
-            </p>
-          </section>
-        </>
-      ) : (
-        <>
-          <section>
-            <h2>Sequence-only CRISPert</h2>
-            <p>
-              The guide and candidate are aligned position by position. Each
-              pair of bases is encoded in a 16-symbol pair alphabet, preserving
-              both the matched bases and the direction of each mismatch.
-              Overlapping k-mers group one, two or three aligned positions per
-              token.
-            </p>
-            <p>
-              All three supplied checkpoints use four BERT layers, a hidden size
-              of 128, four attention heads and a feed-forward size of 256.
-              Scoring uses sequence alone; chromatin, epigenetic and CasKAS
-              features are not used.
-            </p>
-            <div className="table-scroll">
-              <table className="help-table">
-                <thead>
-                  <tr>
-                    <th>Model</th>
-                    <th>Positions / token</th>
-                    <th>Parameters</th>
-                    <th>Pretraining</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      k=1 <span className="small-tag">Default</span>
-                    </td>
-                    <td>1</td>
-                    <td>552,962</td>
-                    <td>From scratch</td>
-                  </tr>
-                  <tr>
-                    <td>k=2</td>
-                    <td>2</td>
-                    <td>583,554</td>
-                    <td>Synthetic pair masking</td>
-                  </tr>
-                  <tr>
-                    <td>k=3</td>
-                    <td>3</td>
-                    <td>1,074,946</td>
-                    <td>Synthetic pair masking</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section>
-            <h2>What these checkpoints were trained on</h2>
-            <p>
-              The supplied documentation describes training on a 17-guide
-              T-cell GUIDE-seq corpus. Exact training and validation row
-              membership is not available. The bundle reports run seed 0, while
-              checkpoint configuration stores 42; training code passes a run
-              seed separately, so the actual run seed remains unverified.
-            </p>
-            <p>
-              k=1 remains the starting model described in the supplied package.
-              The full K562 evaluation shares one guide and 981 sequence pairs
-              with the reported training corpus. Reproducing its scores does
-              not establish fully guide-independent performance. The supplied
-              iPSC file contains three guides, two with observed positive sites.
-              These small evaluations should not establish a universal best model.
-            </p>
-          </section>
-          <section>
-            <h2>Method and manuscript provenance</h2>
-            <p>
-              The manuscript included with the supplied model package describes
-              the broader CRISPert work, including a larger architecture and
-              CasKAS experiments. This server uses the packaged four-layer,
-              sequence-only checkpoints described in the package README.
-              Manuscript performance numbers must not be attributed to these
-              checkpoints without a matching evaluation.
-            </p>
-            <p>
-              Each completed run records model and reference metadata with its
-              results. Keep the JSON export alongside your CSV when preparing a
-              reproducible analysis.
-            </p>
-          </section>
-          <section>
-            <h2>Scope and interpretation</h2>
-            <p>
-              OfftargetPred ranks candidate sites. It does not estimate
-              therapeutic safety, on-target editing efficiency, chromatin
-              accessibility, or cell-specific cleavage. Reference search and
-              candidate scoring are separate steps, and a candidate list depends
-              on the chosen reference, PAM and mismatch limit.
-            </p>
-            <p>
-              Cas12, high-fidelity Cas9 variants, base editors and prime editors
-              are outside the established scope of these checkpoints. A 23-base
-              input alone does not establish support.
-            </p>
-            <p>
-              The interface is inspired by the focused research workflow of{" "}
-              <a
-                href="https://rth.dk/resources/crispr/crisproff/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                CRISPRoff
-              </a>
-              . CRISPRoff uses its own energy-based scoring and specificity
-              model; OfftargetPred does not reproduce those scores.
-            </p>
-          </section>
-          <ServiceInformation />
-          <section>
-            <h2>Software and documentation</h2>
-            <p>
-              <a href={repository} target="_blank" rel="noreferrer">
-                Source code, deployment instructions and model documentation
-              </a>
-            </p>
-            <p>
-              The frontend is hosted on GitHub Pages; prediction jobs run on the
-              project’s de.NBI backend. No model execution or genome search
-              takes place on GitHub Pages.
-            </p>
-          </section>
-        </>
-      )}
+      <div className="page-intro">
+        <h1>Help &amp; About</h1>
+        <p>OfftargetPred scores CRISPR candidate sites with three sequence-only CRISPert models.</p>
+        <a href="#predict">Back to prediction</a>
+      </div>
+      <section>
+        <h2>Prepare your input</h2>
+        <p>Use aligned, 23-base DNA sequences: a 20-base spacer followed by its actual 3-base PAM, written 5′ to 3′. Gaps and bulges are unsupported.</p>
+        <p><strong>Candidate pairs:</strong> paste sites for one guide, or upload a CSV/TSV with <code>target</code> and <code>off_target</code> columns. Up to {(capabilities?.limits.pairs ?? 60_000).toLocaleString()} pairs per job; the request size limit also applies.</p>
+        <p><strong>Genome search:</strong> enter up to {capabilities?.limits.guides ?? 10} guides with an NGG PAM. Search the installed human GRCh38 reference on both strands with up to six mismatches and no bulges.</p>
+      </section>
+      <section>
+        <h2>Read and save results</h2>
+        <p>Higher scores indicate stronger predicted activity. Compare candidates within each model; scores are not calibrated cleavage probabilities. k=1 is the default, with k=2 and k=3 available under Model options.</p>
+        <p>Search and sort the candidate table, then download the complete results CSV. The private result link reopens the job until it expires after {capabilities?.retention_hours ?? 24} hours. You can delete it sooner.</p>
+      </section>
+      <section>
+        <h2>About the method</h2>
+        <p>Predictions use CRISPert-small sequence models and do not account for individual genome variants or cellular context. Experimental validation is still needed.</p>
+        <p>Method: <a href="https://doi.org/10.1007/978-3-031-70368-3_6">CRISPert: A Transformer-Based Model for CRISPR-Cas Off-Target Prediction</a> (Jobson Pargeter, Backofen and Tran, 2024).</p>
+      </section>
     </div>
   );
 }
 
-function ResultsPanel({ credentials, job, onDelete, onPrepare, referenceContextAvailable }: {
+function ResultsPanel({ actionsRef, credentials, job, onDelete, onPrepare, referenceContextAvailable }: {
+  actionsRef: RefObject<AnalysisActions | null>;
   credentials: Credentials;
   job: Job;
   onDelete: () => void;
   onPrepare: (submission: Submission) => void;
   referenceContextAvailable: boolean;
 }) {
-  return <AnalysisWorkspace job={job} credentials={credentials} onDelete={onDelete} onPrepare={onPrepare} referenceContextAvailable={referenceContextAvailable}>
+  return <AnalysisWorkspace actionsRef={actionsRef} job={job} credentials={credentials} onDelete={onDelete} onPrepare={onPrepare} referenceContextAvailable={referenceContextAvailable}>
     <PrivateJobRecovery credentials={credentials} expiresAt={job?.expires_at} />
   </AnalysisWorkspace>;
 }
 
 export default function App() {
+  const replacement = useAnalysisReplacement();
+  const { request: requestReplacement } = replacement;
+  const [localAnalysis, setLocalAnalysis] = useState<{ analysis: ImportedAnalysis; filename: string; key: number; job: Job } | null>(null);
+  const localSerial = useRef(0);
+  const openAnalysis = (analysis: ImportedAnalysis, filename: string) => requestReplacement(() => {
+    const serial = ++localSerial.current;
+    const summary = analysis.job;
+    const modelIds = ([1, 2, 3] as ModelId[]).filter(model => (Array.isArray(analysis.document.metadata.model_keys) && analysis.document.metadata.model_keys.includes(`k${model}`)) || analysis.document.rows.some(row => row.scores[`k${model}`] !== undefined));
+    const localJob: Job = { ...summary, id: `local-${serial}`, status: "completed", mode: summary?.mode ?? (analysis.document.metadata.mode === "genome" ? "genome" : "pairs"), models: summary?.models?.length ? summary.models : modelIds.length ? modelIds : [1], name: summary?.name || filename, created_at: summary?.created_at ?? analysis.savedAt };
+    setLocalAnalysis({ analysis, filename, key: serial, job: localJob });
+  });
   const [page, setPage] = useState<Page>(pageFromHash);
-  const [examplesOpened, setExamplesOpened] = useState(page === "examples");
-  useEffect(() => { if (page === "examples") setExamplesOpened(true); }, [page]);
   const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
   const [connection, setConnection] = useState<
     "connecting" | "connected" | "unavailable"
@@ -550,16 +208,17 @@ export default function App() {
   }, [connect]);
   useEffect(() => {
     const onHash = () => {
-      if (parseRecoveryFragment(window.location.hash)) {
-        const recovered = restoreJob();
-        if (recovered) { setCredentials(recovered); setJob(null); setJobError(""); }
+      const recovered = parseRecoveryFragment(window.location.hash);
+      if (recovered) {
+        window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#predict`);
+        requestReplacement(() => { rememberJob(recovered); setLocalAnalysis(null); setCredentials(recovered); setJob(null); setJobError(""); });
       }
       setPage(pageFromHash());
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
-  }, []);
+  }, [requestReplacement]);
   useEffect(() => {
     if (!credentials) return;
     let current = true,
@@ -683,12 +342,14 @@ export default function App() {
       );
       return;
     }
+    requestReplacement(async () => {
     setSubmitting(true);
     try {
       const created = await api<Credentials & { status: Job["status"] }>(
         "/jobs",
         { method: "POST", body },
       );
+      setLocalAnalysis(null);
       rememberJob({ id: created.id, token: created.token });
       setCredentials({ id: created.id, token: created.token });
       setJob({
@@ -716,6 +377,7 @@ export default function App() {
     } finally {
       setSubmitting(false);
     }
+    });
   };
   const cancelJob = async () => {
     if (!credentials) return;
@@ -776,50 +438,18 @@ export default function App() {
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <a className="brand" href="#predict" aria-label="OfftargetPred home">
+          <div className="brand" aria-label="OfftargetPred">
             <Mark />
             <span>
               Offtarget<span className="brand-accent">Pred</span>
             </span>
-          </a>
-          <nav aria-label="Main navigation">
-            <a
-              href="#predict"
-              aria-current={page === "predict" ? "page" : undefined}
-            >
-              Predict
-            </a>
-            <a href="#examples" aria-current={page === "examples" ? "page" : undefined}>Examples</a>
-            <a href="#evidence" aria-current={page === "evidence" ? "page" : undefined}>Evidence</a>
-            <a href="#help" aria-current={page === "help" ? "page" : undefined}>
-              Help
-            </a>
-            <a
-              href="#about"
-              aria-current={page === "about" ? "page" : undefined}
-            >
-              About
-            </a>
-            <a
-              className="source-link"
-              href={repository}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Source code <span aria-hidden="true">↗</span>
-            </a>
-          </nav>
+          </div>
         </div>
       </header>
       <main id="main" className="main-shell">
-        <div hidden={page !== "examples"}>
-          {examplesOpened && <Suspense fallback={<p role="status">Loading examples…</p>}><ExamplesPage onUseInput={prepareExample} referenceContextAvailable={Boolean(capabilities?.features?.reference_context)} /></Suspense>}
-        </div>
-        {page === "evidence" && (
-          <Suspense fallback={<p role="status">Loading evidence…</p>}><EvidencePage /></Suspense>
-        )}
-        {(page === "help" || page === "about") && (
-          <Documentation page={page} capabilities={capabilities} />
+        <AnalysisReplacement controller={replacement} />
+        {page === "help" && (
+          <Documentation capabilities={capabilities} />
         )}
         <div hidden={page !== "predict"}>
             <header className="page-intro predict-intro">
@@ -832,8 +462,6 @@ export default function App() {
                   Score CRISPR candidate sites with three sequence-only CRISPert
                   models, or search a reference genome for candidates.
                 </p>
-                <a className="text-button" href="#examples">Explore interactive example results →</a>
-                <p className="field-hint"><a href={`${repository}/blob/main/docs/API.md`}>API reference</a> · <a href={`${repository}/blob/main/client/README.md`}>Python client and runnable example</a></p>
               </div>
               <div className={`connection-status ${connection}`} role="status">
                 <span className="status-dot" />
@@ -875,6 +503,7 @@ export default function App() {
                 </div>
               )}
             </>
+            <OpenAnalysis onOpen={openAnalysis} active={page === "predict"} />
             <div className="workbench">
               <section className="input-panel" aria-labelledby="new-prediction">
                 <div className="panel-title">
@@ -970,7 +599,6 @@ export default function App() {
                             aria-describedby="guide-hint"
                           />
                           <div id="guide-hint"><InputGuide sequence={guide} mode="pairs" /></div>
-                          <GuideResolver available={Boolean(capabilities?.features?.guide_resolver)} onResolved={useResolvedGuide} />
                           <label className="field-label" htmlFor="candidates">
                             Candidate off-target sites
                           </label>
@@ -1041,7 +669,7 @@ export default function App() {
                               </span>
                             )}
                           </p>
-                          <ColumnMapper rawText={table} onApplyTable={csv => { setTable(csv); setFileName(""); setAttempted(false); }} maxRows={capabilities?.limits.pairs ?? 10_000} maxRequestBytes={capabilities?.limits.request_bytes ?? 5 * 1024 * 1024} />
+                          <ColumnMapper rawText={table} onApplyTable={csv => { setTable(csv); setFileName(""); setAttempted(false); }} maxRows={capabilities?.limits.pairs ?? 60_000} maxRequestBytes={capabilities?.limits.request_bytes ?? 5 * 1024 * 1024} />
                         </>
                       )}
                       <ToolImport onApply={csv => { setTable(csv); setInputMode("table"); setFileName(""); setAttempted(false); }} onUseMapper={rawText => { setTable(rawText); setInputMode("table"); setFileName(""); setAttempted(false); }} />
@@ -1088,7 +716,7 @@ export default function App() {
                               setMaxMismatches(Number(event.target.value))
                             }
                           >
-                            {[0, 1, 2, 3, 4].map((n) => (
+                            {[0, 1, 2, 3, 4, 5, 6].map((n) => (
                               <option key={n} value={n}>
                                 {n}
                               </option>
@@ -1123,12 +751,11 @@ export default function App() {
                         {capabilities?.limits.guides ?? 10} guides. Unambiguous
                         DNA with an NGG PAM.
                       </p>
-                      <GuideResolver available={Boolean(capabilities?.features?.guide_resolver)} onResolved={useResolvedGuide} />
                       <GuideDiscovery available={Boolean(capabilities?.features?.guide_discovery)} genesAvailable={Boolean(capabilities?.features?.gene_lookup)} onResolved={useResolvedGuide} />
                       {intendedLoci.length > 0 && <p className="field-hint">{intendedLoci.length} selected reference {intendedLoci.length === 1 ? "locus" : "loci"} will be marked in results. Editing the guide list clears these selections.</p>}
                       <p className="search-scope">
                         <strong>Search scope:</strong> NGG PAMs, both strands,
-                        up to four protospacer mismatches, no bulges. Candidates
+                        up to six protospacer mismatches, no bulges. Candidates
                         are scored with the models below.
                       </p>
                     </div>
@@ -1216,6 +843,9 @@ export default function App() {
                       {error}
                     </div>
                   )}
+                  <p className="field-hint">{mode === "pairs"
+                    ? `Pair limit: ${(capabilities?.limits.pairs ?? 60_000).toLocaleString()} per job.`
+                    : `Candidate limit: ${(capabilities?.limits.candidates ?? 50_000).toLocaleString()} per job.`}</p>
                   <div className="submit-area">
                     <div className="input-summary" aria-live="polite">
                       {hasInput && !validation.errors.length ? (
@@ -1270,72 +900,11 @@ export default function App() {
                   </div>
                 </form>
               </section>
-              <aside className="guide-panel" aria-label="Input guidance">
-                <h2>Read the mismatch pattern.</h2>
-                <p>
-                  The models read a guide and candidate site together, learning
-                  from the pattern of matches and mismatches.
-                </p>
-                <AlignmentExample />
-                <div className="guide-note">
-                  <h3>
-                    {mode === "genome"
-                      ? "Search the reference. Compare sites."
-                      : "Bring sites. Compare models."}
-                  </h3>
-                  <p>
-                    {mode === "genome"
-                      ? "Genome mode finds NGG-PAM sites in the human GRCh38 reference, then scores each candidate with your selected models."
-                      : "Candidate mode scores the sites you provide. It does not search a genome or measure the overall specificity of a guide."}
-                  </p>
-                </div>
-                <div className="guide-note">
-                  <h3>Three views of the same sequence</h3>
-                  <p>
-                    k=1, k=2 and k=3 read increasingly wider groups of aligned
-                    positions. Their scores stay separate so you can compare
-                    them directly.
-                  </p>
-                  <a href="#about">
-                    Read about the models <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-                <div className="quick-facts">
-                  <div>
-                    <span>Input length</span>
-                    <strong>23 bases, including PAM</strong>
-                  </div>
-                  <div>
-                    <span>Scoring features</span>
-                    <strong>DNA sequence only</strong>
-                  </div>
-                  <div>
-                    <span>Score range</span>
-                    <strong>0–1, uncalibrated</strong>
-                  </div>
-                  {capabilities && (
-                    <div>
-                      <span>{mode === "genome" ? "Guide limit" : "Pair limit"}</span>
-                      <strong>
-                        {(mode === "genome"
-                          ? capabilities.limits.guides
-                          : capabilities.limits.pairs
-                        ).toLocaleString()} per job
-                      </strong>
-                    </div>
-                  )}
-                  {capabilities && mode === "genome" && (
-                    <div>
-                      <span>Candidate limit</span>
-                      <strong>{capabilities.limits.candidates.toLocaleString()} per job</strong>
-                    </div>
-                  )}
-                </div>
-                <a className="help-link" href="#help">
-                  Input format and interpretation guide
-                </a>
-              </aside>
+
             </div>
+            {localAnalysis && <AnalysisWorkspace key={`saved-${localAnalysis.key}`} job={localAnalysis.job} document={localAnalysis.analysis.document} restored={localAnalysis.analysis} sourceFilename={localAnalysis.filename} actionsRef={replacement.actions} onPrepare={prepareExample} referenceContextAvailable={Boolean(capabilities?.features?.reference_context)} >
+              <button type="button" className="text-button" onClick={() => requestReplacement(() => setLocalAnalysis(null))}>Close saved analysis</button>
+            </AnalysisWorkspace>}
             {credentials && (
               <div ref={jobRef} className="job-section" aria-live="polite">
                 {jobError && (
@@ -1433,8 +1002,9 @@ export default function App() {
                     )}
                   </section>
                 )}
-                {job && successful(job.status) && (
+                {job && successful(job.status) && !localAnalysis && (
                   <ResultsPanel
+                    actionsRef={replacement.actions}
                     key={job.id}
                     credentials={credentials}
                     job={job}
@@ -1453,11 +1023,8 @@ export default function App() {
           <span>Sequence-only predictions with CRISPert</span>
         </div>
         <div>
-          <a href="#help">Documentation</a>
+          <a href="#help">Help &amp; About</a>
           <a href={`${import.meta.env.BASE_URL}license.txt`}>MIT licence</a>
-          <a href={repository} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
           <span title={apiOrigin || "Same-origin development API"}>
             de.NBI compute
           </span>

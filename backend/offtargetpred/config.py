@@ -16,7 +16,7 @@ class Settings:
     reference_metadata: Path | None = field(default_factory=lambda: Path(os.environ["OFFTARGET_REFERENCE_METADATA"]) if os.environ.get("OFFTARGET_REFERENCE_METADATA") else None)
     annotation_db: Path | None = field(default_factory=lambda: Path(os.environ["OFFTARGET_ANNOTATION_DB"]) if os.environ.get("OFFTARGET_ANNOTATION_DB") else None)
     max_request_bytes: int = 5 * 1024 * 1024
-    max_pairs: int = 10_000
+    max_pairs: int = 60_000
     max_guides: int = 10
     max_candidates: int = 50_000
     max_queued: int = 10

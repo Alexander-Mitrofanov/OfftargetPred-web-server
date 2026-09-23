@@ -40,7 +40,7 @@ export interface MappingResult {
   preservedColumns: string[];
   omittedColumns: string[];
 }
-const DEFAULT_MAX_ROWS = 10_000;
+const DEFAULT_MAX_ROWS = 60_000;
 const DEFAULT_MAX_BYTES = 5 * 1024 * 1024;
 const MAX_COLUMNS = 256;
 const METADATA = new Set([

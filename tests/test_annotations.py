@@ -146,14 +146,14 @@ def test_pinned_source_digest_required(tmp_path):
                                contig_lengths={"1": 100})
 
 
-def test_fifty_thousand_unique_hits_are_complete_and_bounded(prepared):
-    rows = [candidate(i) for i in range(50_000)]
+def test_sixty_thousand_unique_hits_are_complete_and_bounded(prepared):
+    rows = [candidate(i) for i in range(60_000)]
     with AnnotationIndex(prepared[0]) as index:
         annotated = index.annotate_rows(rows)
-        assert len(annotated) == 50_000
-        assert [r["row_index"] for r in annotated] == list(range(50_000))
+        assert len(annotated) == 60_000
+        assert [r["row_index"] for r in annotated] == list(range(60_000))
         assert all(r["scores"] == {"k1": 0.123456} for r in annotated)
         assert annotated[-1]["annotations"]["categories"] == ["intergenic"]
         assert len(index._cache) <= 4096
-        with pytest.raises(ValueError, match="50,000"):
-            index.annotate_rows([candidate(900)] * 50_001)
+        with pytest.raises(ValueError, match="60,000"):
+            index.annotate_rows([candidate(900)] * 60_001)

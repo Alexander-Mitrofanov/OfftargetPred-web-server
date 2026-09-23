@@ -29,6 +29,6 @@ export function PrivateJobRecovery({ credentials, expiresAt }: { credentials: Cr
     </div>
     <p id={`${id}-copy-help`} role="status" aria-live="polite">{state === "copied" ? "Private link copied. Store it somewhere private." : state === "manual" ? "Automatic copy is unavailable. The link is selected: use your browser’s Copy command, Ctrl+C or Command+C." : "You can also select the link and copy it manually."}</p>
     <p>{hasExpiry ? <>Server results expire <time dateTime={expiry.toISOString()}>{expiry.toLocaleString()}</time>.</> : "Private server jobs expire after 24 hours."} Download your analysis before it expires or you delete the job.</p>
-    <p className="private-job-recovery-local"><strong>This link restores server results.</strong> Filters, selections, notes and imported experimental evidence are kept only in this page. Download an analysis package before reloading to save your work.</p>
+    <p className="private-job-recovery-local"><strong>This link restores server results.</strong> The candidate search and sorting choices are kept only in this page. Use Download results CSV to keep all results before the job expires.</p>
   </section>;
 }

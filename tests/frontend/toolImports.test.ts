@@ -131,7 +131,7 @@ test("quoted source identifiers survive normalized CSV", () => {
 });
 
 test("bounds and malformed tables are rejected", () => {
-  assert.equal(previewToolImport(cas.repeat(10_001), opts).canApply, false);
+  assert.equal(previewToolImport(cas.repeat(60_001), opts).canApply, false);
   assert.equal(previewToolImport("A".repeat(5 * 1024 * 1024 + 1), opts).canApply, false);
   assert.equal(previewToolImport(chop.replace("Strand", "Target sequence"), chopOpts).canApply, false);
   assert.equal(previewToolImport(chop + '"unterminated', chopOpts).canApply, false);

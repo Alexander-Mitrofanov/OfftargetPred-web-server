@@ -86,3 +86,32 @@ def test_subprocess_uses_verified_file_ngg_and_wildcard_query(tmp_path):
     rows = search.search([{"id": "g1", "target": GUIDE}], 0, tmp_path / "work")
     assert rows[0]["exact_match"]
     assert (tmp_path / "work/cas-input.txt").read_text().splitlines()[0] == str(genome)
+
+
+@pytest.mark.parametrize("limit", [5, 6])
+def test_search_accepts_extended_mismatch_limits(tmp_path, limit):
+    genome = tmp_path / "genome.fa"
+    site = "".join("A" if base != "A" else "C" for base in GUIDE[:limit]) + GUIDE[limit:20] + "AGG"
+    genome.write_text(">chr1\n" + site + "\n")
+    binary = tmp_path / "cas-test"
+    binary.write_text(
+        "#!/usr/bin/env python3\nimport pathlib,sys\n"
+        "lines=pathlib.Path(sys.argv[1]).read_text().splitlines()\n"
+        f"assert lines[2] == '{QUERY} {limit}'\n"
+        f"pathlib.Path(sys.argv[3]).write_text('{QUERY}\\tchr1\\t0\\t{site}\\t+\\t{limit}\\n')\n"
+    )
+    binary.chmod(0o755)
+    metadata = {"assembly": "GRCh38", "verified": True, "filename": genome.name,
+                "sha256": hashlib.sha256(genome.read_bytes()).hexdigest()}
+    search = CasOffinderSearch(binary, tmp_path, metadata)
+    assert search.metadata()["mismatch_range"] == [0, 6]
+    rows = search.search([{"id": "g1", "target": GUIDE}], limit, tmp_path / "work")
+    assert rows[0]["mismatches"] == limit
+    assert rows[0]["mismatch_positions"] == list(range(1, limit + 1)) + [21]
+    assert rows[0]["pam_mismatches"] == 1
+    # Validation must reject out-of-range values before creating a work directory.
+    from offtargetpred.sequence import ValidationError
+    for invalid in [-1, 7, True, 6.0]:
+        with pytest.raises(ValidationError, match="0 to 6"):
+            search.search([{"id": "g1", "target": GUIDE}], invalid, tmp_path / "invalid")
+    assert not (tmp_path / "invalid").exists()

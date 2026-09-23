@@ -21,7 +21,7 @@ export interface ToolImportPreview {
   rows: ImportedPair[]; csv: string; inputRows: number;
   issues: ToolImportIssue[]; warnings: string[]; canApply: boolean;
 }
-const MAX_BYTES = 5 * 1024 * 1024, MAX_ROWS = 10_000;
+const MAX_BYTES = 5 * 1024 * 1024, MAX_ROWS = 60_000;
 const COORDINATE_SYSTEM = "0-based half-open" as const;
 const VERIFIED = "user-supplied, not reference-verified" as const;
 const toolNames: Record<ToolImportFormat, string> = {
@@ -96,7 +96,7 @@ export function previewToolImport(text: string, options: ToolImportOptions): Too
     if (new Set(headers).size !== headers.length) fail("format", "Duplicate headers are ambiguous. Use unique column names.");
     result.inputRows = records.length;
     if (!records.length) fail("format", "The export contains no candidate rows.");
-    if (records.length > MAX_ROWS) fail("limit", "Import at most 10,000 pairs per job. Split this export into smaller files.");
+    if (records.length > MAX_ROWS) fail("limit", "Import at most 60,000 pairs per job. Split this export into smaller files.");
     const required = options.format === "crispor-offtargets" ? ["guideId", "guideSeq", "offtargetSeq", "chrom", "start", "end", "strand"]
       : options.format === "chopchop-compatible" ? ["Target sequence", "Genomic location", "Strand"] : [];
     const missing = required.filter((name) => !headers.includes(name));

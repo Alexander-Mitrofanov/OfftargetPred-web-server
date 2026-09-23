@@ -21,7 +21,7 @@ export interface ColumnMapperProps {
 export function ColumnMapper({
   rawText,
   onApplyTable,
-  maxRows = 10_000,
+  maxRows = 60_000,
   maxRequestBytes = 5 * 1024 * 1024,
 }: ColumnMapperProps) {
   const id = useId();

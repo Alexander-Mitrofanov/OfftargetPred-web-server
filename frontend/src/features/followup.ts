@@ -3,6 +3,7 @@ import type { ResultRow } from "../api.ts";
 export interface ContextRecord {
   id: string; row_index?: number; off_target: string; chromosome?: string;
   start?: number; end?: number; strand?: string; assembly?: string; coordinate_system?: string;
+  requested_chromosome?: string;
 }
 export interface ContextRequest { records: ContextRecord[]; flank_bases: number }
 export interface ReferenceContext {
@@ -43,6 +44,21 @@ export function contextRequest(rows: ResultRow[], flank: string): ContextRequest
 
 const hash = /^[a-f0-9]{64}$/;
 const reverse = (sequence: string) => [...sequence].reverse().map((base) => ({ A: "T", C: "G", G: "C", T: "A" })[base]).join("");
+const recordFields = ["id", "row_index", "off_target", "chromosome", "start", "end", "strand", "assembly", "coordinate_system"] as const;
+export const contextSkipCodes = new Set(["unsupported_assembly", "unsupported_coordinates", "missing_coordinates", "invalid_locus", "invalid_candidate_sequence", "unknown_contig", "out_of_bounds", "reference_sequence_mismatch"]);
+const alias = (name: string | undefined) => name === "chrM" ? "MT" : /^(?:chr)?(?:[1-9]|1[0-9]|2[0-2]|X|Y)$/.test(name || "") ? name!.replace(/^chr/, "") : name;
+const boundedText = (value: unknown, limit: number) => typeof value === "string" && value.length > 0 && value.length <= limit && !/[\x00-\x1f\x7f]/.test(value);
+
+/** Candidate declarations are exact; only the server's documented canonical aliases may change. */
+function candidateMatches(candidate: ContextRecord, submitted: ContextRecord, ready: boolean): boolean {
+  if (Object.keys(candidate).some(key => ![...recordFields, "requested_chromosome"].includes(key as typeof recordFields[number]))) return false;
+  return recordFields.every(key => {
+    if (ready && key === "off_target") return candidate[key] === submitted[key].toUpperCase();
+    if (ready && key === "chromosome") return alias(candidate[key]) === alias(submitted[key]);
+    if (ready && key === "coordinate_system") return candidate[key] === "0-based half-open" && ["0-based half-open", "0-based half-open, forward-reference coordinates"].includes(submitted[key] || "");
+    return candidate[key] === submitted[key];
+  }) && (candidate.requested_chromosome === undefined || (ready && candidate.requested_chromosome === submitted.chromosome));
+}
 
 /** Fail closed if a response loses a selection or misstates coordinate geometry. */
 export function validateContextDocument(document: ContextDocument, request: ContextRequest): ContextDocument {
@@ -53,14 +69,15 @@ export function validateContextDocument(document: ContextDocument, request: Cont
       || document.coordinate_system !== "0-based half-open" || document.sequence_orientation !== "forward reference"
       || !Array.isArray(document.records) || document.records.length !== request.records.length
       || document.summary?.selected !== request.records.length || typeof document.fasta !== "string"
-      || document.fasta.length > 50_000 || !Array.isArray(document.limitations)) return invalid();
+      || document.fasta.length > 50_000 || !boundedText(document.reference.filename, 200) || !boundedText(document.reference.scope, 500)
+      || !Array.isArray(document.limitations) || document.limitations.length > 20 || document.limitations.some(text => !boundedText(text, 1000))) return invalid();
   let ready = 0;
   document.records.forEach((entry, index) => {
     const submitted = request.records[index];
     if (!entry || entry.selection_index !== index || !entry.candidate || entry.candidate.id !== submitted.id
-        || entry.candidate.row_index !== submitted.row_index) return invalid();
+        || entry.candidate.row_index !== submitted.row_index || !candidateMatches(entry.candidate, submitted, entry.status === "ready")) return invalid();
     if (entry.status === "skipped") {
-      if (typeof entry.reason !== "string" || !entry.reason || typeof entry.reason_code !== "string"
+      if (!boundedText(entry.reason, 1000) || !contextSkipCodes.has(entry.reason_code || "")
           || entry.context !== undefined || entry.fasta_id !== undefined) return invalid();
       return;
     }
@@ -89,7 +106,24 @@ export function validateContextDocument(document: ContextDocument, request: Cont
   });
   if (document.summary.ready !== ready || document.summary.skipped !== request.records.length - ready
       || (document.fasta.match(/^>/gm) || []).length !== ready) return invalid();
+  // Match every FASTA record to its validated context, not just the number of headers.
+  const blocks = document.fasta ? document.fasta.trimEnd().split(/\n(?=>)/) : [];
+  const prepared = document.records.filter(entry => entry.status === "ready");
+  if (blocks.length !== prepared.length || blocks.some((block, index) => {
+    const lines = block.split("\n");
+    return !lines[0].startsWith(`>${prepared[index].fasta_id}`) || lines[0].split(/\s/, 1)[0] !== `>${prepared[index].fasta_id}`
+      || lines.slice(1).join("") !== prepared[index].context!.sequence;
+  })) return invalid();
   return document;
+}
+
+/** SHA-256 checks detect corrupt exports/responses; they are not server signatures. */
+export async function verifyContextHashes(document: ContextDocument): Promise<void> {
+  const digest = async (text: string) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)))].map(byte => byte.toString(16).padStart(2, "0")).join("");
+  if (await digest(document.fasta) !== document.fasta_sha256) throw new Error("Reference FASTA checksum does not match its recorded data.");
+  for (const entry of document.records) {
+    if (entry.context && await digest(entry.context.sequence) !== entry.context.sequence_sha256) throw new Error("A reference sequence checksum does not match its recorded data.");
+  }
 }
 
 export function contextMetadata(document: ContextDocument): string {

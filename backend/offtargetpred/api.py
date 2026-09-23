@@ -26,7 +26,7 @@ class Submission(BaseModel):
     models: list[Literal[1, 2, 3]] = Field(default_factory=lambda: [1], min_length=1, max_length=3)
     name: str = Field(default="", max_length=120)
     assembly: Literal["GRCh38"] = "GRCh38"
-    max_mismatches: int = Field(default=3, ge=0, le=4, strict=True)
+    max_mismatches: int = Field(default=3, ge=0, le=6, strict=True)
     intended_loci: list[dict] = Field(default_factory=list, max_length=10)
 
     @field_validator("models", mode="before")
@@ -204,7 +204,7 @@ def create_app(settings: Settings | None = None):
             "modes": ["pairs"] + (["genome"] if reference else []),
             "models": [{"id": k, "key": f"k{k}", "label": f"{k}-mer", "default": k == 1} for k in (1, 2, 3)],
             "default_models": [1],
-            "limits": {"request_bytes": settings.max_request_bytes, "pairs": settings.max_pairs, "guides": settings.max_guides, "candidates": settings.max_candidates, "queued": settings.max_queued, "mismatches": 4},
+            "limits": {"request_bytes": settings.max_request_bytes, "pairs": settings.max_pairs, "guides": settings.max_guides, "candidates": settings.max_candidates, "queued": settings.max_queued, "mismatches": 6},
             "retention_hours": settings.retention_hours,
             "genomes": [{"id": "GRCh38", "label": reference.get("label", "Human GRCh38 primary assembly"), "source_url": reference.get("source_url"), "sha256": reference.get("sha256")}] if reference else [],
             "score_label": "CRISPert score", "calibrated": False, "pam": "NGG", "bulges": False,

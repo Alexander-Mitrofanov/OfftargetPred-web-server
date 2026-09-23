@@ -271,20 +271,20 @@ test("input byte bounds count UTF-8 and normalized JSON encoding is bounded", ()
   );
 });
 
-test("10,000 rows remain complete and the hard supported pair cap cannot be lifted by props", () => {
-  const raw = `target,off_target\n${Array.from({ length: 10_000 }, () => `${guide},${candidate}`).join("\n")}`;
+test("60,000 rows remain complete and the hard supported pair cap cannot be lifted by props", () => {
+  const raw = `target,off_target\n${Array.from({ length: 60_000 }, () => `${guide},${candidate}`).join("\n")}`;
   const result = mapColumns(inspectTable(raw), {
     guide: 0,
     candidate: 1,
     id: null,
   });
   assert.equal(result.valid, true);
-  assert.equal(result.totalRows, 10_000);
-  assert.equal(parseTable(result.normalizedCsv, ",").length, 10_001);
+  assert.equal(result.totalRows, 60_000);
+  assert.equal(parseTable(result.normalizedCsv, ",").length, 60_001);
   const tooMany = inspectTable(`${raw}\n${guide},${candidate}`, {
     maxRows: 1_000_000,
   });
-  assert.match(tooMany.errors.join(" "), /10,000 data rows/);
+  assert.match(tooMany.errors.join(" "), /60,000 data rows/);
 });
 
 test("excessive column counts and long headers are bounded before rendering controls", () => {

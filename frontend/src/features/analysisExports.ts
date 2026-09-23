@@ -2,9 +2,13 @@ import type { AnalysisDocument, Job, ResultRow } from "../api.ts";
 import { buildBed } from "./genomeLinks.ts";
 import { candidateKey } from "./resultIdentity.ts";
 import type { EvidenceState } from "./assayEvidence.ts";
+import { createOverviewFilters } from "./overview.ts";
+import type { OverviewFilters } from "./overview.ts";
+import type { ReferenceCheckState } from "./referenceChecks.ts";
 
-export const ANALYSIS_EXPORT_VERSION = "1.0";
-export const MAX_EXPORT_ROWS = 50_000;
+export const ANALYSIS_EXPORT_VERSION = "1.1";
+export const WORKSPACE_SCHEMA_VERSION = "1.0";
+export const MAX_EXPORT_ROWS = 60_000;
 const MAX_ZIP_BYTES = 2_000_000_000;
 const encoder = new TextEncoder();
 
@@ -12,6 +16,12 @@ export type ExportJobSummary = Pick<
   Job,
   "id" | "mode" | "models" | "name" | "created_at" | "finished_at"
 >;
+export interface WorkspaceViewState {
+  filters: OverviewFilters;
+  sort: "input" | "mismatches" | "cfd" | "k1" | "k2" | "k3";
+  ascending: boolean;
+  showCfd: boolean;
+}
 export interface AnalysisExportInput {
   document: AnalysisDocument;
   filteredRows: ResultRow[];
@@ -19,6 +29,10 @@ export interface AnalysisExportInput {
   filters: unknown;
   selectionNotes?: Record<string, string[]>;
   experimentalEvidence?: EvidenceState | null;
+  workspace?: WorkspaceViewState;
+  referenceChecks?: ReferenceCheckState;
+  /** Explicitly supplied build identity. Missing remains unavailable, never inferred from the API. */
+  frontendBuild?: string;
   job?: ExportJobSummary;
   generatedAt?: Date;
   citation: string;
@@ -254,7 +268,7 @@ export async function resultsCsvBlob(
   options: CsvExportOptions = {},
 ): Promise<Blob> {
   if (rows.length > MAX_EXPORT_ROWS)
-    throw new Error("This export supports at most 50,000 rows.");
+    throw new Error("This export supports at most 60,000 rows.");
   const chunks: BlobPart[] = [
     `${RESULT_CSV_FIELDS.map(csvCell).join(",")}\r\n`,
   ];
@@ -329,6 +343,7 @@ export function exportManifest(input: AnalysisExportInput, generatedAt: Date) {
         : "No rows selected. The shortlist CSV contains its header only.",
     },
     active_filters: sanitizeForExport(input.filters),
+    workspace: workspaceManifest(input),
     job: sanitizeForExport(job),
     provenance: sanitizeForExport(input.document.metadata),
     experimental_evidence: input.experimentalEvidence ? {
@@ -346,6 +361,35 @@ export function exportManifest(input: AnalysisExportInput, generatedAt: Date) {
     csv_text_convention:
       "All CSV fields are quoted. Text beginning with a spreadsheet formula/control prefix is prefixed with an apostrophe. Original text is retained in results-full.json after credential filtering. Arrays and annotation features are JSON within quoted cells.",
   };
+}
+
+/** The view is separate from immutable scientific rows and contains no job capability. */
+function workspaceManifest(input: AnalysisExportInput) {
+  const legacy = input.filters && typeof input.filters === "object"
+    ? input.filters as Partial<OverviewFilters> & { sort?: WorkspaceViewState["sort"]; order?: string }
+    : {};
+  const view = input.workspace ?? {
+    filters: { ...createOverviewFilters(), ...legacy },
+    sort: legacy.sort ?? `k${input.job?.models[0] ?? 1}`,
+    ascending: legacy.order === "asc",
+    showCfd: legacy.sort === "cfd",
+  };
+  return sanitizeForExport({
+    schema_version: WORKSPACE_SCHEMA_VERSION,
+    view: {
+      filters: Object.fromEntries(Object.keys(createOverviewFilters()).map((key) => [key, view.filters[key as keyof OverviewFilters]])),
+      sort: view.sort,
+      ascending: view.ascending,
+      showCfd: view.showCfd,
+    },
+    // Canonical selection joins are in selection-notes.json. Reference checks carry
+    // their own exact row joins; observed evidence remains a separate data file.
+    selection_file: "selection-notes.json",
+    evidence_file: input.experimentalEvidence ? "experimental-evidence.json" : null,
+    reference_checks_file: input.referenceChecks ? "reference-checks.json" : null,
+    frontend_build: input.frontendBuild ?? null,
+    saved_state: input.workspace ? "explicit" : "legacy_export_defaults",
+  });
 }
 
 /** A bounded, script-free report: full machine-readable data are separate archive files. */
@@ -366,6 +410,12 @@ export function analysisReport(
 
 const schema = {
   export_schema_version: ANALYSIS_EXPORT_VERSION,
+  workspace: {
+    schema_version: WORKSPACE_SCHEMA_VERSION,
+    file: "provenance-settings.json",
+    fields: "workspace.view records filters, sort, ascending and showCfd; selection-notes.json joins selected rows using result_index and candidate_key. Applied observations and reference checks use their separately declared JSON entries. Credentials are never part of saved state.",
+    compatibility: "The local reader accepts export schemas 1.0 and 1.1. Older exports cannot recover view settings, notes or observations that were never saved; opening warnings identify the defaults used.",
+  },
   results_document: {
     metadata:
       "Object containing model, software, reference/search, annotation and baseline provenance as available.",
@@ -426,10 +476,11 @@ export async function analysisFiles(
       (rows) => rows.length > MAX_EXPORT_ROWS,
     )
   )
-    throw new Error("This export supports at most 50,000 rows per view.");
+    throw new Error("This export supports at most 60,000 rows per view.");
   const generatedAt = input.generatedAt ?? new Date();
   if (!Number.isFinite(generatedAt.getTime()))
     throw new Error("The export time is invalid.");
+  const resultIndices = new Map(input.document.rows.map((row, index) => [candidateKey(row), index]));
   const files: ExportFile[] = [
     {
       name: "provenance-settings.json",
@@ -442,6 +493,7 @@ export async function analysisFiles(
     data: await resultJsonBlob({ ...input.document, metadata: { ...input.document.metadata, experimental_evidence: exportManifest(input, generatedAt).experimental_evidence } }, options),
   });
   if (input.experimentalEvidence) files.push({ name: "experimental-evidence.json", data: jsonBlob(input.experimentalEvidence) });
+  if (input.referenceChecks) files.push({ name: "reference-checks.json", data: jsonBlob(input.referenceChecks) });
   for (const [name, rows] of [
     ["results-full.csv", input.document.rows],
     ["results-filtered.csv", input.filteredRows],
@@ -488,7 +540,8 @@ export async function analysisFiles(
         scope:
           "Explicit selected shortlist only. Notes record user selection reasons and are not experimental evidence.",
         rows: input.selectedRows.map((row) => ({
-          candidate_key: candidateKey(row),
+          candidate_key: candidateKey(sanitizeForExport(row) as ResultRow),
+          result_index: resultIndices.get(candidateKey(row)) ?? -1,
           row_index: row.row_index,
           id: row.id,
           notes: input.selectionNotes?.[candidateKey(row)] ?? [],

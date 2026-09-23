@@ -286,8 +286,7 @@ pre code {
   margin-bottom: 22px;
 }
 .workbench {
-  display: grid;
-  grid-template-columns: minmax(0, 1.87fr) minmax(310px, 1fr);
+  display: block;
   gap: 36px;
   align-items: start;
 }

@@ -66,3 +66,7 @@
     width: 100%;
   }
 }
+
+.analysis-exports.results-download {
+  padding: 1rem;
+}

@@ -108,7 +108,7 @@ export function validateInput(
     normalized: "",
     format: "csv",
   };
-  const maxPairs = capabilities?.limits.pairs ?? 10000;
+  const maxPairs = capabilities?.limits.pairs ?? 60000;
   const maxGuides = capabilities?.limits.guides ?? 10;
   if (mode === "genome") {
     const entries: { id: string; sequence: string }[] = [];

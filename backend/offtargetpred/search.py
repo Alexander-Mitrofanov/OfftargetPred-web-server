@@ -103,13 +103,13 @@ class CasOffinderSearch:
         return {**self.reference_metadata, "engine": "Cas-OFFinder 2.4.1", "pam": "NGG",
                 "engine_source_commit": "9816b94c20c4cba2e79b039e1e2a6dee684b7b66",
                 "engine_binary_sha256": hashlib.sha256(self.binary.read_bytes()).hexdigest(),
-                "mismatch_range": [0, 4], "max_guides": 10, "max_candidates": self.max_candidates,
+                "mismatch_range": [0, 6], "max_guides": 10, "max_candidates": self.max_candidates,
                 "bulges": False, "coordinate_system": "0-based half-open"}
 
     def search(self, guides: list[dict], mismatches: int, work_dir: str | Path) -> list[dict]:
         guides = normalize_guides(guides)
-        if isinstance(mismatches, bool) or not isinstance(mismatches, int) or not 0 <= mismatches <= 4:
-            raise ValidationError("Choose a mismatch limit from 0 to 4.")
+        if isinstance(mismatches, bool) or not isinstance(mismatches, int) or not 0 <= mismatches <= 6:
+            raise ValidationError("Choose a mismatch limit from 0 to 6.")
         work_dir = Path(work_dir).resolve()
         work_dir.mkdir(parents=True, exist_ok=True)
         input_path, output_path = work_dir / "cas-input.txt", work_dir / "cas-output.tsv"

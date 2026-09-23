@@ -33,7 +33,7 @@ export function InputGuide({ sequence, mode = "pairs" }: InputGuideProps) {
       ) : normalized.length === 20 && /^[ACGTN]+$/.test(normalized) ? (
         <p className="input-guide-action">
           This looks like a spacer without its PAM. Add the three bases observed
-          at its target locus, or use the reference PAM helper. Do not append a
+          at its target locus. Do not append a
           guessed PAM.
         </p>
       ) : (

@@ -70,6 +70,7 @@ test("minus-strand candidate verifies against reverse complement of the forward-
   const value = document(); value.records[0].candidate.strand = "-";
   const reverse = [...site].reverse().map((base) => ({ A: "T", C: "G", G: "C", T: "A" })[base]).join("");
   value.records[0].context!.sequence = "AAAAA" + reverse + "TTTTT";
+  value.fasta = ">candidate_1\n" + value.records[0].context!.sequence + "\n";
   assert.equal(validateContextDocument(value, contextRequest([negative], "5")).summary.ready, 1);
 });
 
