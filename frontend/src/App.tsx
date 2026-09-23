@@ -89,7 +89,7 @@ function Documentation({ capabilities }: { capabilities: Capabilities | null }) 
     <div className="documentation">
       <div className="page-intro">
         <h1>Help &amp; About</h1>
-        <p>OfftargetPred scores CRISPR candidate sites with three sequence-only CRISPert models.</p>
+        <p>The CRISPert web server scores CRISPR candidate sites with three sequence-only CRISPert models.</p>
         <a href="#predict">Back to prediction</a>
       </div>
       <section>
@@ -438,10 +438,10 @@ export default function App() {
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <div className="brand" aria-label="OfftargetPred">
+          <div className="brand" aria-label="CRISPert">
             <Mark />
             <span>
-              Offtarget<span className="brand-accent">Pred</span>
+              CRISP<span className="brand-accent">ert</span>
             </span>
           </div>
         </div>
@@ -1019,7 +1019,7 @@ export default function App() {
       </main>
       <footer className="site-footer">
         <div>
-          <span className="footer-brand">OfftargetPred</span>
+          <span className="footer-brand">CRISPert</span>
           <span>Sequence-only predictions with CRISPert</span>
         </div>
         <div>

@@ -129,7 +129,7 @@ async function readArchive(file: Blob, options: ExportOptions): Promise<Map<stri
     if (u32(cursor) !== 0x02014b50) fail("the ZIP directory is corrupt.");
     const flags = u16(cursor + 8), method = u16(cursor + 10), crc = u32(cursor + 16);
     const size = u32(cursor + 24), nameLength = u16(cursor + 28), local = u32(cursor + 42);
-    if (u16(cursor + 6) > 20 || (flags !== 0 && flags !== 0x800) || method !== 0 || u32(cursor + 20) !== size || u16(cursor + 30) || u16(cursor + 32) || u16(cursor + 34)) fail("compressed, encrypted, extended or multi-disk ZIP records are unsupported. Open the original OfftargetPred ZIP.");
+    if (u16(cursor + 6) > 20 || (flags !== 0 && flags !== 0x800) || method !== 0 || u32(cursor + 20) !== size || u16(cursor + 30) || u16(cursor + 32) || u16(cursor + 34)) fail("compressed, encrypted, extended or multi-disk ZIP records are unsupported. Open the original CRISPert ZIP.");
     range(cursor + 46, nameLength);
     let name: string;
     try { name = decoder.decode(bytes.subarray(cursor + 46, cursor + 46 + nameLength)); }

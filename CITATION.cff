@@ -4,7 +4,7 @@ message: >-
   paper in references for the base method. Record the actual commit
   and model hashes used in your analysis. No software DOI has been assigned.
 type: software
-title: "OfftargetPred: a web interface to sequence-only CRISPert-small models"
+title: "CRISPert web server: a web interface to sequence-only CRISPert-small models"
 authors:
   - name: OfftargetPred contributors
 repository-code: https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server

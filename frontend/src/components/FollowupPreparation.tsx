@@ -67,9 +67,9 @@ export function FollowupPreparation({ selectedRows, available = false }: { selec
         <p className="followup-preparation-note">FASTA sequences always follow the forward reference, including minus-strand candidates. Headers and JSON use 0-based half-open coordinates; the table below displays 1-based inclusive loci. Save the JSON with the FASTA to retain sequence hashes, target offsets and skip reasons.</p>
         <div className="followup-preparation-downloads">
           <button type="button" className="button secondary" disabled={result.summary.ready === 0}
-            onClick={() => download(result.fasta, "offtargetpred-reference-flanks.fasta", "text/plain;charset=utf-8")}>Download reference FASTA</button>
+            onClick={() => download(result.fasta, "crispert-reference-flanks.fasta", "text/plain;charset=utf-8")}>Download reference FASTA</button>
           <button type="button" className="button secondary"
-            onClick={() => download(contextMetadata(result), "offtargetpred-reference-flanks.json", "application/json")}>Download flank metadata JSON</button>
+            onClick={() => download(contextMetadata(result), "crispert-reference-flanks.json", "application/json")}>Download flank metadata JSON</button>
         </div>
         <div className="followup-preparation-table" role="region" aria-label="Reference flank outcomes" tabIndex={0}>
           <table><caption>Every selected row is retained in the metadata</caption>

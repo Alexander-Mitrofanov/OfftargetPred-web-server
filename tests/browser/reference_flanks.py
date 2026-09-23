@@ -55,7 +55,7 @@ def main():
                     panel.get_by_role("button", name=button, exact=True).click()
                 path = args.artifacts / f"reference-flanks-{engine}.{suffix}"
                 download.value.save_as(path)
-                assert download.value.suggested_filename == f"offtargetpred-reference-flanks.{suffix}"
+                assert download.value.suggested_filename == f"crispert-reference-flanks.{suffix}"
                 if suffix == "fasta":
                     assert hashlib.sha256(path.read_bytes()).hexdigest() == document["fasta_sha256"]
                 else:

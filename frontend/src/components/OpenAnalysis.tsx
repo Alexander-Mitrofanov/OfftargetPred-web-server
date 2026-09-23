@@ -25,7 +25,7 @@ export function OpenAnalysis({ onOpen, active = true }: { onOpen: (analysis: Imp
         if (ticket === generation.current) setError(failure instanceof Error ? failure.message : "This saved analysis could not be opened.");
       } finally { if (ticket === generation.current) setBusy(false); }
     }} /></label>
-    <p className="field-hint">Choose a complete OfftargetPred ZIP to continue locally. Opening the file uploads nothing and creates no prediction job. Limit: {MAX_ANALYSIS_IMPORT_BYTES / 1024 / 1024} MiB per ZIP, {MAX_ANALYSIS_JSON_BYTES / 1024 / 1024} MiB per JSON file and 60,000 result rows.</p>
+    <p className="field-hint">Choose a complete CRISPert ZIP to continue locally. Opening the file uploads nothing and creates no prediction job. Limit: {MAX_ANALYSIS_IMPORT_BYTES / 1024 / 1024} MiB per ZIP, {MAX_ANALYSIS_JSON_BYTES / 1024 / 1024} MiB per JSON file and 60,000 result rows.</p>
     {busy && <><p role="status">{progress}</p><button type="button" className="text-button" onClick={cancel}>Cancel opening</button></>}
     {error && <p className="notice error" role="alert">{error} Your current analysis is unchanged.</p>}
   </section>;

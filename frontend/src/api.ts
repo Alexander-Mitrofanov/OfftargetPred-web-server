@@ -256,7 +256,7 @@ export async function downloadResult(
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `offtargetpred-${credentials.id}.${format}`;
+  link.download = `crispert-${credentials.id}.${format}`;
   document.body.append(link);
   link.click();
   link.remove();

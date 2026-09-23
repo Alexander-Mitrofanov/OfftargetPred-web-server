@@ -54,8 +54,8 @@ export function EvidencePage() {
       <header className="evidence-introduction">
         <h2 id={headingId}>Evidence for the served models</h2>
         <p>
-          OfftargetPred makes the published CRISPert method easier to use. These
-          diagnostics document numerical reproduction of its three supplied,
+          The CRISPert web server makes the published CRISPert method easier to
+          use. These diagnostics document numerical reproduction of its three supplied,
           sequence-only CRISPert-small checkpoints on the supplied evaluation
           files. They do not establish a new method or a performance ranking
           across future experiments.
@@ -421,13 +421,13 @@ export function EvidencePage() {
       <div className="evidence-downloads">
         <a
           href={aggregateDownload}
-          download="offtargetpred-web-diagnostics.json"
+          download="crispert-web-diagnostics.json"
         >
           Download aggregate evidence (JSON)
         </a>
         <a
           href={provenanceDownload}
-          download="offtargetpred-evidence-provenance.json"
+          download="crispert-evidence-provenance.json"
         >
           Download provenance (JSON)
         </a>

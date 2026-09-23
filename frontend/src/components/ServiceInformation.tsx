@@ -7,7 +7,7 @@ const REPOSITORY =
   "https://github.com/Alexander-Mitrofanov/OfftargetPred-web-server";
 
 export const SOFTWARE_CITATION =
-  "OfftargetPred contributors (2026). OfftargetPred: a web interface to " +
+  "OfftargetPred contributors (2026). CRISPert web server: a web interface to " +
   "sequence-only CRISPert-small models. Version " +
   "0.2.0 (19 September 2026). " +
   REPOSITORY;
@@ -48,9 +48,9 @@ export function ServiceInformation() {
     <section className="service-information" aria-labelledby={headingId}>
       <h2 id={headingId}>About, citation and support</h2>
       <p>
-        OfftargetPred is a free web interface to published CRISPert, with no
-        account required. It uses three unchanged, sequence-only CRISPert-small
-        models. Scores are uncalibrated model outputs; paper results do not
+        The CRISPert web server is a free web interface to published CRISPert,
+        with no account required. It uses three unchanged, sequence-only
+        CRISPert-small models. Scores are uncalibrated model outputs; paper results do not
         automatically describe these exact checkpoints.{" "}
         <a href={`${REPOSITORY}/blob/main/docs/model-card.md`}>
           Model scope and limitations
